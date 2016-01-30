@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">StartLancer</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_create_account">Create Account</string>
+    <string name="dialog_loading">Creating your account...</string>
+    <string name="dialog_message">Creating account with firebase...</string>
+    <string name="error_cannot_be_empty">Username cannot be empty</string>
+    <string name="error_email_cannot_be_empty">Email cannot be empty</string>
+    <string name="error_password_cannot_be_empty">Password cannot be empty</string>
+    <string name="error_email_not_valid">Email not valid</string>
+    <string name="error_password_not_valid">Password not valid</string>
+    <string name="log_message_create_success">Account created successfully</string>
+    <string name="error_email_taken">Email already taken</string>
+    <string name="log_message_login_successful">Successfully logged in</string>
+    <string name="title_activity_welcome">StartLancer</string>
+    <string name="error_message_email_issue">User does not exist</string>
+    <string name="error_message_failed_sign_in_no_network">No network dectected</string>
+    <string name="login_dialog_loading" />
+    <string name="login_dialog_message">Signing in...</string>
+
+    <!-- OAuth Format -->
+    <string name="oauth2_format">oauth2:%s</string>
+
+    <!-- Google Errors -->
+    <string name="google_error_recoverable_oauth_error">"Recoverable Google OAuth error: "</string>
+    <string name="google_error_google_play_services_not_available">Google Play Services are not available.</string>
+    <string name="google_error_trying_to_connect_google_api">Trying to connect to Google API</string>
+    <string name="google_error_auth_with_google">"Error authenticating with Google: "</string>
+    <string name="google_error_network_error">"Network error: "</string>
+    <string name="google_error_cant_connect_to_api">Are you sure that you set up a project for your app?
+        Check out : https://console.developers.google.com/project. Also make sure you have all the proper
+    gradle dependencies</string>
+    <string name="log_error_occurred">Error</string>
+    <string name="title_activity_create_startup_account">CreateStartupAccountActivity</string>
+    <string name="title_activity_login_startup">LoginStartupActivity</string>
+    <string name="title_activity_welcome_startup">WelcomeStartupActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

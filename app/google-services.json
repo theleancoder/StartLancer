@@ -1,0 +1,51 @@
+{
+  "project_info": {
+    "project_id": "startlancer",
+    "project_number": "938371195570",
+    "name": "StartLancer"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:938371195570:android:10daef2f3b35b85e",
+        "client_id": "android:com.androidapp.startlancer",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.androidapp.startlancer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "938371195570-uq5d67l3v1uv0tefcn0vo12n700b6v5s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.androidapp.startlancer",
+            "certificate_hash": "133D1F025A31211124E1F1254DD74294A20DC556"
+          }
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 2
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}
