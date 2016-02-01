@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import com.androidapp.startlancer.R;
 import com.androidapp.startlancer.models.Startup;
-import com.androidapp.startlancer.models.User;
 import com.androidapp.startlancer.utils.Constants;
 import com.androidapp.startlancer.utils.Utils;
 import com.firebase.client.DataSnapshot;

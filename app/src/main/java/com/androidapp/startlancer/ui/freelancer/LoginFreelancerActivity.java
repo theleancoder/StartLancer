@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidapp.startlancer.R;
-import com.androidapp.startlancer.models.User;
+import com.androidapp.startlancer.models.Freelancer;
 import com.androidapp.startlancer.ui.BaseActivity;
 import com.androidapp.startlancer.utils.Constants;
 import com.androidapp.startlancer.utils.Utils;
@@ -153,8 +153,8 @@ public class LoginFreelancerActivity extends BaseActivity {
                             HashMap<String, Object> timestampJoined = new HashMap<>();
                             timestampJoined.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
 
-                            User newUser = new User(userName, encodedEmail, timestampJoined);
-                            userLocation.setValue(newUser);
+                            Freelancer newFreelancer = new Freelancer(userName, encodedEmail, timestampJoined);
+                            userLocation.setValue(newFreelancer);
                         }
                     }
 

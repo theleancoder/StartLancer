@@ -2,12 +2,7 @@ package com.androidapp.startlancer.ui.startup;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -18,20 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidapp.startlancer.R;
-import com.androidapp.startlancer.models.User;
 import com.androidapp.startlancer.ui.BaseActivity;
-import com.androidapp.startlancer.ui.freelancer.CreateFreelancerAccountActivity;
-import com.androidapp.startlancer.ui.freelancer.WelcomeFreelancerActivity;
 import com.androidapp.startlancer.utils.Constants;
-import com.androidapp.startlancer.utils.Utils;
 import com.firebase.client.AuthData;
-import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.ServerValue;
-import com.firebase.client.ValueEventListener;
-
-import java.util.HashMap;
 
 public class LoginStartupActivity extends BaseActivity {
 

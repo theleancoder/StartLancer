@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.androidapp.startlancer" >
+    package="com.androidapp.startlancer">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -11,11 +11,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,7 +30,7 @@
             android:name=".ui.freelancer.CreateFreelancerAccountActivity"
             android:label="@string/title_activity_create_account"
             android:parentActivityName=".ui.freelancer.LoginFreelancerActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.freelancer.LoginFreelancerActivity" />
@@ -47,7 +47,7 @@
             android:name=".ui.startup.LoginStartupActivity"
             android:label="@string/title_activity_login_startup"
             android:parentActivityName=".ui.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.androidapp.startlancer.ui.MainActivity" />
@@ -56,6 +56,24 @@
             android:name=".ui.startup.WelcomeStartupActivity"
             android:label="@string/title_activity_welcome_startup"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.freelancer.StartupDetailActivity"
+            android:label="@string/title_activity_startup_detail"
+            android:parentActivityName=".ui.freelancer.WelcomeFreelancerActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.freelancer.WelcomeFreelancerActivity" />
+        </activity>
+        <activity
+            android:name=".ui.startup.FreelancerDetailActivity"
+            android:label="@string/title_activity_freelancer_detail"
+            android:parentActivityName=".ui.startup.WelcomeStartupActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.startup.WelcomeStartupActivity" />
+        </activity>
     </application>
 
 </manifest>

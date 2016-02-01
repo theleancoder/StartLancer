@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.androidapp.startlancer.R;
-import com.androidapp.startlancer.models.User;
+import com.androidapp.startlancer.models.Freelancer;
 import com.androidapp.startlancer.utils.Constants;
 import com.androidapp.startlancer.utils.Utils;
 import com.firebase.client.DataSnapshot;
@@ -99,8 +99,8 @@ public class CreateFreelancerAccountActivity extends AppCompatActivity {
                     HashMap<String, Object> timestampJoined = new HashMap<String, Object>();
                     timestampJoined.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
 
-                    User newUser = new User(username, encodedEmail, timestampJoined);
-                    userLocation.setValue(newUser);
+                    Freelancer newFreelancer = new Freelancer(username, encodedEmail, timestampJoined);
+                    userLocation.setValue(newFreelancer);
                 }
             }
 
