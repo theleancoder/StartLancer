@@ -2,7 +2,9 @@ package com.androidapp.startlancer.ui.startup;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 import com.androidapp.startlancer.R;
 import com.androidapp.startlancer.ui.BaseActivity;
 import com.androidapp.startlancer.utils.Constants;
+import com.androidapp.startlancer.utils.Utils;
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -105,6 +108,15 @@ public class LoginStartupActivity extends BaseActivity {
             progressDialog.dismiss();
             Log.i(LOG_TAG, provider + " " + getString(R.string.log_message_login_successful));
             if (authData != null) {
+
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor spe = sp.edit();
+
+                setAuthenticatedUserPasswordProvider(authData);
+
+//                spe.putString(Constants.KEY_PROVIDER, authData.getProvider()).apply();
+                spe.putString(Constants.KEY_ENCODED_EMAIL, encodedEmail).apply();
+
                 /* Go to main activity */
                 Intent intent = new Intent(LoginStartupActivity.this, WelcomeStartupActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -132,6 +144,12 @@ public class LoginStartupActivity extends BaseActivity {
                     showErrorToast(firebaseError.toString());
             }
         }
+    }
+
+    private void setAuthenticatedUserPasswordProvider(AuthData authData) {
+        final String unprocessedEmail = authData.getProviderData().get(Constants.FIREBASE_PROPERTY_EMAIL).toString().toLowerCase();
+
+        encodedEmail = Utils.encodeEmail(unprocessedEmail);
     }
 
     private void showErrorToast(String message) {

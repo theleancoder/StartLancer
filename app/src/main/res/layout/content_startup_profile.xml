@@ -9,21 +9,35 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ui.freelancer.WelcomeFreelancerActivity"
-    tools:showIn="@layout/activity_welcome_freelancer">
+    tools:context="com.androidapp.startlancer.ui.startup.navigation.StartupProfileActivity"
+    tools:showIn="@layout/activity_startup_profile">
+
+    <include
+        layout="@layout/nav_header"
+        android:id="@+id/startup_header" />
+
+    <TextView
+        android:id="@+id/startup_openings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Openings"
+        android:layout_below="@+id/startup_header"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="20dp" />
 
     <LinearLayout
+        android:layout_below="@+id/startup_openings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <ListView
-            android:id="@+id/startup_list"
+            android:id="@+id/openings_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:scrollbars="none"
-            android:dividerHeight="10.0sp" />/>
+            android:scrollbars="none" />
 
     </LinearLayout>
 

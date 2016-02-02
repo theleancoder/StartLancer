@@ -1,12 +1,11 @@
 package com.androidapp.startlancer.ui;
 
-import android.content.res.Configuration;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.widget.LinearLayout;
 
-import com.androidapp.startlancer.R;
+import com.androidapp.startlancer.utils.Constants;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -17,7 +16,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
  */
 public abstract class BaseActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
     protected GoogleApiClient GoogleApiClient;
-    protected String encodedEmail;
+    protected String provider, encodedEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +35,10 @@ public abstract class BaseActivity extends AppCompatActivity implements GoogleAp
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(BaseActivity.this);
+        encodedEmail = sp.getString(Constants.KEY_ENCODED_EMAIL, null);
+        provider = sp.getString(Constants.KEY_PROVIDER, null);
     }
 
     @Override

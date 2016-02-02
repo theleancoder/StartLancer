@@ -18,4 +18,10 @@ public final class Constants {
     public static final String FIREBASE_URL_STARTUPS = FIREBASE_URL + "/" + FIREBASE_LOCATION_STARTUPS;
     public static final String KEY_GOOGLE_EMAIL = "GOOGLE_EMAIL";
     public static final String PROVIDER_DATA_DISPLAY_NAME = "displayName";
+    public static final String FIREBASE_PROPERTY_EMAIL = "email";
+
+    public static final String KEY_PROVIDER = "PROVIDER";
+    public static final String KEY_ENCODED_EMAIL = "ENCODED_EMAIL";
+    private static final String FIREBASE_LOCATION_OPENINGS = "openings";
+    public static final String FIREBASE_URL_OPENINGS = FIREBASE_URL + "/" + FIREBASE_LOCATION_OPENINGS;
 }

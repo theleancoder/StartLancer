@@ -9,22 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ui.freelancer.WelcomeFreelancerActivity"
-    tools:showIn="@layout/activity_welcome_freelancer">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <ListView
-            android:id="@+id/startup_list"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:scrollbars="none"
-            android:dividerHeight="10.0sp" />/>
-
-    </LinearLayout>
+    tools:context="com.androidapp.startlancer.ui.startup.navigation.OpeningDetailActivity"
+    tools:showIn="@layout/activity_opening_detail">
 
 </RelativeLayout>

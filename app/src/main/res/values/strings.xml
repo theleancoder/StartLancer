@@ -40,4 +40,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_startup_detail">StartupDetailActivity</string>
     <string name="title_activity_freelancer_detail">FreelancerDetailActivity</string>
+    <string name="title_activity_sample">SampleActivity</string>
+    <string name="title_activity_startup_profile">StartupProfileActivity</string>
+    <string name="log_error_the_read_failed">User data read failed</string>
+    <string name="hint_add_opening">Enter the opening title</string>
+    <string name="hint_add_salary">Enter the salary</string>
+    <string name="positive_button_create">Add</string>
+    <string name="title_activity_opening_detail">OpeningDetailActivity</string>
 </resources>

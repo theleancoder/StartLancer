@@ -11,7 +11,8 @@ public class Startup {
     private String about;
     private HashMap<String, Object> timestampJoined;
 
-    public Startup(){};
+    public Startup() {
+    }
 
     public Startup(String name, String email, HashMap<String, Object> timestampJoined) {
         this.name = name;
@@ -25,10 +26,6 @@ public class Startup {
 
     public String getEmail() {
         return email;
-    }
-
-    public void setAbout(String about) {
-        this.about = about;
     }
 
     public String getAbout() {

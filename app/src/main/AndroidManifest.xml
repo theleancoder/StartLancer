@@ -74,6 +74,33 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.androidapp.startlancer.ui.startup.WelcomeStartupActivity" />
         </activity>
+        <activity
+            android:name=".ui.startup.navigation.SampleActivity"
+            android:label="@string/title_activity_sample"
+            android:parentActivityName=".ui.startup.WelcomeStartupActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.startup.WelcomeStartupActivity" />
+        </activity>
+        <activity
+            android:name=".ui.startup.navigation.StartupProfileActivity"
+            android:label="@string/title_activity_startup_profile"
+            android:parentActivityName=".ui.startup.WelcomeStartupActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.startup.WelcomeStartupActivity" />
+        </activity>
+        <activity
+            android:name=".ui.startup.navigation.OpeningDetailActivity"
+            android:label="@string/title_activity_opening_detail"
+            android:parentActivityName=".ui.startup.navigation.StartupProfileActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.startup.navigation.StartupProfileActivity" />
+        </activity>
     </application>
 
 </manifest>
