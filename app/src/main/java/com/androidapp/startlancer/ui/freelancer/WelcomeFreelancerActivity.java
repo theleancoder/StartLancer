@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.androidapp.startlancer.R;
 import com.androidapp.startlancer.models.Startup;
@@ -20,6 +21,7 @@ public class WelcomeFreelancerActivity extends AppCompatActivity {
 
     ListView startupList;
     StartupListAdapter startupListAdapter;
+    String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,20 @@ public class WelcomeFreelancerActivity extends AppCompatActivity {
         setTitle("Top Startups");
 
         Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL_STARTUPS);
+
+//        firebaseRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Startup startup = dataSnapshot.getValue(Startup.class);
+//                title = startup.getName();
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(FirebaseError firebaseError) {
+//
+//            }
+//        });
         startupList = (ListView) findViewById(R.id.startup_list);
 
         startupListAdapter = new StartupListAdapter(WelcomeFreelancerActivity.this, Startup.class, R.layout.single_startup_list,
@@ -41,9 +57,11 @@ public class WelcomeFreelancerActivity extends AppCompatActivity {
         startupList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final String selected = (String) parent.getSelectedItem();
                 Intent intent = new Intent(WelcomeFreelancerActivity.this, StartupDetailActivity.class);
-                intent.putExtra("title", selected);
+                String name = ((TextView) view.findViewById(R.id.startup_name)).getText().toString();
+                String email = ((TextView) view.findViewById(R.id.startup_email)).getText().toString();
+                intent.putExtra("name", name);
+                intent.putExtra("email", email);
                 startActivity(intent);
             }
         });

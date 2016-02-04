@@ -21,10 +21,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Openings"
+        android:gravity="center"
         android:layout_below="@+id/startup_header"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:textAllCaps="true" />
 
     <LinearLayout
         android:layout_below="@+id/startup_openings"
@@ -34,10 +36,12 @@
 
         <ListView
             android:id="@+id/openings_list"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:scrollbars="none" />
+            android:scrollbars="none"
+            android:dividerHeight="1sp"
+            android:divider="@color/colorAccent" />
 
     </LinearLayout>
 

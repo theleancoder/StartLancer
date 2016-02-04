@@ -17,6 +17,7 @@ public class OpeningDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_opening_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle("Openings");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
