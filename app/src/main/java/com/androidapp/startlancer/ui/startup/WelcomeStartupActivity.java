@@ -2,40 +2,29 @@ package com.androidapp.startlancer.ui.startup;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.androidapp.startlancer.R;
-import com.androidapp.startlancer.models.Freelancer;
-import com.androidapp.startlancer.models.Startup;
-import com.androidapp.startlancer.ui.BaseActivity;
-import com.androidapp.startlancer.ui.startup.adapters.FreelancerListAdapter;
+import com.androidapp.startlancer.ui.StartupBaseActivity;
+import com.androidapp.startlancer.ui.startup.adapters.WelcomeStartupPagerAdapter;
+import com.androidapp.startlancer.ui.startup.fragments.FreelancersSkillsFragment;
+import com.androidapp.startlancer.ui.startup.fragments.TopFreelancersFragment;
+import com.androidapp.startlancer.ui.startup.fragments.TrendingFreelancersFragment;
 import com.androidapp.startlancer.ui.startup.navigation.SampleActivity;
 import com.androidapp.startlancer.ui.startup.navigation.StartupProfileActivity;
 import com.androidapp.startlancer.utils.Constants;
-import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 
-public class WelcomeStartupActivity extends BaseActivity {
+public class WelcomeStartupActivity extends StartupBaseActivity {
 
-    ListView freelancerList;
-    FreelancerListAdapter freelancerListAdapter;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private Firebase startupRef;
-    private ValueEventListener startupRefListener;
-    private static final String LOG_TAG = WelcomeStartupActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,57 +34,41 @@ public class WelcomeStartupActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.welcome_startup_viewpager);
+        setupViewPager(viewPager);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.welcome_startup_tabs);
+        tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL_USERS);
-        startupRef = new Firebase(Constants.FIREBASE_URL_STARTUPS).child(encodedEmail);
-
-        startupRefListener = startupRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Startup startup = dataSnapshot.getValue(Startup.class);
-
-                if (startup != null) {
-                    String name = startup.getName();
-                    setTitle(name);
-                }
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-                Log.e(LOG_TAG,
-                        getString(R.string.log_error_the_read_failed) +
-                                firebaseError.getMessage());
-            }
-        });
-
-        freelancerList = (ListView) findViewById(R.id.freelancer_list);
-
-        freelancerListAdapter = new FreelancerListAdapter(WelcomeStartupActivity.this, Freelancer.class, R.layout.single_freelancer_list,
-                firebaseRef);
-        freelancerList.setAdapter(freelancerListAdapter);
-
-        freelancerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final String selected = (String) parent.getSelectedItem();
-                Intent intent = new Intent(WelcomeStartupActivity.this, FreelancerDetailActivity.class);
-                intent.putExtra("title", selected);
-                startActivity(intent);
-            }
-        });
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        navigationView = (NavigationView) findViewById(R.id.nav_drawer);
+        navigationView = (NavigationView) findViewById(R.id.startup_nav_drawer);
         setupDrawerContent(navigationView);
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        WelcomeStartupPagerAdapter adapter = new WelcomeStartupPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new TopFreelancersFragment(), "Top");
+        adapter.addFragment(new TrendingFreelancersFragment(), "Trending");
+        adapter.addFragment(new FreelancersSkillsFragment(), "Skills");
+        viewPager.setAdapter(adapter);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -140,15 +113,6 @@ public class WelcomeStartupActivity extends BaseActivity {
                 firebaseRef.unauth();
         }
 
-//        try {
-//            fragment = (Fragment) fragmentClass.newInstance();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-
         menuItem.setChecked(true);
         setTitle(menuItem.getTitle());
         drawerLayout.closeDrawers();
@@ -172,4 +136,8 @@ public class WelcomeStartupActivity extends BaseActivity {
         super.onPostCreate(savedInstanceState);
     }
 
+    @Override
+    public void onBackPressed() {
+        this.finishAffinity();
+    }
 }

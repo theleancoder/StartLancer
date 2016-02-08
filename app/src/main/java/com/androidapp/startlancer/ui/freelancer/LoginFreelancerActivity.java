@@ -127,46 +127,23 @@ public class LoginFreelancerActivity extends BaseActivity {
 
         @Override
         public void onAuthenticated(AuthData authData) {
-            progressDialog.dismiss();
-            Log.i(LOG_TAG, provider + " " + getString(R.string.log_message_login_successful));
-
-            if(authData.getProvider().equals(Constants.GOOGLE_PROVIDER)) {
+            if (authData != null) {
                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor spe = sp.edit();
-                String unprocessedEmail;
-                if(GoogleApiClient.isConnected()) {
-                    unprocessedEmail = googleSignInAccount.getEmail().toLowerCase();
-                    spe.putString(Constants.KEY_GOOGLE_EMAIL, unprocessedEmail).apply();
+
+                if (authData.getProvider().equals(Constants.PASSWORD_PROVIDER)) {
+                    setAuthenticatedUserPasswordProvider(authData);
                 } else {
-                    unprocessedEmail = sp.getString(Constants.KEY_GOOGLE_EMAIL, null);
+                    if (authData.getProvider().equals(Constants.GOOGLE_PROVIDER)) {
+                        setAuthenticatedUserGoogle(authData);
+                    } else {
+                        Log.e(LOG_TAG, getString(R.string.log_error_invalid_provider) + authData.getProvider());
+                    }
                 }
 
-                encodedEmail = Utils.encodeEmail(unprocessedEmail);
+                spe.putString(Constants.KEY_PROVIDER_FREELANCER, authData.getProvider()).apply();
+                spe.putString(Constants.KEY_ENCODED_EMAIL_FREELANCER, encodedEmail).apply();
 
-                final String userName = (String) authData.getProviderData().get(Constants.PROVIDER_DATA_DISPLAY_NAME);
-
-                final Firebase userLocation = new Firebase(Constants.FIREBASE_URL_USERS).child(encodedEmail);
-                userLocation.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.getValue() == null) {
-                            HashMap<String, Object> timestampJoined = new HashMap<>();
-                            timestampJoined.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
-
-                            Freelancer newFreelancer = new Freelancer(userName, encodedEmail, timestampJoined);
-                            userLocation.setValue(newFreelancer);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(FirebaseError firebaseError) {
-                        Log.d(LOG_TAG, getString(R.string.log_error_occurred) + firebaseError.getMessage());
-                    }
-                });
-            }
-
-
-            if(authData != null) {
                 Intent intent = new Intent(LoginFreelancerActivity.this, WelcomeFreelancerActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
@@ -193,6 +170,48 @@ public class LoginFreelancerActivity extends BaseActivity {
                     showErrorToast(firebaseError.toString());
             }
         }
+    }
+
+    private void setAuthenticatedUserGoogle(AuthData authData) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor spe = sp.edit();
+        String unprocessedEmail;
+
+        if (GoogleApiClient.isConnected()) {
+            unprocessedEmail = googleSignInAccount.getEmail().toLowerCase();
+            spe.putString(Constants.KEY_GOOGLE_EMAIL, unprocessedEmail).apply();
+        } else {
+            unprocessedEmail = sp.getString(Constants.KEY_GOOGLE_EMAIL, null);
+        }
+
+        encodedEmail = Utils.encodeEmail(unprocessedEmail);
+
+        final String userName = (String) authData.getProviderData().get(Constants.PROVIDER_DATA_DISPLAY_NAME);
+        final Firebase userLocation = new Firebase(Constants.FIREBASE_URL_USERS).child(encodedEmail);
+
+        userLocation.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                    /* If nothing is there ...*/
+                if (dataSnapshot.getValue() == null) {
+                    HashMap<String, Object> timestampJoined = new HashMap<>();
+                    timestampJoined.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
+
+                    Freelancer freelancer = new Freelancer(userName, encodedEmail, timestampJoined);
+                    userLocation.setValue(freelancer);
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                Log.d(LOG_TAG, getString(R.string.log_error_occurred) + firebaseError.getMessage());
+            }
+        });
+    }
+
+    private void setAuthenticatedUserPasswordProvider(AuthData authData) {
+        final String unprocessedEmail = authData.getProviderData().get(Constants.FIREBASE_PROPERTY_EMAIL).toString().toLowerCase();
+        encodedEmail = Utils.encodeEmail(unprocessedEmail);
     }
 
     private void showErrorToast(String message) {

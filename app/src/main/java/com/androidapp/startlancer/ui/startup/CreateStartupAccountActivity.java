@@ -1,8 +1,8 @@
 package com.androidapp.startlancer.ui.startup;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.androidapp.startlancer.R;
 import com.androidapp.startlancer.models.Startup;
+import com.androidapp.startlancer.ui.StartupBaseActivity;
 import com.androidapp.startlancer.utils.Constants;
 import com.androidapp.startlancer.utils.Utils;
 import com.firebase.client.DataSnapshot;
@@ -22,7 +23,7 @@ import com.firebase.client.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CreateStartupAccountActivity extends AppCompatActivity {
+public class CreateStartupAccountActivity extends StartupBaseActivity {
     private static final String LOG_TAG =   CreateStartupAccountActivity.class.getSimpleName();
     private ProgressDialog progressDialog;
     private EditText startupnameEditText, emailEditText, passwordEditText;
@@ -128,7 +129,7 @@ public class CreateStartupAccountActivity extends AppCompatActivity {
         boolean isGoodEmail =
                 (email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches());
         if (!isGoodEmail) {
-            emailEditText.setError(String.format(getString(R.string.error_email_not_valid),
+            emailEditText.setError(String.format(getString(R.string.error_email_not_valid) +
                     email));
             return false;
         }
@@ -141,5 +142,10 @@ public class CreateStartupAccountActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    public void goToLoginStartup(View view) {
+        Intent intent = new Intent(CreateStartupAccountActivity.this, LoginStartupActivity.class);
+        startActivity(intent);
     }
 }

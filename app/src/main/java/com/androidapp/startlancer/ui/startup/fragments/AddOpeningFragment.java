@@ -35,8 +35,6 @@ public class AddOpeningFragment extends DialogFragment {
     public AddOpeningFragment() {
     }
 
-    ;
-
     public static AddOpeningFragment newInstance(String data) {
         AddOpeningFragment addOpeningFragment = new AddOpeningFragment();
         Bundle bundle = new Bundle();
@@ -55,7 +53,6 @@ public class AddOpeningFragment extends DialogFragment {
         super.onActivityCreated(savedInstanceState);
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
-
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -87,6 +84,7 @@ public class AddOpeningFragment extends DialogFragment {
 
         /* Inflate and set the layout for the dialog */
         /* Pass null as the parent view because its going in the dialog layout*/
+        builder.setMessage("Add Opening");
         builder.setView(rootView)
                 /* Add action buttons */
                 .setPositiveButton(R.string.positive_button_create, new DialogInterface.OnClickListener() {

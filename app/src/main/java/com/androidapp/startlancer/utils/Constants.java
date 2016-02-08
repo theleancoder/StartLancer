@@ -20,8 +20,12 @@ public final class Constants {
     public static final String PROVIDER_DATA_DISPLAY_NAME = "displayName";
     public static final String FIREBASE_PROPERTY_EMAIL = "email";
 
-    public static final String KEY_PROVIDER = "PROVIDER";
-    public static final String KEY_ENCODED_EMAIL = "ENCODED_EMAIL";
+    public static final String KEY_PROVIDER_STARTUP = "PROVIDER_STARTUP";
+    public static final String KEY_PROVIDER_FREELANCER = "PROVIDER_FREELANCER";
+    public static final String KEY_ENCODED_EMAIL_FREELANCER = "ENCODED_EMAIL_FREELANCER";
+    public static final String KEY_ENCODED_EMAIL_STARTUP = "ENCODED_EMAIL_STARTUP";
     private static final String FIREBASE_LOCATION_OPENINGS = "openings";
     public static final String FIREBASE_URL_OPENINGS = FIREBASE_URL + "/" + FIREBASE_LOCATION_OPENINGS;
+    private static final String FIREBASE_LOCATION_FREELANCER_PROFILE = "freelancerProfiles";
+    public static final String FIREBASE_URL_FREELANCER_PROFILE = FIREBASE_URL + "/" + FIREBASE_LOCATION_FREELANCER_PROFILE;
 }

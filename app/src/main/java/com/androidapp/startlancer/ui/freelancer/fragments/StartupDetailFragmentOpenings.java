@@ -52,7 +52,6 @@ public class StartupDetailFragmentOpenings extends Fragment {
                 startActivity(intent);
             }
         });
-        inflater.inflate(R.layout.fragment_startup_detail_openings, container, false);
 
         return rootView;
     }

@@ -4,20 +4,22 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.androidapp.startlancer.R;
 import com.androidapp.startlancer.models.Opening;
+import com.androidapp.startlancer.ui.StartupBaseActivity;
 import com.androidapp.startlancer.ui.startup.adapters.OpeningListAdapter;
 import com.androidapp.startlancer.ui.startup.fragments.AddOpeningFragment;
 import com.androidapp.startlancer.utils.Constants;
 import com.firebase.client.Firebase;
 
-public class StartupProfileActivity extends AppCompatActivity {
+public class StartupProfileActivity extends StartupBaseActivity {
 
     private String data;
     ListView openingList;
@@ -65,5 +67,34 @@ public class StartupProfileActivity extends AppCompatActivity {
         }
         DialogFragment dialog = AddOpeningFragment.newInstance(data);
         dialog.show(StartupProfileActivity.this.getFragmentManager(), "AddOpeningFragment");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        /* Inflate the menu; this adds items to the action bar if it is present. */
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            super.onBackPressed();
+            return true;
+        }
+
+        if (id == R.id.action_logout) {
+            logout();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

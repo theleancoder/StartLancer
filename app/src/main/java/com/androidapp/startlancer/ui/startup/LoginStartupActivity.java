@@ -15,14 +15,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidapp.startlancer.R;
-import com.androidapp.startlancer.ui.BaseActivity;
+import com.androidapp.startlancer.ui.StartupBaseActivity;
 import com.androidapp.startlancer.utils.Constants;
 import com.androidapp.startlancer.utils.Utils;
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
-public class LoginStartupActivity extends BaseActivity {
+public class LoginStartupActivity extends StartupBaseActivity {
 
     private static final String LOG_TAG = LoginStartupActivity.class.getSimpleName();
     private Firebase firebaseRef;
@@ -114,8 +114,9 @@ public class LoginStartupActivity extends BaseActivity {
 
                 setAuthenticatedUserPasswordProvider(authData);
 
-//                spe.putString(Constants.KEY_PROVIDER, authData.getProvider()).apply();
-                spe.putString(Constants.KEY_ENCODED_EMAIL, encodedEmail).apply();
+                spe.putString(Constants.KEY_PROVIDER_STARTUP, authData.getProvider()).apply();
+//                spe.putString(Constants.KEY_ENCODED_EMAIL_STARTUP, encodedEmail).apply();
+                spe.putString(Constants.KEY_ENCODED_EMAIL_STARTUP, encodedEmail).apply();
 
                 /* Go to main activity */
                 Intent intent = new Intent(LoginStartupActivity.this, WelcomeStartupActivity.class);
