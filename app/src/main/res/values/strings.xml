@@ -75,4 +75,10 @@
     <string name="hint_enter_startup_name">Enter startup name</string>
     <string name="hint_enter_startup_email">Enter startup email</string>
     <string name="hint_enter_startup_password">Enter startup password</string>
+    <string name="title_activity_startupr_profile_opening">Openings</string>
+    <string name="title_activity_startup_profile_team">Team</string>
+    <string name="title_activity_startup_profile_work">Work</string>
+    <string name="title_activity_startup_profile_about">About</string>
+    <string name="title_activity_startup_profile_opening_detail">Opening Detail</string>
+    <string name="title_activity_startup_opening_detail">Opening Detail</string>
 </resources>

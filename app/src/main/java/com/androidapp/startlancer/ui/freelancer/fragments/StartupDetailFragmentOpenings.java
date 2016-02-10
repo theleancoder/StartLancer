@@ -9,11 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.androidapp.startlancer.R;
-import com.androidapp.startlancer.models.Opening;
+import com.androidapp.startlancer.models.OpeningDetail;
+import com.androidapp.startlancer.ui.startup.StartupOpeningDetailActivity;
 import com.androidapp.startlancer.ui.startup.adapters.OpeningListAdapter;
-import com.androidapp.startlancer.ui.startup.navigation.OpeningDetailActivity;
 import com.androidapp.startlancer.utils.Constants;
 import com.firebase.client.Firebase;
 
@@ -34,11 +35,12 @@ public class StartupDetailFragmentOpenings extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_startup_detail_openings, container, false);
+        Firebase.setAndroidContext(getActivity());
 
-        String email = getArguments().getString("email");
+        final String email = getArguments().getString("email");
 
         Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL_OPENINGS).child(email);
-        openingListAdapter = new OpeningListAdapter(getActivity(), Opening.class, R.layout.single_opening_list,
+        openingListAdapter = new OpeningListAdapter(getActivity(), OpeningDetail.class, R.layout.single_opening_list,
                 firebaseRef);
         openingList = (ListView) rootView.findViewById(R.id.fragment_openings_list);
         openingList.setAdapter(openingListAdapter);
@@ -46,9 +48,10 @@ public class StartupDetailFragmentOpenings extends Fragment {
         openingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final String selected = (String) parent.getSelectedItem();
-                Intent intent = new Intent(getActivity(), OpeningDetailActivity.class);
-                intent.putExtra("title", selected);
+                String title = ((TextView) view.findViewById(R.id.textview_opening_title)).getText().toString();
+                Intent intent = new Intent(getActivity(), StartupOpeningDetailActivity.class);
+                intent.putExtra("title", title);
+                intent.putExtra("email", email);
                 startActivity(intent);
             }
         });

@@ -9,40 +9,58 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.androidapp.startlancer.ui.startup.navigation.StartupProfileActivity"
+    tools:context=".ui.startup.navigation.StartupProfileActivity"
     tools:showIn="@layout/activity_startup_profile">
 
-    <include
-        layout="@layout/nav_header"
-        android:id="@+id/startup_header" />
 
-    <TextView
-        android:id="@+id/startup_openings"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Openings"
-        android:gravity="center"
-        android:layout_below="@+id/startup_header"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textSize="20dp"
-        android:textAllCaps="true" />
+        android:id="@+id/relativeLayout">
+
+        <ImageView
+            android:layout_width="150sp"
+            android:layout_height="150sp"
+            android:id="@+id/startup_profile_imageView"
+            android:onClick="uploadImage" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:gravity="center"
+            android:text="Large Text"
+            android:paddingTop="20dp"
+            android:paddingLeft="20dp"
+            android:id="@+id/startup_name_textView"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/startup_profile_imageView"
+            android:layout_toEndOf="@+id/startup_profile_imageView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Small Text"
+            android:paddingTop="20dp"
+            android:paddingLeft="20dp"
+            android:id="@+id/startup_email_textview"
+            android:layout_below="@+id/startup_name_textView"
+            android:layout_toRightOf="@+id/startup_profile_imageView"
+            android:layout_toEndOf="@+id/startup_profile_imageView" />
+    </RelativeLayout>
 
     <LinearLayout
-        android:layout_below="@+id/startup_openings"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <ListView
-            android:id="@+id/openings_list"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:scrollbars="none"
-            android:dividerHeight="1sp"
-            android:divider="@color/colorAccent" />
-
+            android:id="@+id/startup_profile_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></ListView>
     </LinearLayout>
 
 </RelativeLayout>

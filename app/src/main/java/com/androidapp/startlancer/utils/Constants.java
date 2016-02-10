@@ -25,7 +25,9 @@ public final class Constants {
     public static final String KEY_ENCODED_EMAIL_FREELANCER = "ENCODED_EMAIL_FREELANCER";
     public static final String KEY_ENCODED_EMAIL_STARTUP = "ENCODED_EMAIL_STARTUP";
     private static final String FIREBASE_LOCATION_OPENINGS = "openings";
+    private static final String FIREBASE_LOCATION_OPENINGS_DETAILS = "openingsDetail";
     public static final String FIREBASE_URL_OPENINGS = FIREBASE_URL + "/" + FIREBASE_LOCATION_OPENINGS;
     private static final String FIREBASE_LOCATION_FREELANCER_PROFILE = "freelancerProfiles";
     public static final String FIREBASE_URL_FREELANCER_PROFILE = FIREBASE_URL + "/" + FIREBASE_LOCATION_FREELANCER_PROFILE;
+    public static final String FIREBASE_URL_OPENINGS_DETAIL = FIREBASE_URL + "/" + FIREBASE_LOCATION_OPENINGS_DETAILS;
 }

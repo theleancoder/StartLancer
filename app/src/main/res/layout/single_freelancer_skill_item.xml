@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/lists_row_height"
+    android:layout_margin="2dp"
+    android:background="@android:color/white"
+    android:clickable="false"
+    android:descendantFocusability="blocksDescendants"
+    android:focusable="false"
+    android:foreground="?selectableItemBackground"
+    android:gravity="center_vertical"
+    android:paddingLeft="@dimen/margin_small"
+    android:paddingStart="@dimen/margin_small">
+
+    <TextView
+        android:id="@+id/freelancer_skill"
+        style="@style/ListItemText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ankit" />
+
+    <TextView
+        android:id="@+id/freelancer_year_of_experience"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/freelancer_skill"
+        style="@style/ListItemText"
+        android:text="Singh" />
+</RelativeLayout>

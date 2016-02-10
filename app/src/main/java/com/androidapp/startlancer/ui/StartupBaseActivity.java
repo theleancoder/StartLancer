@@ -26,6 +26,7 @@ public class StartupBaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
 
         final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(StartupBaseActivity.this);
         encodedEmail = sp.getString(Constants.KEY_ENCODED_EMAIL_STARTUP, null);

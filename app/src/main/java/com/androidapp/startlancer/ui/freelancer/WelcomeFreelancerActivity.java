@@ -17,7 +17,6 @@ import com.androidapp.startlancer.ui.freelancer.fragments.TopStartupsFragment;
 import com.androidapp.startlancer.ui.freelancer.fragments.TrendingStartupsFragment;
 import com.androidapp.startlancer.ui.freelancer.navigation.FreelancerProfileActivity;
 import com.androidapp.startlancer.ui.startup.navigation.SampleActivity;
-import com.androidapp.startlancer.utils.Constants;
 import com.firebase.client.Firebase;
 
 public class WelcomeFreelancerActivity extends BaseActivity {
@@ -76,15 +75,15 @@ public class WelcomeFreelancerActivity extends BaseActivity {
     private void selectDrawerItem(MenuItem menuItem) {
 
         switch (menuItem.getItemId()) {
-            case R.id.nav_first_item:
+            case R.id.nav_cofounder_search:
                 Intent firstIntent = new Intent(WelcomeFreelancerActivity.this, SampleActivity.class);
                 startActivity(firstIntent);
                 break;
-            case R.id.nav_second_item:
+            case R.id.nav_open_projects:
                 Intent secondIntent = new Intent(WelcomeFreelancerActivity.this, SampleActivity.class);
                 startActivity(secondIntent);
                 break;
-            case R.id.nav_third_item:
+            case R.id.nav_showcase_idea:
                 Intent thirdIntent = new Intent(WelcomeFreelancerActivity.this, SampleActivity.class);
                 startActivity(thirdIntent);
                 break;
@@ -96,9 +95,11 @@ public class WelcomeFreelancerActivity extends BaseActivity {
                 Intent fifthIntent = new Intent(WelcomeFreelancerActivity.this, SampleActivity.class);
                 startActivity(fifthIntent);
                 break;
-            default:
-                Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL_USERS);
+            case R.id.nav_logout:
                 firebaseRef.unauth();
+                break;
+            default:
+                return;
         }
 
         menuItem.setChecked(true);

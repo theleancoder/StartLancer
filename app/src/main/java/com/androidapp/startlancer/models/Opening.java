@@ -1,7 +1,7 @@
 package com.androidapp.startlancer.models;
 
 /**
- * Created by ankit on 2/3/2016.
+ * Created by ankit on 2/9/2016.
  */
 public class Opening {
     private String title;
@@ -9,8 +9,6 @@ public class Opening {
 
     public Opening() {
     }
-
-    ;
 
     public Opening(String title, String salary) {
         this.title = title;

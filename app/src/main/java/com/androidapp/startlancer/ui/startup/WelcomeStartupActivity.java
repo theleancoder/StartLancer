@@ -87,15 +87,15 @@ public class WelcomeStartupActivity extends StartupBaseActivity {
 //
 //        Class fragmentClass;
         switch (menuItem.getItemId()) {
-            case R.id.nav_first_item:
+            case R.id.nav_applications:
                 Intent firstIntent = new Intent(WelcomeStartupActivity.this, SampleActivity.class);
                 startActivity(firstIntent);
                 break;
-            case R.id.nav_second_item:
+            case R.id.nav_responses:
                 Intent secondIntent = new Intent(WelcomeStartupActivity.this, SampleActivity.class);
                 startActivity(secondIntent);
                 break;
-            case R.id.nav_third_item:
+            case R.id.nav_queries:
                 Intent thirdIntent = new Intent(WelcomeStartupActivity.this, SampleActivity.class);
                 startActivity(thirdIntent);
                 break;

@@ -1,0 +1,47 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_cofounder_search"
+            android:title="Cofounder Search"
+            android:icon="@drawable/ic_face_black_24dp" />
+        <item
+            android:id="@+id/nav_open_projects"
+            android:title="Open Projects"
+            android:icon="@drawable/ic_code_black_24dp" />
+        <item
+            android:id="@+id/nav_showcase_idea"
+            android:title="Showcase Idea"
+            android:icon="@drawable/ic_lightbulb_outline_black_24dp" />
+    </group>
+
+    <item android:title="Freelancer Corner">
+        <menu>
+            <item
+                android:id="@+id/nav_top_freelancers"
+                android:title="Top freelancers"
+                android:icon="@drawable/ic_exposure_plus_1_black_24dp" />
+            <item
+                android:id="@+id/nav_new_freelancers"
+                android:title="Trending freelancers"
+                android:icon="@drawable/ic_trending_up_black_24dp" />
+        </menu>
+    </item>
+
+    <item android:title="Settings">
+        <menu>
+            <item
+                android:id="@+id/nav_profile"
+                android:title="Profile"
+                android:icon="@drawable/ic_account_circle_black_24dp" />
+            <item
+                android:id="@+id/nav_settings"
+                android:title="Settings"
+                android:icon="@drawable/ic_settings_black_24dp" />
+            <item
+                android:id="@+id/nav_logout"
+                android:title="Logout"
+                android:icon="@drawable/ic_thumb_up_black_24dp" />
+        </menu>
+    </item>
+</menu>

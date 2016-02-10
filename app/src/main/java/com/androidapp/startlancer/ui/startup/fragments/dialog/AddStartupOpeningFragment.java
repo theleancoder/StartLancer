@@ -1,11 +1,11 @@
-package com.androidapp.startlancer.ui.startup.fragments;
+package com.androidapp.startlancer.ui.startup.fragments.dialog;
 
 
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
@@ -26,21 +26,22 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddOpeningFragment extends DialogFragment {
-    private EditText editTextSalary;
-    private EditText editTextOpeningTitle;
-    private String encodedEmail;
-    private ProgressDialog progressDialog;
+public class AddStartupOpeningFragment extends DialogFragment {
 
-    public AddOpeningFragment() {
+
+    private EditText openingTitleEditText, openingSalaryEditText;
+    private String encodedEmail;
+
+    public AddStartupOpeningFragment() {
+        // Required empty public constructor
     }
 
-    public static AddOpeningFragment newInstance(String data) {
-        AddOpeningFragment addOpeningFragment = new AddOpeningFragment();
+    public static AddStartupOpeningFragment newInstance(String data) {
+        AddStartupOpeningFragment openingFragment = new AddStartupOpeningFragment();
         Bundle bundle = new Bundle();
         bundle.putString("data", data);
-        addOpeningFragment.setArguments(bundle);
-        return addOpeningFragment;
+        openingFragment.setArguments(bundle);
+        return openingFragment;
     }
 
     @Override
@@ -54,62 +55,54 @@ public class AddOpeningFragment extends DialogFragment {
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the Builder class for convenient dialog construction
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.CustomTheme_Dialog);
-        // Get the layout inflater
+
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View rootView = inflater.inflate(R.layout.fragment_add_opening, null);
-        editTextOpeningTitle = (EditText) rootView.findViewById(R.id.edit_text_opening);
-        editTextSalary = (EditText) rootView.findViewById(R.id.edit_text_salary);
+        View rootView = inflater.inflate(R.layout.fragment_add_startup_opening, null);
+        openingTitleEditText = (EditText) rootView.findViewById(R.id.editTextOpeningTitle);
+        openingSalaryEditText = (EditText) rootView.findViewById(R.id.editTextOpeningSalary);
 
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setTitle(getResources().getString(R.string.login_dialog_loading));
-        progressDialog.setMessage(getResources().getString(R.string.login_dialog_message));
-        progressDialog.setCancelable(false);
-
-        /**
-         * Call addShoppingList() when user taps "Done" keyboard action
-         */
-        editTextSalary.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        openingSalaryEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_ACTION_DONE || keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
-                    addOpeningList();
+                    addSkillList();
                 }
                 return true;
             }
         });
 
-        /* Inflate and set the layout for the dialog */
-        /* Pass null as the parent view because its going in the dialog layout*/
-        builder.setMessage("Add OpeningDetail");
+        builder.setMessage("Add Opening");
         builder.setView(rootView)
                 /* Add action buttons */
                 .setPositiveButton(R.string.positive_button_create, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        addOpeningList();
+                        addSkillList();
                     }
                 });
 
         return builder.create();
     }
 
-    public void addOpeningList() {
-        String openingName = editTextOpeningTitle.getText().toString();
-        String salary = editTextSalary.getText().toString();
+    public void addSkillList() {
+        String title = openingTitleEditText.getText().toString();
+        String salary = openingSalaryEditText.getText().toString();
 
-        if (!openingName.equals("") && !salary.equals("")) {
+        if (!title.equals("") && !salary.equals("")) {
             encodedEmail = getArguments().getString("data");
             Firebase ref = new Firebase(Constants.FIREBASE_URL_OPENINGS).child(encodedEmail);
             Map<String, String> opening = new HashMap<>();
-            opening.put("title", openingName);
+            opening.put("title", title);
             opening.put("salary", salary);
             ref.push().setValue(opening);
 
-            AddOpeningFragment.this.getDialog().dismiss();
+            AddStartupOpeningFragment.this.getDialog().dismiss();
         }
     }
+
 }

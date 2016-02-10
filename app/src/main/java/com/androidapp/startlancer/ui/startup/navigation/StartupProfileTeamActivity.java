@@ -9,15 +9,14 @@ import android.view.View;
 
 import com.androidapp.startlancer.R;
 
-public class OpeningDetailActivity extends AppCompatActivity {
+public class StartupProfileTeamActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_opening_detail);
+        setContentView(R.layout.activity_startup_profile_team);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Openings");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

@@ -1,0 +1,42 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_applications"
+            android:title="Applications"
+            android:icon="@drawable/ic_arrow_down_bold_black_24dp" />
+        <item
+            android:id="@+id/nav_responses"
+            android:title="Responses"
+            android:icon="@drawable/ic_send_black_24dp" />
+        <item
+            android:id="@+id/nav_queries"
+            android:title="Queries"
+            android:icon="@drawable/ic_question_answer_black_24dp" />
+    </group>
+
+    <item android:title="Others">
+        <menu>
+            <item
+                android:id="@+id/Stats"
+                android:title="Stats"
+                android:icon="@drawable/ic_chart_bar_black_24dp" />
+            <item
+                android:id="@+id/nav_not_known"
+                android:title="Not known" />
+        </menu>
+    </item>
+
+    <item android:title="Settings">
+        <menu>
+            <item
+                android:id="@+id/nav_profile"
+                android:title="Profile"
+                android:icon="@drawable/ic_account_circle_black_24dp" />
+            <item
+                android:id="@+id/nav_settings"
+                android:title="Settings"
+                android:icon="@drawable/ic_settings_black_24dp" />
+        </menu>
+    </item>
+</menu>

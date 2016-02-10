@@ -4,10 +4,20 @@
     android:layout_height="match_parent"
     tools:context="com.androidapp.startlancer.ui.startup.fragments.FreelancerDetailFragmentExperiences">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:layout_below="@+id/freelancer_experiences"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/fragment_experience_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scrollbars="none" />
+
+    </LinearLayout>
+
 
 </FrameLayout>
