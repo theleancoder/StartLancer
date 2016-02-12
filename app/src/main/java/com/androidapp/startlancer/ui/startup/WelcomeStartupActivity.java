@@ -18,6 +18,7 @@ import com.androidapp.startlancer.ui.startup.fragments.TopFreelancersFragment;
 import com.androidapp.startlancer.ui.startup.fragments.TrendingFreelancersFragment;
 import com.androidapp.startlancer.ui.startup.navigation.SampleActivity;
 import com.androidapp.startlancer.ui.startup.navigation.StartupProfileActivity;
+import com.androidapp.startlancer.ui.startup.navigation.navbar.StartupApplicationsActivity;
 import com.androidapp.startlancer.utils.Constants;
 import com.firebase.client.Firebase;
 
@@ -88,7 +89,7 @@ public class WelcomeStartupActivity extends StartupBaseActivity {
 //        Class fragmentClass;
         switch (menuItem.getItemId()) {
             case R.id.nav_applications:
-                Intent firstIntent = new Intent(WelcomeStartupActivity.this, SampleActivity.class);
+                Intent firstIntent = new Intent(WelcomeStartupActivity.this, StartupApplicationsActivity.class);
                 startActivity(firstIntent);
                 break;
             case R.id.nav_responses:

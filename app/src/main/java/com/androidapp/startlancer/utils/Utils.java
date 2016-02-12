@@ -7,4 +7,8 @@ public class Utils {
     public static String encodeEmail(String email) {
         return email.replace(".", ",");
     }
+
+    public static String decodeEmail(String email) {
+        return email.replace(",", ".");
+    }
 }

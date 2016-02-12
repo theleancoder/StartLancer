@@ -218,6 +218,37 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.androidapp.startlancer.ui.freelancer.StartupDetailActivity" />
         </activity>
+        <activity
+            android:name=".ui.startup.navigation.navbar.StartupApplicationsActivity"
+            android:label="@string/title_activity_startup_applications"
+            android:parentActivityName=".ui.startup.WelcomeStartupActivity"
+            android:theme="@style/MyMaterialTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.startup.WelcomeStartupActivity" />
+        </activity>
+        <activity
+            android:name=".ui.startup.navigation.StartupApplicationCandidatesActivity"
+            android:label="@string/title_activity_startup_application_candidates"
+            android:parentActivityName=".ui.startup.navigation.navbar.StartupApplicationsActivity"
+            android:theme="@style/MyMaterialTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.startup.navigation.navbar.StartupApplicationsActivity" />
+        </activity>
+        <activity
+            android:name=".ui.startup.navigation.StartupCandidateDetailActivity"
+            android:label="@string/title_activity_startup_candidate_detail"
+            android:parentActivityName=".ui.startup.navigation.StartupApplicationCandidatesActivity"
+            android:theme="@style/MyMaterialTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.startup.navigation.StartupApplicationCandidatesActivity" />
+        </activity>
+        <activity
+            android:name=".ui.freelancer.TestActivity"
+            android:label="@string/title_activity_test"
+            android:theme="@style/MyMaterialTheme.NoActionBar" />
     </application>
 
 </manifest>

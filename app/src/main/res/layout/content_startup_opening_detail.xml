@@ -51,5 +51,6 @@
         android:text="Apply"
         android:id="@+id/button"
         android:layout_below="@+id/text_view_requirements"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="onApplyPressed" />
 </RelativeLayout>

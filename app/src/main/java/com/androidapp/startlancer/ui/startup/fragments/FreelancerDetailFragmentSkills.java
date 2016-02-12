@@ -33,7 +33,7 @@ public class FreelancerDetailFragmentSkills extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_freelancer_detail_fragment_skills, container, false);
-        String email = getArguments().getString("email");
+        String email = getArguments().getString("userEmail");
 
         Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL_FREELANCER_PROFILE).child(email).child("skills");
         skillAdapter = new FreelancerSkillAdapter(getActivity(), Skill.class, R.layout.single_freelancer_skill_item,
