@@ -29,6 +29,14 @@ android {
         exclude 'META-INF/LICENSE-FIREBASE.txt'
         exclude 'META-INF/NOTICE'
     }
+
+    repositories {
+        mavenCentral()
+        maven {
+            url "http://maven.batch.com/release"
+        }
+    }
+
 }
 
 dependencies {
@@ -48,4 +56,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-gcm:8.3.0'
     compile 'com.firebaseui:firebase-ui:0.3.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.batch.android:batch-sdk:1.5'
 }

@@ -15,3 +15,15 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-keep class com.batch.** {
+    *;
+}
+
+-keep class com.google.android.gms.** {
+    *;
+}
+
+-dontwarn com.batch.android.mediation.**
+
+-dontwarn com.batch.android.BatchPushService

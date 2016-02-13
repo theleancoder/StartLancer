@@ -80,7 +80,7 @@ public class StartupOpeningDetailActivity extends BaseActivity {
 
     public void onApplyPressed(View view) {
         Firebase applicationRef = new Firebase(Constants.FIREBASE_URL_APPLICATIONS).child(email).child(opening);
-        Application application = new Application(userName, encodedEmail, "false");
+        Application application = new Application(userName, encodedEmail);
         applicationRef.child(encodedEmail).setValue(application);
         Snackbar.make(view, "Application Submitted", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
     }

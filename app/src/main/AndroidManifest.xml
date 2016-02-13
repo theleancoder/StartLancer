@@ -249,6 +249,33 @@
             android:name=".ui.freelancer.TestActivity"
             android:label="@string/title_activity_test"
             android:theme="@style/MyMaterialTheme.NoActionBar" />
+        <activity
+            android:name=".ui.startup.navigation.navbar.SavedCandidatesActivity"
+            android:label="@string/title_activity_saved_candidates"
+            android:parentActivityName=".ui.startup.WelcomeStartupActivity"
+            android:theme="@style/MyMaterialTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.startup.WelcomeStartupActivity" />
+        </activity>
+        <activity
+            android:name=".ui.startup.navigation.SavedCandidateDetailActivity"
+            android:label="@string/title_activity_saved_candidate_detail"
+            android:parentActivityName=".ui.startup.navigation.navbar.SavedCandidatesActivity"
+            android:theme="@style/MyMaterialTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.startup.navigation.navbar.SavedCandidatesActivity" />
+        </activity>
+        <activity
+            android:name=".ui.freelancer.navigation.CofounderSearchActivity"
+            android:label="@string/title_activity_cofounder_search"
+            android:parentActivityName=".ui.freelancer.WelcomeFreelancerActivity"
+            android:theme="@style/MyMaterialTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.freelancer.WelcomeFreelancerActivity" />
+        </activity>
     </application>
 
 </manifest>

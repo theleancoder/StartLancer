@@ -85,4 +85,7 @@
     <string name="title_activity_startup_application_candidates">Candidates</string>
     <string name="title_activity_startup_candidate_detail">Details</string>
     <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_saved_candidates">Saved Candidates</string>
+    <string name="title_activity_saved_candidate_detail">Details</string>
+    <string name="title_activity_cofounder_search">Search Cofounder</string>
 </resources>

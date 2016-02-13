@@ -8,6 +8,7 @@ import android.view.View;
 import com.androidapp.startlancer.R;
 import com.androidapp.startlancer.ui.freelancer.LoginFreelancerActivity;
 import com.androidapp.startlancer.ui.startup.LoginStartupActivity;
+import com.batch.android.Batch;
 import com.firebase.client.Firebase;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,4 +33,33 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        Batch.onStart(this);
+    }
+
+    @Override
+    protected void onStop() {
+        Batch.onStop(this);
+
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Batch.onDestroy(this);
+
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        Batch.onNewIntent(this, intent);
+
+        super.onNewIntent(intent);
+    }
+
 }

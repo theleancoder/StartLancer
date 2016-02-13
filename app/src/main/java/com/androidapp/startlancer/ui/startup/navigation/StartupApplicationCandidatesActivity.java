@@ -18,7 +18,7 @@ import com.firebase.client.Firebase;
 public class StartupApplicationCandidatesActivity extends StartupBaseActivity {
     ListView applicantsList;
     ApplicationsListAdapter applicationsListAdapter;
-    private String isConfirmed, email, name, title;
+    private String email, name, title;
     Firebase ref;
 
     @Override

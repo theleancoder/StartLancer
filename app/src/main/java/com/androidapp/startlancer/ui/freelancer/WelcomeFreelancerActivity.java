@@ -15,6 +15,7 @@ import com.androidapp.startlancer.ui.freelancer.adapters.WelcomeFreelancerPagerA
 import com.androidapp.startlancer.ui.freelancer.fragments.StartupsCategoryFragment;
 import com.androidapp.startlancer.ui.freelancer.fragments.TopStartupsFragment;
 import com.androidapp.startlancer.ui.freelancer.fragments.TrendingStartupsFragment;
+import com.androidapp.startlancer.ui.freelancer.navigation.CofounderSearchActivity;
 import com.androidapp.startlancer.ui.freelancer.navigation.FreelancerProfileActivity;
 import com.androidapp.startlancer.ui.startup.navigation.SampleActivity;
 import com.firebase.client.Firebase;
@@ -76,7 +77,7 @@ public class WelcomeFreelancerActivity extends BaseActivity {
 
         switch (menuItem.getItemId()) {
             case R.id.nav_cofounder_search:
-                Intent firstIntent = new Intent(WelcomeFreelancerActivity.this, SampleActivity.class);
+                Intent firstIntent = new Intent(WelcomeFreelancerActivity.this, CofounderSearchActivity.class);
                 startActivity(firstIntent);
                 break;
             case R.id.nav_open_projects:

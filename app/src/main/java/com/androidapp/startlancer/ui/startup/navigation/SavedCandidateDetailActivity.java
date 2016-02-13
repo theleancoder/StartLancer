@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.androidapp.startlancer.R;
 import com.androidapp.startlancer.ui.startup.adapters.FreelancerDetailPagerAdaper;
@@ -17,36 +16,32 @@ import com.androidapp.startlancer.ui.startup.fragments.FreelancerDetailFragmentA
 import com.androidapp.startlancer.ui.startup.fragments.FreelancerDetailFragmentExperiences;
 import com.androidapp.startlancer.ui.startup.fragments.FreelancerDetailFragmentProjects;
 import com.androidapp.startlancer.ui.startup.fragments.FreelancerDetailFragmentSkills;
-import com.androidapp.startlancer.utils.Constants;
 import com.androidapp.startlancer.utils.Utils;
-import com.firebase.client.Firebase;
 
-import java.util.HashMap;
-
-public class StartupCandidateDetailActivity extends AppCompatActivity {
-
-    String email;
-    Bundle bundle;
+public class SavedCandidateDetailActivity extends AppCompatActivity {
+    private String email;
+    private String name;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_freelancer_detail);
+        setContentView(R.layout.activity_saved_candidate_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        String name = getIntent().getStringExtra("userName");
+        name = getIntent().getStringExtra("userName");
         setTitle(name);
         email = getIntent().getStringExtra("userEmail");
         bundle = new Bundle();
         bundle.putString("userEmail", email);
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.freelancer_detail_viewpager);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.candidate_detail_viewpager);
         setupViewPager(viewPager);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.freelancer_detail_tabs);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.candidate_detail_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -74,7 +69,7 @@ public class StartupCandidateDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.candidate_detail_menu, menu);
+        getMenuInflater().inflate(R.menu.saved_candidate_detail_menu, menu);
         return true;
     }
 
@@ -87,8 +82,8 @@ public class StartupCandidateDetailActivity extends AppCompatActivity {
             return true;
         }
 
-        if (id == R.id.save_candidate) {
-            saveCandidate();
+        if (id == R.id.approve_candidate) {
+            approveCandidate();
         }
 
         if (id == R.id.reject_candidate) {
@@ -98,6 +93,17 @@ public class StartupCandidateDetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void approveCandidate() {
+        String email = getIntent().getStringExtra("userEmail");
+        String decodedEmail = Utils.decodeEmail(email);
+        String[] emails = {decodedEmail};
+        Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+        emailIntent.setType("plain/text");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, emails);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "We are really sorry.");
+        startActivity(Intent.createChooser(emailIntent, "Complete action using:"));
+    }
+
     private void rejectCandidate() {
         String email = getIntent().getStringExtra("userEmail");
         String decodedEmail = Utils.decodeEmail(email);
@@ -105,19 +111,8 @@ public class StartupCandidateDetailActivity extends AppCompatActivity {
         Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
         emailIntent.setType("plain/text");
         emailIntent.putExtra(Intent.EXTRA_EMAIL, emails);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "We are really glad to tell you.");
         startActivity(Intent.createChooser(emailIntent, "Complete action using:"));
-    }
-
-    private void saveCandidate() {
-        String email = getIntent().getStringExtra("userEmail");
-        String name = getIntent().getStringExtra("userName");
-        Firebase ref = new Firebase(Constants.FIREBASE_URL_SAVED_CANDIDATES);
-        HashMap<String, String> savedCandidate = new HashMap<>();
-        savedCandidate.put("name", name);
-        savedCandidate.put("email", email);
-        ref.setValue(savedCandidate);
-
-        Toast.makeText(StartupCandidateDetailActivity.this, "Candidate Saved", Toast.LENGTH_SHORT).show();
     }
 
     private void setupViewPager(ViewPager viewPager) {

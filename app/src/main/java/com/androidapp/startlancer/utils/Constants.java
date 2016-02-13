@@ -32,4 +32,6 @@ public final class Constants {
     public static final String FIREBASE_URL_OPENINGS_DETAIL = FIREBASE_URL + "/" + FIREBASE_LOCATION_OPENINGS_DETAILS;
     private static final String FIREBASE_LOCATION_APPLICATIONS = "applications";
     public static final String FIREBASE_URL_APPLICATIONS = FIREBASE_URL + "/" + FIREBASE_LOCATION_APPLICATIONS;
+    private static final String FIREBASE_LOCATION_SAVED_CANDIDATES = "savedCandidates";
+    public static final String FIREBASE_URL_SAVED_CANDIDATES = FIREBASE_URL + "/" + FIREBASE_LOCATION_SAVED_CANDIDATES;
 }

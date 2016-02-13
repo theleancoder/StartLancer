@@ -6,15 +6,13 @@ package com.androidapp.startlancer.models;
 public class Application {
     private String name;
     private String email;
-    private String isConfirmed;
 
     public Application() {
     }
 
-    public Application(String name, String email, String isConfirmed) {
+    public Application(String name, String email) {
         this.name = name;
         this.email = email;
-        this.isConfirmed = isConfirmed;
     }
 
     public String getName() {
@@ -25,7 +23,4 @@ public class Application {
         return email;
     }
 
-    public String getIsConfirmed() {
-        return isConfirmed;
-    }
 }
