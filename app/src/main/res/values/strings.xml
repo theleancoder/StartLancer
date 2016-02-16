@@ -88,4 +88,8 @@
     <string name="title_activity_saved_candidates">Saved Candidates</string>
     <string name="title_activity_saved_candidate_detail">Details</string>
     <string name="title_activity_cofounder_search">Search Cofounder</string>
+    <string name="hint_add_location">Add your location</string>
+    <string name="hint_add_cofounder_reqs">What are you looking for in a cofounder?</string>
+    <string name="hint_add_cofounder_reason">Why you\'ll be an excellent cofounder?</string>
+    <string name="title_activity_cofounder_detail">Details</string>
 </resources>

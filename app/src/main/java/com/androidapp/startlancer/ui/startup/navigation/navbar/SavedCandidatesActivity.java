@@ -10,15 +10,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.androidapp.startlancer.R;
-import com.androidapp.startlancer.models.Application;
-import com.androidapp.startlancer.ui.startup.adapters.ApplicationsListAdapter;
+import com.androidapp.startlancer.models.SavedCandidate;
+import com.androidapp.startlancer.ui.startup.adapters.SavedCandidateListAdapter;
 import com.androidapp.startlancer.ui.startup.navigation.SavedCandidateDetailActivity;
 import com.androidapp.startlancer.utils.Constants;
 import com.firebase.client.Firebase;
 
 public class SavedCandidatesActivity extends AppCompatActivity {
     ListView savedCandidatesList;
-    ApplicationsListAdapter applicationsListAdapter;
+    SavedCandidateListAdapter candidateListAdapter;
     Firebase ref;
 
     @Override
@@ -31,16 +31,16 @@ public class SavedCandidatesActivity extends AppCompatActivity {
 
         ref = new Firebase(Constants.FIREBASE_URL_SAVED_CANDIDATES);
 
-        applicationsListAdapter = new ApplicationsListAdapter(SavedCandidatesActivity.this, Application.class, R.layout.single_applicant_list,
+        candidateListAdapter = new SavedCandidateListAdapter(SavedCandidatesActivity.this, SavedCandidate.class, R.layout.single_saved_candidate_list,
                 ref);
-        savedCandidatesList = (ListView) findViewById(R.id.startup_candidates_list);
-        savedCandidatesList.setAdapter(applicationsListAdapter);
+        savedCandidatesList = (ListView) findViewById(R.id.saved_candidates_list);
+        savedCandidatesList.setAdapter(candidateListAdapter);
 
         savedCandidatesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String email = ((TextView) view.findViewById(R.id.textview_candidate_email)).getText().toString();
-                String name = ((TextView) view.findViewById(R.id.textview_candidate_name)).getText().toString();
+                String email = ((TextView) view.findViewById(R.id.candidate_email)).getText().toString();
+                String name = ((TextView) view.findViewById(R.id.candidate_name)).getText().toString();
                 Intent intent = new Intent(SavedCandidatesActivity.this, SavedCandidateDetailActivity.class);
                 intent.putExtra("userEmail", email);
                 intent.putExtra("userName", name);

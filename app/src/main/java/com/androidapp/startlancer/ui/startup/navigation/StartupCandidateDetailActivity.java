@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.androidapp.startlancer.R;
+import com.androidapp.startlancer.models.SavedCandidate;
 import com.androidapp.startlancer.ui.startup.adapters.FreelancerDetailPagerAdaper;
 import com.androidapp.startlancer.ui.startup.fragments.FreelancerDetailFragmentAbout;
 import com.androidapp.startlancer.ui.startup.fragments.FreelancerDetailFragmentExperiences;
@@ -20,8 +21,6 @@ import com.androidapp.startlancer.ui.startup.fragments.FreelancerDetailFragmentS
 import com.androidapp.startlancer.utils.Constants;
 import com.androidapp.startlancer.utils.Utils;
 import com.firebase.client.Firebase;
-
-import java.util.HashMap;
 
 public class StartupCandidateDetailActivity extends AppCompatActivity {
 
@@ -42,6 +41,7 @@ public class StartupCandidateDetailActivity extends AppCompatActivity {
         email = getIntent().getStringExtra("userEmail");
         bundle = new Bundle();
         bundle.putString("userEmail", email);
+        String title = getIntent().getStringExtra("title");
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.freelancer_detail_viewpager);
         setupViewPager(viewPager);
@@ -111,11 +111,10 @@ public class StartupCandidateDetailActivity extends AppCompatActivity {
     private void saveCandidate() {
         String email = getIntent().getStringExtra("userEmail");
         String name = getIntent().getStringExtra("userName");
+        String title = getIntent().getStringExtra("title");
         Firebase ref = new Firebase(Constants.FIREBASE_URL_SAVED_CANDIDATES);
-        HashMap<String, String> savedCandidate = new HashMap<>();
-        savedCandidate.put("name", name);
-        savedCandidate.put("email", email);
-        ref.setValue(savedCandidate);
+        SavedCandidate savedCandidate = new SavedCandidate(name, email, title);
+        ref.push().setValue(savedCandidate);
 
         Toast.makeText(StartupCandidateDetailActivity.this, "Candidate Saved", Toast.LENGTH_SHORT).show();
     }

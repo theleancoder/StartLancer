@@ -47,6 +47,7 @@ public class StartupApplicationCandidatesActivity extends StartupBaseActivity {
                 Intent intent = new Intent(StartupApplicationCandidatesActivity.this, StartupCandidateDetailActivity.class);
                 intent.putExtra("userEmail", email);
                 intent.putExtra("userName", name);
+                intent.putExtra("title", title);
                 startActivity(intent);
             }
         });

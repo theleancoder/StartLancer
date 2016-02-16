@@ -20,4 +20,7 @@
     <string name="hint_enter_startup_name">Enter startup name</string>
     <string name="hint_enter_startup_email">Enter startup email</string>
     <string name="hint_enter_startup_password">Enter startup password</string>
+    <string name="hint_add_location">Add your location</string>
+    <string name="hint_add_cofounder_reqs">What are you looking for in a cofounder?</string>
+    <string name="hint_add_cofounder_reason">Why you\'ll be an excellent cofounder?</string>
 </resources>

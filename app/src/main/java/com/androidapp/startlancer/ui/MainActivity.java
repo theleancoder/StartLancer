@@ -9,6 +9,7 @@ import com.androidapp.startlancer.R;
 import com.androidapp.startlancer.ui.freelancer.LoginFreelancerActivity;
 import com.androidapp.startlancer.ui.startup.LoginStartupActivity;
 import com.batch.android.Batch;
+import com.batch.android.Config;
 import com.firebase.client.Firebase;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
+        Batch.setConfig(new Config("DEV56BF33538D87EEEDA6F379945DE"));
+        Batch.Push.setGCMSenderId("938371195570");
         setContentView(R.layout.activity_main);
     }
 

@@ -6,6 +6,15 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
+    <permission
+        android:name="com.androidapp.startlancer.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.androidapp.startlancer.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,6 +31,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name="com.batch.android.BatchPushService" />
+
+        <receiver
+            android:name="com.batch.android.BatchPushReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="com.androidapp.startlancer" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".ui.freelancer.LoginFreelancerActivity"
             android:label="@string/title_activity_login"
@@ -275,6 +297,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.androidapp.startlancer.ui.freelancer.WelcomeFreelancerActivity" />
+        </activity>
+        <activity
+            android:name=".ui.freelancer.navigation.CofounderDetailActivity"
+            android:label="@string/title_activity_cofounder_detail"
+            android:parentActivityName=".ui.freelancer.navigation.CofounderSearchActivity"
+            android:theme="@style/MyMaterialTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.freelancer.navigation.CofounderSearchActivity" />
         </activity>
     </application>
 
