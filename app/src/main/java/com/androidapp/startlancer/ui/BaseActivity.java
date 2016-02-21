@@ -2,6 +2,7 @@ package com.androidapp.startlancer.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -24,11 +25,12 @@ import com.google.android.gms.common.api.Status;
 /**
  * Created by ankit on 29/1/16.
  */
-public abstract class BaseActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
+public abstract class BaseActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     protected GoogleApiClient GoogleApiClient;
     protected String provider, encodedEmail;
     protected Firebase firebaseRef;
     protected Firebase.AuthStateListener authStateListener;
+    public Uri personPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -2,7 +2,9 @@ package com.androidapp.startlancer.ui.startup;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +16,7 @@ import com.androidapp.startlancer.models.Startup;
 import com.androidapp.startlancer.ui.StartupBaseActivity;
 import com.androidapp.startlancer.utils.Constants;
 import com.androidapp.startlancer.utils.Utils;
+import com.firebase.client.AuthData;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -73,6 +76,12 @@ public class CreateStartupAccountActivity extends StartupBaseActivity {
                 progressDialog.dismiss();
                 Log.i(LOG_TAG, getString(R.string.log_message_create_success));
                 createUserInFirebaseHelper();
+                firebaseRef.authWithPassword(email, password, new MyAuthResultHandler(Constants.PASSWORD_PROVIDER));
+
+//                Intent intent = new Intent(CreateStartupAccountActivity.this, WelcomeStartupActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                startActivity(intent);
+//                finish();
             }
 
             @Override
@@ -148,4 +157,63 @@ public class CreateStartupAccountActivity extends StartupBaseActivity {
         Intent intent = new Intent(CreateStartupAccountActivity.this, LoginStartupActivity.class);
         startActivity(intent);
     }
+
+    private class MyAuthResultHandler implements Firebase.AuthResultHandler {
+
+        private final String provider;
+
+        public MyAuthResultHandler(String provider) {
+            this.provider = provider;
+        }
+
+        @Override
+        public void onAuthenticated(AuthData authData) {
+            progressDialog.dismiss();
+            Log.i(LOG_TAG, provider + " " + getString(R.string.log_message_login_successful));
+            if (authData != null) {
+
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor spe = sp.edit();
+
+                setAuthenticatedUserPasswordProvider(authData);
+
+                spe.putString(Constants.KEY_PROVIDER_STARTUP, authData.getProvider()).apply();
+//                spe.putString(Constants.KEY_ENCODED_EMAIL_STARTUP, encodedEmail).apply();
+                spe.putString(Constants.KEY_ENCODED_EMAIL_STARTUP, encodedEmail).apply();
+
+                /* Go to main activity */
+                Intent intent = new Intent(CreateStartupAccountActivity.this, WelcomeStartupActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+        }
+
+        @Override
+        public void onAuthenticationError(FirebaseError firebaseError) {
+            progressDialog.dismiss();
+
+            switch (firebaseError.getCode()) {
+                case FirebaseError.INVALID_EMAIL:
+                case FirebaseError.USER_DOES_NOT_EXIST:
+                    emailEditText.setError(getString(R.string.error_message_email_issue));
+                    break;
+                case FirebaseError.INVALID_PASSWORD:
+                    passwordEditText.setError(firebaseError.getMessage());
+                    break;
+                case FirebaseError.NETWORK_ERROR:
+                    showErrorToast(getString(R.string.error_message_failed_sign_in_no_network));
+                    break;
+                default:
+                    showErrorToast(firebaseError.toString());
+            }
+        }
+    }
+
+    private void setAuthenticatedUserPasswordProvider(AuthData authData) {
+        final String unprocessedEmail = authData.getProviderData().get(Constants.FIREBASE_PROPERTY_EMAIL).toString().toLowerCase();
+
+        encodedEmail = Utils.encodeEmail(unprocessedEmail);
+    }
+
 }

@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,10 +17,13 @@ import com.androidapp.startlancer.R;
 import com.androidapp.startlancer.models.Startup;
 import com.androidapp.startlancer.ui.StartupBaseActivity;
 import com.androidapp.startlancer.utils.Constants;
+import com.androidapp.startlancer.utils.MD5Util;
+import com.androidapp.startlancer.utils.Utils;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class StartupProfileActivity extends StartupBaseActivity {
 
@@ -34,8 +38,19 @@ public class StartupProfileActivity extends StartupBaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        setTitle("Profile");
+
         final TextView textViewName = (TextView) findViewById(R.id.startup_name_textView);
         final TextView textViewEmail = (TextView) findViewById(R.id.startup_email_textview);
+
+        ImageView startupImage = (ImageView) findViewById(R.id.startup_profile_imageView);
+
+        final String decodedEmail = Utils.decodeEmail(encodedEmail);
+        String hash = MD5Util.md5Hex(decodedEmail);
+
+        String gravatarUrl = "http://www.gravatar.com/avatar/" + hash +
+                "?s=204&d=404";
+        Picasso.with(this).load(gravatarUrl).placeholder(R.mipmap.ic_launcher).into(startupImage);
 
         firebaseUserRef = new Firebase(Constants.FIREBASE_URL_STARTUPS).child(encodedEmail);
 

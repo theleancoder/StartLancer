@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.androidapp.startlancer.ui.freelancer.navigation.CofounderSearchActivity">
+    tools:context="com.androidapp.startlancer.ui.freelancer.fragments.navbar.OpenProjectsActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             app:popupTheme="@style/MyMaterialTheme.PopupOverlay" />
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/cofounder_tabs"
+            android:id="@+id/open_projects_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabGravity="fill"
@@ -29,7 +29,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/cofounder_viewpager"
+        android:id="@+id/open_projects_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:onClick="addShowAddAsCofounder"
-        android:src="@android:drawable/ic_input_add" />
+        android:src="@android:drawable/ic_input_add"
+        android:onClick="showAddAnOpenProject" />
 
 </android.support.design.widget.CoordinatorLayout>

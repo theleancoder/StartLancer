@@ -8,6 +8,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.androidapp.startlancer.R;
 import com.androidapp.startlancer.ui.BaseActivity;
@@ -15,15 +17,21 @@ import com.androidapp.startlancer.ui.freelancer.adapters.WelcomeFreelancerPagerA
 import com.androidapp.startlancer.ui.freelancer.fragments.StartupsCategoryFragment;
 import com.androidapp.startlancer.ui.freelancer.fragments.TopStartupsFragment;
 import com.androidapp.startlancer.ui.freelancer.fragments.TrendingStartupsFragment;
+import com.androidapp.startlancer.ui.freelancer.fragments.navbar.OpenProjectsActivity;
 import com.androidapp.startlancer.ui.freelancer.navigation.CofounderSearchActivity;
 import com.androidapp.startlancer.ui.freelancer.navigation.FreelancerProfileActivity;
 import com.androidapp.startlancer.ui.startup.navigation.SampleActivity;
+import com.androidapp.startlancer.utils.MD5Util;
+import com.androidapp.startlancer.utils.Utils;
 import com.firebase.client.Firebase;
+import com.squareup.picasso.Picasso;
 
 public class WelcomeFreelancerActivity extends BaseActivity {
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private Firebase firebaseUserRef;
+    private static final String LOG_TAG = WelcomeFreelancerActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +40,8 @@ public class WelcomeFreelancerActivity extends BaseActivity {
         setContentView(R.layout.activity_welcome_freelancer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        setTitle("Startups");
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.welcome_freelancer_viewpager);
         setupViewPager(viewPager);
@@ -59,7 +69,17 @@ public class WelcomeFreelancerActivity extends BaseActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.freelancer_drawer_layout);
 
         navigationView = (NavigationView) findViewById(R.id.freelancer_nav_drawer);
+
+        View headerLayout = navigationView.getHeaderView(0);
+        ImageView imageView = (ImageView) headerLayout.findViewById(R.id.freelancer_nav_imageView);
+
         setupDrawerContent(navigationView);
+
+        final String decodedEmail = Utils.decodeEmail(encodedEmail);
+        String hash = MD5Util.md5Hex(decodedEmail);
+        String gravatarUrl = "http://www.gravatar.com/avatar/" + hash +
+                "?s=204&d=404";
+        Picasso.with(this).load(gravatarUrl).placeholder(R.mipmap.ic_launcher).fit().into(imageView);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -81,7 +101,7 @@ public class WelcomeFreelancerActivity extends BaseActivity {
                 startActivity(firstIntent);
                 break;
             case R.id.nav_open_projects:
-                Intent secondIntent = new Intent(WelcomeFreelancerActivity.this, SampleActivity.class);
+                Intent secondIntent = new Intent(WelcomeFreelancerActivity.this, OpenProjectsActivity.class);
                 startActivity(secondIntent);
                 break;
             case R.id.nav_showcase_idea:

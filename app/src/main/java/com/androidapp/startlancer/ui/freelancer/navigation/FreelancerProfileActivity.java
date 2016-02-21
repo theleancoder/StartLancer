@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,10 +17,13 @@ import com.androidapp.startlancer.R;
 import com.androidapp.startlancer.models.Freelancer;
 import com.androidapp.startlancer.ui.BaseActivity;
 import com.androidapp.startlancer.utils.Constants;
+import com.androidapp.startlancer.utils.MD5Util;
+import com.androidapp.startlancer.utils.Utils;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class FreelancerProfileActivity extends BaseActivity {
 
@@ -36,6 +40,14 @@ public class FreelancerProfileActivity extends BaseActivity {
 
         final TextView textViewName = (TextView) findViewById(R.id.freelancer_name_textView);
         final TextView textViewEmail = (TextView) findViewById(R.id.freelancer_email_textview);
+        ImageView freelancerImage = (ImageView) findViewById(R.id.freelancer_profile_imageView);
+
+        final String decodedEmail = Utils.decodeEmail(encodedEmail);
+        String hash = MD5Util.md5Hex(decodedEmail);
+
+        String gravatarUrl = "http://www.gravatar.com/avatar/" + hash +
+                "?s=204&d=404";
+        Picasso.with(this).load(gravatarUrl).placeholder(R.mipmap.ic_launcher).into(freelancerImage);
 
         firebaseUserRef = new Firebase(Constants.FIREBASE_URL_USERS).child(encodedEmail);
 
@@ -46,9 +58,8 @@ public class FreelancerProfileActivity extends BaseActivity {
 
                 if (freelancer != null) {
                     String name = freelancer.getName();
-                    String email = freelancer.getEmail();
                     textViewName.setText(name);
-                    textViewEmail.setText(email);
+                    textViewEmail.setText(decodedEmail);
                 }
             }
 

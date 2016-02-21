@@ -93,7 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/input_field_height"
             android:background="@color/colorPrimary"
-            android:onClick="createStartupr"
+            android:onClick="createStartup"
             android:text="@string/title_activity_create_account"
             android:textColor="@android:color/white"
             android:textSize="@dimen/login_buttons_text_size"

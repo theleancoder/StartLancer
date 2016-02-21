@@ -23,4 +23,8 @@
     <string name="hint_add_location">Add your location</string>
     <string name="hint_add_cofounder_reqs">What are you looking for in a cofounder?</string>
     <string name="hint_add_cofounder_reason">Why you\'ll be an excellent cofounder?</string>
+    <string name="hint_add_project_title">Add project title</string>
+    <string name="hint_add_open_project_description">Add project description</string>
+    <string name="hint_add_project_links">Add project links</string>
+    <string name="hint_ad_project_technologies">What are the technologies used?</string>
 </resources>

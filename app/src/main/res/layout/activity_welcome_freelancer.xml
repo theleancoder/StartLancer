@@ -49,7 +49,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@android:color/white"
-        app:headerLayout="@layout/nav_header"
+        app:headerLayout="@layout/nav_freelancer_header"
         app:menu="@menu/freelancer_nav_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

@@ -2,7 +2,9 @@ package com.androidapp.startlancer.ui.freelancer;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +16,7 @@ import com.androidapp.startlancer.models.Freelancer;
 import com.androidapp.startlancer.ui.BaseActivity;
 import com.androidapp.startlancer.utils.Constants;
 import com.androidapp.startlancer.utils.Utils;
+import com.firebase.client.AuthData;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -73,6 +76,8 @@ public class CreateFreelancerAccountActivity extends BaseActivity {
                 progressDialog.dismiss();
                 Log.i(LOG_TAG, getString(R.string.log_message_create_success));
                 createUserInFirebaseHelper();
+                firebaseRef.authWithPassword(email, password, new MyAuthResultHandler(Constants.PASSWORD_PROVIDER));
+
             }
 
             @Override
@@ -147,5 +152,58 @@ public class CreateFreelancerAccountActivity extends BaseActivity {
     public void onSignInPressed(View view) {
         Intent intent = new Intent(CreateFreelancerAccountActivity.this, LoginFreelancerActivity.class);
         startActivity(intent);
+    }
+
+    private class MyAuthResultHandler implements Firebase.AuthResultHandler {
+
+        private final String provider;
+
+        public MyAuthResultHandler(String provider) {
+            this.provider = provider;
+        }
+
+        @Override
+        public void onAuthenticated(AuthData authData) {
+            if (authData != null) {
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor spe = sp.edit();
+
+                if (authData.getProvider().equals(Constants.PASSWORD_PROVIDER)) {
+                    setAuthenticatedUserPasswordProvider(authData);
+                }
+
+                spe.putString(Constants.KEY_PROVIDER_FREELANCER, authData.getProvider()).apply();
+                spe.putString(Constants.KEY_ENCODED_EMAIL_FREELANCER, encodedEmail).apply();
+
+                Intent intent = new Intent(CreateFreelancerAccountActivity.this, WelcomeFreelancerActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+        }
+
+        @Override
+        public void onAuthenticationError(FirebaseError firebaseError) {
+
+            switch (firebaseError.getCode()) {
+                case FirebaseError.INVALID_EMAIL:
+                case FirebaseError.USER_DOES_NOT_EXIST:
+                    emailEditText.setError(getString(R.string.error_message_email_issue));
+                    break;
+                case FirebaseError.INVALID_PASSWORD:
+                    passwordEditText.setError(firebaseError.getMessage());
+                    break;
+                case FirebaseError.NETWORK_ERROR:
+                    showErrorToast(getString(R.string.error_message_failed_sign_in_no_network));
+                    break;
+                default:
+                    showErrorToast(firebaseError.toString());
+            }
+        }
+    }
+
+    private void setAuthenticatedUserPasswordProvider(AuthData authData) {
+        final String unprocessedEmail = authData.getProviderData().get(Constants.FIREBASE_PROPERTY_EMAIL).toString().toLowerCase();
+        encodedEmail = Utils.encodeEmail(unprocessedEmail);
     }
 }

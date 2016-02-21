@@ -38,4 +38,7 @@ public final class Constants {
     public static final String FIREBASE_URL_SAVED_CANDIDATES = FIREBASE_URL + "/" + FIREBASE_LOCATION_SAVED_CANDIDATES;
     public static final String FIREBASE_URL_COFOUNDERS = FIREBASE_URL + "/" + FIREBASE_LOCATION_COFOUNDERS;
     public static final String FIREBASE_URL_COFOUNDERS_DETAIL = FIREBASE_URL + "/" + FIREBASE_LOCATION_COFOUNDERS_DETAIL;
+    public static final String KEY_GOOGLE_ID = "GOOGLE_ID";
+    private static final String FIREBASE_LOCATION_OPEN_PROJECTS = "openProjects";
+    public static final String FIREBASE_URL_OPEN_PROJECTS = FIREBASE_URL + "/" + FIREBASE_LOCATION_OPEN_PROJECTS;
 }

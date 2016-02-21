@@ -2,8 +2,11 @@ package com.androidapp.startlancer.ui.startup.adapters;
 
 import android.app.Activity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.androidapp.startlancer.R;
 import com.androidapp.startlancer.models.OpeningDetail;
 import com.firebase.client.Query;
@@ -27,10 +30,18 @@ public class OpeningListAdapter extends FirebaseListAdapter<OpeningDetail> {
          */
         TextView textViewOpeningTitle = (TextView) view.findViewById(R.id.textview_opening_title);
         TextView textViewSalary = (TextView) view.findViewById(R.id.textview_salary);
+        ImageView imageViewOpening = (ImageView) view.findViewById(R.id.single_opening_image);
 
+        char letter = list.getTitle().charAt(0);
+
+        ColorGenerator colorGenerator = ColorGenerator.MATERIAL;
+        int color = colorGenerator.getColor(list.getTitle());
+
+        TextDrawable drawable = TextDrawable.builder().buildRect(String.valueOf(letter), color);
 
         /* Set the list name and owner */
         textViewOpeningTitle.setText(list.getTitle());
         textViewSalary.setText(list.getSalary());
+        imageViewOpening.setImageDrawable(drawable);
     }
 }

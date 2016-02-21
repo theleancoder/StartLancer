@@ -16,6 +16,7 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <application
+        android:name=".StartLancerApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -268,10 +269,6 @@
                 android:value="com.androidapp.startlancer.ui.startup.navigation.StartupApplicationCandidatesActivity" />
         </activity>
         <activity
-            android:name=".ui.freelancer.TestActivity"
-            android:label="@string/title_activity_test"
-            android:theme="@style/MyMaterialTheme.NoActionBar" />
-        <activity
             android:name=".ui.startup.navigation.navbar.SavedCandidatesActivity"
             android:label="@string/title_activity_saved_candidates"
             android:parentActivityName=".ui.startup.WelcomeStartupActivity"
@@ -300,12 +297,21 @@
         </activity>
         <activity
             android:name=".ui.freelancer.navigation.CofounderDetailActivity"
-            android:label="@string/title_activity_cofounder_detail"
+            android:label="@string/title_activity_scrolling"
             android:parentActivityName=".ui.freelancer.navigation.CofounderSearchActivity"
             android:theme="@style/MyMaterialTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.androidapp.startlancer.ui.freelancer.navigation.CofounderSearchActivity" />
+        </activity>
+        <activity
+            android:name=".ui.freelancer.fragments.navbar.OpenProjectsActivity"
+            android:label="@string/title_activity_open_projects"
+            android:parentActivityName=".ui.freelancer.WelcomeFreelancerActivity"
+            android:theme="@style/MyMaterialTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.freelancer.WelcomeFreelancerActivity" />
         </activity>
     </application>
 

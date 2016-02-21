@@ -9,6 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.androidapp.startlancer.R;
 import com.androidapp.startlancer.ui.StartupBaseActivity;
@@ -20,8 +22,10 @@ import com.androidapp.startlancer.ui.startup.navigation.SampleActivity;
 import com.androidapp.startlancer.ui.startup.navigation.StartupProfileActivity;
 import com.androidapp.startlancer.ui.startup.navigation.navbar.SavedCandidatesActivity;
 import com.androidapp.startlancer.ui.startup.navigation.navbar.StartupApplicationsActivity;
-import com.androidapp.startlancer.utils.Constants;
+import com.androidapp.startlancer.utils.MD5Util;
+import com.androidapp.startlancer.utils.Utils;
 import com.firebase.client.Firebase;
+import com.squareup.picasso.Picasso;
 
 public class WelcomeStartupActivity extends StartupBaseActivity {
 
@@ -35,6 +39,7 @@ public class WelcomeStartupActivity extends StartupBaseActivity {
         setContentView(R.layout.activity_welcome_startup);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle("Freelancers");
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.welcome_startup_viewpager);
         setupViewPager(viewPager);
@@ -62,7 +67,17 @@ public class WelcomeStartupActivity extends StartupBaseActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         navigationView = (NavigationView) findViewById(R.id.startup_nav_drawer);
+
+        View headerLayout = navigationView.getHeaderView(0);
+        ImageView imageView = (ImageView) headerLayout.findViewById(R.id.startup_nav_imageView);
+
         setupDrawerContent(navigationView);
+
+        final String decodedEmail = Utils.decodeEmail(encodedEmail);
+        String hash = MD5Util.md5Hex(decodedEmail);
+        String gravatarUrl = "http://www.gravatar.com/avatar/" + hash +
+                "?s=204&d=404";
+        Picasso.with(this).load(gravatarUrl).placeholder(R.mipmap.ic_launcher).fit().into(imageView);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -114,9 +129,11 @@ public class WelcomeStartupActivity extends StartupBaseActivity {
                 Intent fifthIntent = new Intent(WelcomeStartupActivity.this, SampleActivity.class);
                 startActivity(fifthIntent);
                 break;
-            default:
-                Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL_USERS);
+            case R.id.nav_logout:
                 firebaseRef.unauth();
+                break;
+            default:
+                return;
         }
 
         menuItem.setChecked(true);

@@ -180,6 +180,7 @@ public class LoginFreelancerActivity extends BaseActivity {
         if (GoogleApiClient.isConnected()) {
             unprocessedEmail = googleSignInAccount.getEmail().toLowerCase();
             spe.putString(Constants.KEY_GOOGLE_EMAIL, unprocessedEmail).apply();
+
         } else {
             unprocessedEmail = sp.getString(Constants.KEY_GOOGLE_EMAIL, null);
         }
@@ -275,6 +276,7 @@ public class LoginFreelancerActivity extends BaseActivity {
         if (result.isSuccess()) {
             /* Signed in successfully, get the OAuth token */
             googleSignInAccount = result.getSignInAccount();
+            personPhoto = googleSignInAccount.getPhotoUrl();
             getGoogleOAuthTokenAndLogin();
 
 
