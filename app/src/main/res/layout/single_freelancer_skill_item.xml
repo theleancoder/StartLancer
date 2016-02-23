@@ -17,13 +17,15 @@
         style="@style/ListItemText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ankit" />
+        android:text="Ankit"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/freelancer_year_of_experience"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/freelancer_skill"
-        style="@style/ListItemText"
-        android:text="Singh" />
+        android:text="Singh"
+        android:textSize="14sp"
+        android:layout_marginLeft="2dp" />
 </RelativeLayout>

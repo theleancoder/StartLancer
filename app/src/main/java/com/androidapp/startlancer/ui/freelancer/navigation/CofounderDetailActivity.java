@@ -22,7 +22,7 @@ public class CofounderDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scrolling);
+        setContentView(R.layout.activity_cofounder_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -32,21 +32,21 @@ public class CofounderDetailActivity extends AppCompatActivity {
 
         String email = getIntent().getStringExtra("email");
 
-        ImageView cofounderimageView = (ImageView) findViewById(R.id.cofounder_profile_imageView);
+        ImageView cofounderImageView = (ImageView) findViewById(R.id.image_view_cofounder);
 
         final String decodedEmail = Utils.decodeEmail(email);
         String hash = MD5Util.md5Hex(decodedEmail);
 
         String gravatarUrl = "http://www.gravatar.com/avatar/" + hash +
                 "?s=204&d=404";
-        Picasso.with(this).load(gravatarUrl).placeholder(R.mipmap.ic_launcher).into(cofounderimageView);
+        Picasso.with(this).load(gravatarUrl).placeholder(R.mipmap.ic_launcher).into(cofounderImageView);
 
-        TextView cofounderName = (TextView) findViewById(R.id.cofounder_name_textView);
+        TextView cofounderName = (TextView) findViewById(R.id.text_view_cofounder_name);
         cofounderName.setText(getIntent().getStringExtra("name"));
-        final TextView cofounderEmail = (TextView) findViewById(R.id.cofounder_email_textview);
+        final TextView cofounderEmail = (TextView) findViewById(R.id.text_view_cofounder_email);
         cofounderEmail.setText(getIntent().getStringExtra("email"));
 
-        final TextView cofounderReq = (TextView) findViewById(R.id.text_view_requirements);
+        final TextView cofounderRequirements = (TextView) findViewById(R.id.text_view_requirements);
         final TextView cofounderReason = (TextView) findViewById(R.id.text_view_reason);
 
         final Firebase ref = new Firebase(Constants.FIREBASE_URL_COFOUNDERS_DETAIL).child(email);
@@ -55,7 +55,7 @@ public class CofounderDetailActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 CofounderDetail cofounderDetail = dataSnapshot.getValue(CofounderDetail.class);
-                cofounderReq.setText(cofounderDetail.getCofounderReq());
+                cofounderRequirements.setText(cofounderDetail.getCofounderReq());
                 cofounderReason.setText(cofounderDetail.getCofounderReason());
             }
 

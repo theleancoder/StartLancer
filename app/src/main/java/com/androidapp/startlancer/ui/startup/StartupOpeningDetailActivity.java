@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.androidapp.startlancer.R;
 import com.androidapp.startlancer.models.Application;
 import com.androidapp.startlancer.models.Freelancer;
@@ -35,12 +38,22 @@ public class StartupOpeningDetailActivity extends BaseActivity {
 
         final TextView textViewtitle = (TextView) findViewById(R.id.text_view_title);
         final TextView textViewsalary = (TextView) findViewById(R.id.text_view_salary);
-        final TextView textViewresponsibilities = (TextView) findViewById(R.id.text_view_responsibility);
+        final TextView textViewresponsibilities = (TextView) findViewById(R.id.text_view_responsibilities);
         final TextView textViewrequirements = (TextView) findViewById(R.id.text_view_requirements);
+        ImageView imageViewOpening = (ImageView) findViewById(R.id.image_view_opening);
 
         opening = getIntent().getStringExtra("title");
         setTitle(opening);
         email = getIntent().getStringExtra("email");
+
+        char letter = opening.charAt(0);
+
+        ColorGenerator colorGenerator = ColorGenerator.MATERIAL;
+        int color = colorGenerator.getColor(opening);
+
+        TextDrawable drawable = TextDrawable.builder().buildRect(String.valueOf(letter), color);
+
+        imageViewOpening.setImageDrawable(drawable);
 
         Firebase ref = new Firebase(Constants.FIREBASE_URL_OPENINGS_DETAIL).child(email).child(opening);
 

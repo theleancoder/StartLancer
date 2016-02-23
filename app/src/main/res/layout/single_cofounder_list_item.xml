@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="88dp"
+    android:background="@android:color/white"
+    android:layout_marginTop="8dp"
+    android:clickable="false"
+    android:descendantFocusability="blocksDescendants"
+    android:focusable="false"
+    android:foreground="?selectableItemBackground"
+    android:gravity="center_vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/single_cofounder_image"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:id="@+id/single_cofounder_name"
+        style="@style/ListItemText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="Ankit"
+        android:paddingLeft="90dp" />
+
+    <TextView
+        android:id="@+id/single_cofounder_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/single_cofounder_name"
+        android:textSize="14sp"
+        android:text="Ankit"
+        android:paddingLeft="90dp"
+        android:layout_margin="2dp" />
+
+    <TextView
+        android:id="@+id/single_cofounder_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/single_cofounder_email"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        android:text="Ankit"
+        android:paddingLeft="90dp"
+        android:layout_margin="2dp" />
+</RelativeLayout>

@@ -99,7 +99,7 @@ public class AddAnOpenProjectFragment extends android.app.DialogFragment {
             authorName = getArguments().getString("name");
             authorEmail = getArguments().getString("email");
 
-            Firebase ref = new Firebase(Constants.FIREBASE_URL_OPEN_PROJECTS).child(authorName);
+            Firebase ref = new Firebase(Constants.FIREBASE_URL_OPEN_PROJECTS).child(authorEmail);
 
             OpenProject openProject = new OpenProject(title, description, links, technologies, authorName, authorEmail);
             ref.setValue(openProject);

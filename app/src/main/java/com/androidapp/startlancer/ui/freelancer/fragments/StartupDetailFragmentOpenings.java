@@ -40,7 +40,7 @@ public class StartupDetailFragmentOpenings extends Fragment {
         final String email = getArguments().getString("email");
 
         Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL_OPENINGS).child(email);
-        openingListAdapter = new OpeningListAdapter(getActivity(), OpeningDetail.class, R.layout.single_opening_list,
+        openingListAdapter = new OpeningListAdapter(getActivity(), OpeningDetail.class, R.layout.single_opening_list_item,
                 firebaseRef);
         openingList = (ListView) rootView.findViewById(R.id.fragment_openings_list);
         openingList.setAdapter(openingListAdapter);
@@ -48,7 +48,7 @@ public class StartupDetailFragmentOpenings extends Fragment {
         openingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String title = ((TextView) view.findViewById(R.id.textview_opening_title)).getText().toString();
+                String title = ((TextView) view.findViewById(R.id.single_opening_title)).getText().toString();
                 Intent intent = new Intent(getActivity(), StartupOpeningDetailActivity.class);
                 intent.putExtra("title", title);
                 intent.putExtra("email", email);

@@ -5,7 +5,6 @@
     tools:context="com.androidapp.startlancer.ui.startup.fragments.TopFreelancersFragment">
 
     <LinearLayout
-        android:layout_below="@+id/startup_openings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -15,7 +14,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:scrollbars="none" />
+            android:scrollbars="none"
+            android:divider="@null"
+            android:dividerHeight="0dp" />
 
     </LinearLayout>
 

@@ -34,7 +34,7 @@ public class StartupProfileOpeningActivity extends StartupBaseActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.startup_opening_fab);
 
         Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL_OPENINGS).child(encodedEmail);
-        openingListAdapter = new OpeningListAdapter(StartupProfileOpeningActivity.this, OpeningDetail.class, R.layout.single_opening_list,
+        openingListAdapter = new OpeningListAdapter(StartupProfileOpeningActivity.this, OpeningDetail.class, R.layout.single_opening_list_item,
                 firebaseRef);
         openingList = (ListView) findViewById(R.id.startup_openings_list);
         openingList.setAdapter(openingListAdapter);
@@ -42,7 +42,7 @@ public class StartupProfileOpeningActivity extends StartupBaseActivity {
         openingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String title = ((TextView) view.findViewById(R.id.textview_opening_title)).getText().toString();
+                String title = ((TextView) view.findViewById(R.id.single_opening_title)).getText().toString();
                 Intent intent = new Intent(StartupProfileOpeningActivity.this, StartupProfileOpeningDetailActivity.class);
                 intent.putExtra("title", title);
                 startActivity(intent);

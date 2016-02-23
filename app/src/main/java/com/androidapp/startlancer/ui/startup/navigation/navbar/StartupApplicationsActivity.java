@@ -31,7 +31,7 @@ public class StartupApplicationsActivity extends StartupBaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL_OPENINGS).child(encodedEmail);
-        openingListAdapter = new OpeningListAdapter(StartupApplicationsActivity.this, OpeningDetail.class, R.layout.single_opening_list,
+        openingListAdapter = new OpeningListAdapter(StartupApplicationsActivity.this, OpeningDetail.class, R.layout.single_opening_list_item,
                 firebaseRef);
         openingList = (ListView) findViewById(R.id.startup_applications_list);
         openingList.setAdapter(openingListAdapter);
@@ -39,7 +39,7 @@ public class StartupApplicationsActivity extends StartupBaseActivity {
         openingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String title = ((TextView) view.findViewById(R.id.textview_opening_title)).getText().toString();
+                String title = ((TextView) view.findViewById(R.id.single_opening_title)).getText().toString();
                 Intent intent = new Intent(StartupApplicationsActivity.this, StartupApplicationCandidatesActivity.class);
                 intent.putExtra("title", title);
                 startActivity(intent);

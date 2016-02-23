@@ -187,4 +187,5 @@
     <string name="hint_add_open_project_description">Add project description</string>
     <string name="hint_add_project_links">Add project links</string>
     <string name="hint_ad_project_technologies">What are the technologies used?</string>
+    <string name="title_activity_open_project_detail">OpenProjectDetailActivity</string>
 </resources>

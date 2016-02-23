@@ -1,6 +1,7 @@
 package com.androidapp.startlancer.ui.freelancer.fragments.navbar;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.androidapp.startlancer.R;
 import com.androidapp.startlancer.models.OpenProject;
 import com.androidapp.startlancer.ui.freelancer.adapters.OpenProjectAdapter;
+import com.androidapp.startlancer.ui.freelancer.navigation.OpenProjectDetailActivity;
 import com.androidapp.startlancer.utils.Constants;
 import com.firebase.client.Firebase;
 
@@ -43,12 +46,12 @@ public class TopOpenProjectsFragment extends Fragment {
         projectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Intent intent = new Intent(getActivity(), CofounderDetailActivity.class);
-//                String name = ((TextView) view.findViewById(R.id.cofounder_name)).getText().toString();
-//                String email = ((TextView) view.findViewById(R.id.cofounder_email)).getText().toString();
-//                intent.putExtra("name", name);
-//                intent.putExtra("email", email);
-//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), OpenProjectDetailActivity.class);
+                String name = ((TextView) view.findViewById(R.id.textview_project_author)).getText().toString();
+                String email = ((TextView) view.findViewById(R.id.textview_project_email)).getText().toString();
+                intent.putExtra("name", name);
+                intent.putExtra("email", email);
+                startActivity(intent);
             }
         });
         return rootView;

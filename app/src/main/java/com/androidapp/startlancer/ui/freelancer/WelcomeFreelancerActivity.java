@@ -7,11 +7,14 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.androidapp.startlancer.R;
+import com.androidapp.startlancer.models.Freelancer;
 import com.androidapp.startlancer.ui.BaseActivity;
 import com.androidapp.startlancer.ui.freelancer.adapters.WelcomeFreelancerPagerAdapter;
 import com.androidapp.startlancer.ui.freelancer.fragments.StartupsCategoryFragment;
@@ -21,9 +24,13 @@ import com.androidapp.startlancer.ui.freelancer.fragments.navbar.OpenProjectsAct
 import com.androidapp.startlancer.ui.freelancer.navigation.CofounderSearchActivity;
 import com.androidapp.startlancer.ui.freelancer.navigation.FreelancerProfileActivity;
 import com.androidapp.startlancer.ui.startup.navigation.SampleActivity;
+import com.androidapp.startlancer.utils.Constants;
 import com.androidapp.startlancer.utils.MD5Util;
 import com.androidapp.startlancer.utils.Utils;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class WelcomeFreelancerActivity extends BaseActivity {
@@ -70,16 +77,40 @@ public class WelcomeFreelancerActivity extends BaseActivity {
 
         navigationView = (NavigationView) findViewById(R.id.freelancer_nav_drawer);
 
-        View headerLayout = navigationView.getHeaderView(0);
-        ImageView imageView = (ImageView) headerLayout.findViewById(R.id.freelancer_nav_imageView);
-
         setupDrawerContent(navigationView);
+
+        View headerLayout = navigationView.getHeaderView(0);
+        ImageView nav_image = (ImageView) headerLayout.findViewById(R.id._freelancer_nav_image);
+        final TextView nav_name = (TextView) headerLayout.findViewById(R.id.freelancer_nav_name);
+        final TextView nav_email = (TextView) headerLayout.findViewById(R.id.freelancer_nav_email);
 
         final String decodedEmail = Utils.decodeEmail(encodedEmail);
         String hash = MD5Util.md5Hex(decodedEmail);
         String gravatarUrl = "http://www.gravatar.com/avatar/" + hash +
                 "?s=204&d=404";
-        Picasso.with(this).load(gravatarUrl).placeholder(R.mipmap.ic_launcher).fit().into(imageView);
+        Picasso.with(this).load(gravatarUrl).placeholder(R.mipmap.ic_launcher).fit().into(nav_image);
+
+        firebaseUserRef = new Firebase(Constants.FIREBASE_URL_USERS).child(encodedEmail);
+
+        firebaseUserRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Freelancer freelancer = dataSnapshot.getValue(Freelancer.class);
+
+                if (freelancer != null) {
+                    String name = freelancer.getName();
+                    nav_name.setText(name);
+                    nav_email.setText(decodedEmail);
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                Log.e(LOG_TAG,
+                        getString(R.string.log_error_the_read_failed) +
+                                firebaseError.getMessage());
+            }
+        });
     }
 
     private void setupDrawerContent(NavigationView navigationView) {

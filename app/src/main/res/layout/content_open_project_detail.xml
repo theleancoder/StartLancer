@@ -4,58 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B2DFDB"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ui.startup.StartupOpeningDetailActivity"
-    tools:showIn="@layout/activity_startup_opening_detail">
+    tools:context=".ui.freelancer.navigation.OpenProjectDetailActivity"
+    tools:showIn="@layout/activity_open_project_detail"
+    android:background="#E5E5E5">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="10dp">
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
 
         <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/card_view5"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            card_view:cardPreventCornerOverlap="false"
             card_view:cardUseCompatPadding="true"
+            card_view:cardPreventCornerOverlap="false"
             card_view:contentPadding="10dp"
-            card_view:cardCornerRadius="4dp">
+            android:elevation="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/image_view_opening"
-                    android:layout_width="match_parent"
-                    android:layout_height="170dp" />
-
                 <TextView
                     android:id="@+id/text_view_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Salary"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold"
-                    android:paddingTop="10dp" />
+                    android:text="Title"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <View
                     android:layout_width="fill_parent"
+                    android:background="@color/lighter_gray"
                     android:layout_height="1dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/lighter_gray" />
+                    android:layout_marginTop="2dp" />
 
                 <TextView
-                    android:id="@+id/text_view_salary"
+                    android:id="@+id/text_view_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -63,21 +55,39 @@
                 <TextView
                     android:id="@+id/text_view_2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Opening"
+                    android:layout_height="match_parent"
+                    android:text="Description"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="10dp" />
 
                 <View
                     android:layout_width="fill_parent"
+                    android:background="@color/lighter_gray"
                     android:layout_height="1dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/lighter_gray" />
+                    android:layout_marginTop="2dp" />
 
                 <TextView
-                    android:id="@+id/text_view_title"
+                    android:id="@+id/text_view_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/text_view_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Author"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_marginTop="10dp" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:background="@color/lighter_gray"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="2dp" />
+
+                <TextView
+                    android:id="@+id/text_view_author"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -87,17 +97,17 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="3dp" />
+            android:layout_height="wrap_content" />
 
         <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/card_view5"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_gravity="center"
-            card_view:cardPreventCornerOverlap="false"
             card_view:cardUseCompatPadding="true"
+            card_view:cardPreventCornerOverlap="false"
             card_view:contentPadding="10dp"
-            card_view:cardCornerRadius="4dp">
+            android:elevation="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -108,19 +118,17 @@
                     android:id="@+id/text_view_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Requirements"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold" />
+                    android:text="Links" />
 
                 <View
                     android:layout_width="fill_parent"
+                    android:background="@color/lighter_gray"
                     android:layout_height="1dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/lighter_gray" />
+                    android:layout_marginTop="2dp" />
 
                 <TextView
-                    android:id="@+id/text_view_requirements"
+                    android:id="@+id/text_view_links"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -130,17 +138,17 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="3dp" />
+            android:layout_height="wrap_content" />
 
         <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/card_view5"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_gravity="center"
-            android:elevation="20dp"
-            card_view:cardPreventCornerOverlap="false"
             card_view:cardUseCompatPadding="true"
-            card_view:contentPadding="10dp">
+            card_view:cardPreventCornerOverlap="false"
+            card_view:contentPadding="10dp"
+            android:elevation="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -151,19 +159,17 @@
                     android:id="@+id/text_view_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Responsibilities"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold" />
+                    android:text="Technologies" />
 
                 <View
                     android:layout_width="fill_parent"
+                    android:background="@color/lighter_gray"
                     android:layout_height="1dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/lighter_gray" />
+                    android:layout_marginTop="2dp" />
 
                 <TextView
-                    android:id="@+id/text_view_responsibilities"
+                    android:id="@+id/text_view_technologies"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -172,15 +178,15 @@
         </android.support.v7.widget.CardView>
 
         <Button
-            style="@style/LoginCreateTextButton"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/input_field_height"
-            android:layout_marginTop="50dp"
+            android:text="Ask to contribute"
+            style="@style/LoginCreateTextButton"
+            android:textColor="@color/white"
             android:background="@color/colorPrimary"
-            android:elevation="20dp"
             android:onClick="onApplyPressed"
-            android:text="Apply"
-            android:textColor="@color/white" />
+            android:layout_height="@dimen/input_field_height"
+            android:elevation="20dp"
+            android:layout_marginTop="50dp" />
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

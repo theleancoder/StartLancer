@@ -17,7 +17,11 @@ import com.androidapp.startlancer.ui.startup.FreelancerDetailActivity;
 import com.androidapp.startlancer.ui.startup.adapters.FreelancerListAdapter;
 import com.androidapp.startlancer.utils.Constants;
 import com.androidapp.startlancer.utils.Utils;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,11 +45,12 @@ public class TopFreelancersFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_top_freelancers, container, false);
 
         firebaseRef = new Firebase(Constants.FIREBASE_URL_USERS);
+        Query queryRef = firebaseRef.orderByChild("topCount").limitToFirst(100);
 
         freelancerList = (ListView) rootView.findViewById(R.id.fragment_top_freelancers_list);
 
-        freelancerListAdapter = new FreelancerListAdapter(getActivity(), Freelancer.class, R.layout.single_freelancer_list,
-                firebaseRef);
+        freelancerListAdapter = new FreelancerListAdapter(getActivity(), Freelancer.class, R.layout.single_freelancer_list_item,
+                queryRef);
         freelancerList.setAdapter(freelancerListAdapter);
 
         freelancerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -54,13 +59,25 @@ public class TopFreelancersFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), FreelancerDetailActivity.class);
                 String name = ((TextView) view.findViewById(R.id.freelancer_name)).getText().toString();
                 String email = ((TextView) view.findViewById(R.id.freelancer_email)).getText().toString();
-
-//                Firebase topCountRef = firebaseRef.child(email);
-//                HashMap<String, Integer> topCountMap = new HashMap<String, Integer>();
-//                topCount.put("topCount", topCount++);
-
                 intent.putExtra("name", name);
                 intent.putExtra("email", Utils.encodeEmail(email));
+
+                final Firebase ref = new Firebase(Constants.FIREBASE_URL_USERS).child(Utils.encodeEmail(email));
+
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Freelancer freelancer = dataSnapshot.getValue(Freelancer.class);
+                        topCount = freelancer.getTopCount();
+                        ref.child("topCount").setValue(topCount - 1);
+                    }
+
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {
+
+                    }
+                });
+
                 startActivity(intent);
             }
         });

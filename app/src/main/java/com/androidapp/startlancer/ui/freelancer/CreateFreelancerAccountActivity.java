@@ -26,12 +26,16 @@ import com.firebase.client.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CreateFreelancerAccountActivity extends BaseActivity {
+public class
+CreateFreelancerAccountActivity extends BaseActivity {
     private static final String LOG_TAG =   CreateFreelancerAccountActivity.class.getSimpleName();
     private ProgressDialog progressDialog;
     private EditText usernameEditText, emailEditText, passwordEditText;
     private Firebase firebaseRef;
     private String username, email, password;
+    private int topCount = 0;
+    private int trendingCount = 0;
+
 
 
     @Override
@@ -105,7 +109,7 @@ public class CreateFreelancerAccountActivity extends BaseActivity {
                     HashMap<String, Object> timestampJoined = new HashMap<String, Object>();
                     timestampJoined.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
 
-                    Freelancer newFreelancer = new Freelancer(username, encodedEmail, timestampJoined);
+                    Freelancer newFreelancer = new Freelancer(username, encodedEmail, timestampJoined, topCount, trendingCount);
                     userLocation.setValue(newFreelancer);
                 }
             }

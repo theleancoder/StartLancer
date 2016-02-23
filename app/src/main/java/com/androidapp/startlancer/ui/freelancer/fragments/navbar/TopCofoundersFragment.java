@@ -40,7 +40,7 @@ public class TopCofoundersFragment extends Fragment {
 
         cofounderList = (ListView) rootView.findViewById(R.id.fragment_top_cofounders_list);
 
-        cofounderAdapter = new CofounderAdapter(getActivity(), Cofounder.class, R.layout.single_cofounder_list, ref);
+        cofounderAdapter = new CofounderAdapter(getActivity(), Cofounder.class, R.layout.single_cofounder_list_item, ref);
 
         cofounderList.setAdapter(cofounderAdapter);
 
@@ -48,8 +48,8 @@ public class TopCofoundersFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), CofounderDetailActivity.class);
-                String name = ((TextView) view.findViewById(R.id.cofounder_name)).getText().toString();
-                String email = ((TextView) view.findViewById(R.id.cofounder_email)).getText().toString();
+                String name = ((TextView) view.findViewById(R.id.single_cofounder_name)).getText().toString();
+                String email = ((TextView) view.findViewById(R.id.single_cofounder_email)).getText().toString();
                 intent.putExtra("name", name);
                 intent.putExtra("email", email);
                 startActivity(intent);

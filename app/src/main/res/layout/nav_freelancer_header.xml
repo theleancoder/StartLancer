@@ -1,23 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="192dp"
-    android:background="?attr/colorPrimaryDark"
+    android:background="@drawable/nav_background"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    android:orientation="vertical"
-    android:gravity="bottom">
+    android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/freelancer_nav_imageView"
-        android:layout_gravity="center_horizontal" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/_freelancer_nav_image"
+        android:layout_marginTop="50dp"
+        android:layout_width="96dp"
+        android:layout_height="96dp" />
 
     <TextView
-        android:id="@+id/freelancer_header_title"
+        android:id="@+id/freelancer_nav_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Header"
         android:textColor="@android:color/white"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-</LinearLayout>
+        android:textStyle="bold"
+        android:layout_toRightOf="@id/_freelancer_nav_image"
+        android:layout_marginTop="70dp"
+        android:textSize="15dp"
+        android:paddingLeft="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/freelancer_nav_email"
+        android:layout_below="@+id/freelancer_nav_name"
+        android:layout_toRightOf="@id/_freelancer_nav_image"
+        android:textSize="15dp"
+        android:paddingLeft="10dp" />
+</RelativeLayout>

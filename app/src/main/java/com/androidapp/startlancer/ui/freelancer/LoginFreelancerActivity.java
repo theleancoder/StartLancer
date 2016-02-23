@@ -47,6 +47,8 @@ public class LoginFreelancerActivity extends BaseActivity {
     private EditText emailEditText, passwordEditText;
     private String username, email, password;
     private ProgressDialog progressDialog;
+    private int topCount = 0;
+    private int trendingCount = 0;
 
     private boolean GoogleIntentProgress;
     public static final int RC_GOOGLE_LOGIN = 1;
@@ -198,7 +200,7 @@ public class LoginFreelancerActivity extends BaseActivity {
                     HashMap<String, Object> timestampJoined = new HashMap<>();
                     timestampJoined.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
 
-                    Freelancer freelancer = new Freelancer(userName, encodedEmail, timestampJoined);
+                    Freelancer freelancer = new Freelancer(userName, encodedEmail, timestampJoined, topCount, trendingCount);
                     userLocation.setValue(freelancer);
                 }
             }

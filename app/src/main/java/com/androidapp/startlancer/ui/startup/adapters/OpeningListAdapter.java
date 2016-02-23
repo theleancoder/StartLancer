@@ -28,8 +28,8 @@ public class OpeningListAdapter extends FirebaseListAdapter<OpeningDetail> {
         /**
          * Grab the needed Textivews and strings
          */
-        TextView textViewOpeningTitle = (TextView) view.findViewById(R.id.textview_opening_title);
-        TextView textViewSalary = (TextView) view.findViewById(R.id.textview_salary);
+        TextView textViewOpeningTitle = (TextView) view.findViewById(R.id.single_opening_title);
+        TextView textViewSalary = (TextView) view.findViewById(R.id.single_opening_salary);
         ImageView imageViewOpening = (ImageView) view.findViewById(R.id.single_opening_image);
 
         char letter = list.getTitle().charAt(0);
@@ -37,7 +37,8 @@ public class OpeningListAdapter extends FirebaseListAdapter<OpeningDetail> {
         ColorGenerator colorGenerator = ColorGenerator.MATERIAL;
         int color = colorGenerator.getColor(list.getTitle());
 
-        TextDrawable drawable = TextDrawable.builder().buildRect(String.valueOf(letter), color);
+        TextDrawable drawable = TextDrawable.builder().beginConfig().
+                width(65).height(65).endConfig().buildRound(String.valueOf(letter), color);
 
         /* Set the list name and owner */
         textViewOpeningTitle.setText(list.getTitle());

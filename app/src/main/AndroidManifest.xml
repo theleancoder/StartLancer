@@ -313,6 +313,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.androidapp.startlancer.ui.freelancer.WelcomeFreelancerActivity" />
         </activity>
+        <activity
+            android:name=".ui.freelancer.navigation.OpenProjectDetailActivity"
+            android:label="@string/title_activity_open_project_detail"
+            android:parentActivityName=".ui.freelancer.fragments.navbar.OpenProjectsActivity"
+            android:theme="@style/MyMaterialTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.freelancer.fragments.navbar.OpenProjectsActivity" />
+        </activity>
     </application>
 
 </manifest>
