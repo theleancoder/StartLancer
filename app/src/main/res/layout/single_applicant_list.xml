@@ -2,28 +2,36 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/lists_row_height"
-    android:layout_margin="2dp"
     android:background="@android:color/white"
     android:clickable="false"
     android:descendantFocusability="blocksDescendants"
     android:focusable="false"
     android:foreground="?selectableItemBackground"
-    android:gravity="center_vertical"
-    android:paddingLeft="@dimen/margin_small"
-    android:paddingStart="@dimen/margin_small">
+    android:gravity="center_vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/image_view_candidate"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginLeft="16dp" />
 
     <TextView
-        android:id="@+id/textview_candidate_name"
+        android:id="@+id/text_view_candidate_name"
         style="@style/ListItemText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ankit" />
+        android:text="Ankit"
+        android:textStyle="bold"
+        android:paddingLeft="90dp"
+        android:paddingTop="7dp"/>
 
     <TextView
-        android:id="@+id/textview_candidate_email"
+        android:id="@+id/text_view_candidate_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textview_candidate_name"
-        style="@style/ListItemText"
-        android:text="Singh" />
+        android:layout_below="@+id/text_view_candidate_name"
+        android:text="Singh"
+        android:textSize="14sp"
+        android:paddingLeft="92dp"/>
 </RelativeLayout>

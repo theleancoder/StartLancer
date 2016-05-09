@@ -65,8 +65,7 @@ public class AddOpeningFragment extends DialogFragment {
         editTextSalary = (EditText) rootView.findViewById(R.id.edit_text_salary);
 
         progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setTitle(getResources().getString(R.string.login_dialog_loading));
-        progressDialog.setMessage(getResources().getString(R.string.login_dialog_message));
+        progressDialog.setMessage(getResources().getString(R.string.startup_login_dialog_message));
         progressDialog.setCancelable(false);
 
         /**

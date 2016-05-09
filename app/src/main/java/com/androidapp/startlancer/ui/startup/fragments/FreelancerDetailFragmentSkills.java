@@ -20,8 +20,8 @@ import com.firebase.client.Firebase;
  */
 public class FreelancerDetailFragmentSkills extends Fragment {
 
-    ListView skillList;
-    FreelancerSkillAdapter skillAdapter;
+    private ListView skillsList;
+    private FreelancerSkillAdapter skillsAdapter;
 
 
     public FreelancerDetailFragmentSkills() {
@@ -31,23 +31,19 @@ public class FreelancerDetailFragmentSkills extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View rootView = inflater.inflate(R.layout.fragment_freelancer_detail_fragment_skills, container, false);
         String email = getArguments().getString("email");
 
         Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL_FREELANCER_PROFILE).child(email).child("skills");
-        skillAdapter = new FreelancerSkillAdapter(getActivity(), Skill.class, R.layout.single_freelancer_skill_item,
+        skillsAdapter = new FreelancerSkillAdapter(getActivity(), Skill.class, R.layout.single_freelancer_skill_item,
                 firebaseRef);
-        skillList = (ListView) rootView.findViewById(R.id.fragment_skill_list);
-        skillList.setAdapter(skillAdapter);
+        skillsList = (ListView) rootView.findViewById(R.id.fragment_skill_list);
+        skillsList.setAdapter(skillsAdapter);
 
-        skillList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        skillsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                final String selected = (String) parent.getSelectedItem();
-//                Intent intent = new Intent(getActivity(), OpeningDetailActivity.class);
-//                intent.putExtra("title", selected);
-//                startActivity(intent);
             }
         });
 

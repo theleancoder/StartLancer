@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ui.freelancer.navigation.FreelancerProfileAddExperiencesActivity"
+    tools:showIn="@layout/activity_freelancer_profile_add_exxperiences"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/edit_text_add_experience"
+        style="@style/FullWidthEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Add An Experience" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#ddd" />
+
+    <EditText
+        android:id="@+id/edit_text_add_experience_duration"
+        style="@style/FullWidthEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Duration" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#ddd" />
+
+    <EditText
+        android:id="@+id/edit_text_add_experience_location"
+        style="@style/FullWidthEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Location" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#ddd" />
+
+    <EditText
+        android:id="@+id/edit_text_add_experience_description"
+        style="@style/FullWidthEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:hint="Description" />
+</LinearLayout>

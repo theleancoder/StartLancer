@@ -27,10 +27,10 @@ import com.firebase.client.ValueEventListener;
  * A simple {@link Fragment} subclass.
  */
 public class TopFreelancersFragment extends Fragment {
-    ListView freelancerList;
-    FreelancerListAdapter freelancerListAdapter;
+    private ListView freelancersList;
+    private FreelancerListAdapter freelancersListAdapter;
     private int topCount;
-    Firebase firebaseRef;
+    private Firebase ref;
 
 
     public TopFreelancersFragment() {
@@ -40,36 +40,34 @@ public class TopFreelancersFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_top_freelancers, container, false);
 
-        firebaseRef = new Firebase(Constants.FIREBASE_URL_USERS);
-        Query queryRef = firebaseRef.orderByChild("topCount").limitToFirst(100);
+        ref = new Firebase(Constants.FIREBASE_URL_USERS);
+        Query queryRef = ref.orderByChild("topCount").limitToFirst(100);
 
-        freelancerList = (ListView) rootView.findViewById(R.id.fragment_top_freelancers_list);
+        freelancersList = (ListView) rootView.findViewById(R.id.fragment_top_freelancers_list);
 
-        freelancerListAdapter = new FreelancerListAdapter(getActivity(), Freelancer.class, R.layout.single_freelancer_list_item,
+        freelancersListAdapter = new FreelancerListAdapter(getActivity(), Freelancer.class, R.layout.single_freelancer_list_item,
                 queryRef);
-        freelancerList.setAdapter(freelancerListAdapter);
+        freelancersList.setAdapter(freelancersListAdapter);
 
-        freelancerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        freelancersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), FreelancerDetailActivity.class);
-                String name = ((TextView) view.findViewById(R.id.freelancer_name)).getText().toString();
-                String email = ((TextView) view.findViewById(R.id.freelancer_email)).getText().toString();
+                String name = ((TextView) view.findViewById(R.id.text_view_freelancer_name)).getText().toString();
+                String email = ((TextView) view.findViewById(R.id.text_View_freelancer_email)).getText().toString();
                 intent.putExtra("name", name);
                 intent.putExtra("email", Utils.encodeEmail(email));
 
-                final Firebase ref = new Firebase(Constants.FIREBASE_URL_USERS).child(Utils.encodeEmail(email));
+                final Firebase ref2 = new Firebase(Constants.FIREBASE_URL_USERS).child(Utils.encodeEmail(email));
 
-                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                ref2.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Freelancer freelancer = dataSnapshot.getValue(Freelancer.class);
                         topCount = freelancer.getTopCount();
-                        ref.child("topCount").setValue(topCount - 1);
+                        ref2.child("topCount").setValue(topCount - 1);
                     }
 
                     @Override

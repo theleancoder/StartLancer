@@ -6,13 +6,19 @@ package com.androidapp.startlancer.models;
 public class Opening {
     private String title;
     private String salary;
+    private String description;
+    private String requirements;
+    private String responsibilities;
 
     public Opening() {
     }
 
-    public Opening(String title, String salary) {
+    public Opening(String title, String salary, String description, String requirements, String responsibilities) {
         this.title = title;
         this.salary = salary;
+        this.description = description;
+        this.requirements = requirements;
+        this.responsibilities = responsibilities;
     }
 
     public String getTitle() {
@@ -21,5 +27,17 @@ public class Opening {
 
     public String getSalary() {
         return salary;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getRequirements() {
+        return requirements;
+    }
+
+    public String getResponsibilities() {
+        return responsibilities;
     }
 }

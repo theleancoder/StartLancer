@@ -13,41 +13,49 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp">
+        android:paddingTop="10dp">
 
         <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/card_view5"
+            android:id="@+id/card_view1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            card_view:cardUseCompatPadding="true"
             card_view:cardPreventCornerOverlap="false"
+            card_view:cardUseCompatPadding="true"
             card_view:contentPadding="10dp"
-            android:elevation="20dp">
+            card_view:cardCornerRadius="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <ImageView
+                    android:id="@+id/image_view_open_project_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp" />
+
                 <TextView
                     android:id="@+id/text_view_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Title"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
+                    android:paddingTop="10dp" />
 
                 <View
                     android:layout_width="fill_parent"
-                    android:background="@color/lighter_gray"
                     android:layout_height="1dp"
-                    android:layout_marginTop="2dp" />
+                    android:layout_marginTop="5dp"
+                    android:background="@color/lighter_gray" />
 
                 <TextView
-                    android:id="@+id/text_view_title"
+                    android:id="@+id/text_view_open_project_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -55,39 +63,21 @@
                 <TextView
                     android:id="@+id/text_view_2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Description"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_marginTop="10dp" />
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:background="@color/lighter_gray"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="2dp" />
-
-                <TextView
-                    android:id="@+id/text_view_description"
-                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <TextView
-                    android:id="@+id/text_view_6"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:text="Author"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_marginTop="10dp" />
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="fill_parent"
-                    android:background="@color/lighter_gray"
                     android:layout_height="1dp"
-                    android:layout_marginTop="2dp" />
+                    android:layout_marginTop="5dp"
+                    android:background="@color/lighter_gray" />
 
                 <TextView
-                    android:id="@+id/text_view_author"
+                    android:id="@+id/text_view_open_project_author"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -97,17 +87,17 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="3dp" />
 
         <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/card_view5"
+            android:id="@+id/card_view2"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            card_view:cardUseCompatPadding="true"
             card_view:cardPreventCornerOverlap="false"
+            card_view:cardUseCompatPadding="true"
             card_view:contentPadding="10dp"
-            android:elevation="20dp">
+            card_view:cardCornerRadius="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -118,17 +108,43 @@
                     android:id="@+id/text_view_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Description"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Links" />
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="fill_parent"
-                    android:background="@color/lighter_gray"
                     android:layout_height="1dp"
-                    android:layout_marginTop="2dp" />
+                    android:layout_marginTop="5dp"
+                    android:background="@color/lighter_gray" />
 
                 <TextView
-                    android:id="@+id/text_view_links"
+                    android:id="@+id/text_view_open_project_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+                <TextView
+                    android:id="@+id/text_view_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Links"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"/>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/lighter_gray" />
+
+                <TextView
+                    android:id="@+id/text_view_open_project_links"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -138,17 +154,17 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="3dp" />
 
         <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/card_view5"
+            android:id="@+id/card_view3"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            card_view:cardUseCompatPadding="true"
+            android:elevation="20dp"
             card_view:cardPreventCornerOverlap="false"
-            card_view:contentPadding="10dp"
-            android:elevation="20dp">
+            card_view:cardUseCompatPadding="true"
+            card_view:contentPadding="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -156,20 +172,22 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/text_view_4"
+                    android:id="@+id/text_view_5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="Technologies"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Technologies" />
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="fill_parent"
-                    android:background="@color/lighter_gray"
                     android:layout_height="1dp"
-                    android:layout_marginTop="2dp" />
+                    android:layout_marginTop="5dp"
+                    android:background="@color/lighter_gray" />
 
                 <TextView
-                    android:id="@+id/text_view_technologies"
+                    android:id="@+id/text_view_open_project_technologies"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -178,15 +196,16 @@
         </android.support.v7.widget.CardView>
 
         <Button
-            android:layout_width="match_parent"
-            android:text="Ask to contribute"
             style="@style/LoginCreateTextButton"
-            android:textColor="@color/white"
-            android:background="@color/colorPrimary"
-            android:onClick="onApplyPressed"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/input_field_height"
+            android:layout_marginTop="50dp"
+            android:background="@color/colorPrimary"
             android:elevation="20dp"
-            android:layout_marginTop="50dp" />
+            android:onClick="onApplyPressed"
+            android:text="Ask to contribute"
+            android:textColor="@color/white" />
     </LinearLayout>
+
 
 </android.support.v4.widget.NestedScrollView>

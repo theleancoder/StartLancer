@@ -23,6 +23,14 @@
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
         <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
@@ -64,6 +72,14 @@
                 android:value=".ui.freelancer.LoginFreelancerActivity" />
         </activity>
         <activity
+            android:name=".ui.startup.LoginStartupActivity"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.MainActivity" />
+        </activity>
+        <activity
             android:name=".ui.freelancer.WelcomeFreelancerActivity"
             android:label="@string/title_activity_welcome"
             android:theme="@style/AppTheme.NoActionBar">
@@ -81,15 +97,6 @@
                 android:value=".ui.startup.LoginStartupActivity" />
         </activity>
         <activity
-            android:name=".ui.startup.LoginStartupActivity"
-            android:label="@string/title_activity_login_startup"
-            android:parentActivityName=".ui.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.androidapp.startlancer.ui.MainActivity" />
-        </activity>
-        <activity
             android:name=".ui.startup.WelcomeStartupActivity"
             android:label="@string/title_activity_welcome_startup"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -100,7 +107,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.androidapp.startlancer.ui.freelancer.WelcomeFreelancerActivity" />
+                android:value=".ui.freelancer.WelcomeFreelancerActivity" />
         </activity>
         <activity
             android:name=".ui.startup.FreelancerDetailActivity"
@@ -121,22 +128,13 @@
                 android:value="com.androidapp.startlancer.ui.startup.WelcomeStartupActivity" />
         </activity>
         <activity
-            android:name=".ui.startup.navigation.StartupProfileActivity"
-            android:label="@string/title_activity_startup_profile"
-            android:parentActivityName=".ui.startup.WelcomeStartupActivity"
-            android:theme="@style/AppTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.androidapp.startlancer.ui.startup.WelcomeStartupActivity" />
-        </activity>
-        <activity
             android:name=".ui.freelancer.navigation.FreelancerProfileActivity"
             android:label="@string/title_activity_freelancer_profile"
             android:parentActivityName=".ui.freelancer.WelcomeFreelancerActivity"
             android:theme="@style/MyMaterialTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.androidapp.startlancer.ui.freelancer.WelcomeFreelancerActivity" />
+                android:value=".ui.freelancer.WelcomeFreelancerActivity" />
         </activity>
         <activity
             android:name=".ui.freelancer.navigation.FreelancerProfileSkillsActivity"
@@ -145,7 +143,7 @@
             android:theme="@style/MyMaterialTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.androidapp.startlancer.ui.freelancer.navigation.FreelancerProfileActivity" />
+                android:value=".ui.freelancer.navigation.FreelancerProfileActivity" />
         </activity>
         <activity
             android:name=".ui.freelancer.navigation.FreelancerProfileExperiencesActivity"
@@ -154,7 +152,7 @@
             android:theme="@style/MyMaterialTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.androidapp.startlancer.ui.freelancer.navigation.FreelancerProfileActivity" />
+                android:value=".ui.freelancer.navigation.FreelancerProfileActivity" />
         </activity>
         <activity
             android:name=".ui.freelancer.navigation.FreelancerProfileProjectsActivity"
@@ -163,7 +161,7 @@
             android:theme="@style/MyMaterialTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.androidapp.startlancer.ui.freelancer.navigation.FreelancerProfileActivity" />
+                android:value=".ui.freelancer.navigation.FreelancerProfileActivity" />
         </activity>
         <activity
             android:name=".ui.freelancer.navigation.FreelancerProfileAboutActivity"
@@ -172,65 +170,7 @@
             android:theme="@style/MyMaterialTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.androidapp.startlancer.ui.freelancer.navigation.FreelancerProfileActivity" />
-        </activity>
-        <activity
-            android:name=".ui.SearchResultActivity"
-            android:label="@string/title_activity_search_result"
-            android:parentActivityName=".ui.freelancer.WelcomeFreelancerActivity"
-            android:theme="@style/MyMaterialTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.androidapp.startlancer.ui.freelancer.WelcomeFreelancerActivity" />
-        </activity>
-        <activity
-            android:name=".ui.startup.navigation.StartupProfileOpeningActivity"
-            android:label="@string/title_activity_startupr_profile_opening"
-            android:parentActivityName=".ui.startup.navigation.StartupProfileActivity"
-            android:theme="@style/MyMaterialTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.androidapp.startlancer.ui.startup.navigation.StartupProfileActivity" />
-        </activity>
-        <activity
-            android:name=".ui.startup.navigation.StartupProfileTeamActivity"
-            android:label="@string/title_activity_startup_profile_team"
-            android:parentActivityName=".ui.startup.navigation.StartupProfileActivity"
-            android:theme="@style/MyMaterialTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.androidapp.startlancer.ui.startup.navigation.StartupProfileActivity" />
-        </activity>
-        <activity
-            android:name=".ui.startup.navigation.StartupProfileWorkActivity"
-            android:label="@string/title_activity_startup_profile_work"
-            android:parentActivityName=".ui.startup.navigation.StartupProfileActivity"
-            android:theme="@style/MyMaterialTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.androidapp.startlancer.ui.startup.navigation.StartupProfileActivity" />
-        </activity>
-        <activity
-            android:name=".ui.startup.navigation.StartupProfileAboutActivity"
-            android:label="@string/title_activity_startup_profile_about"
-            android:parentActivityName=".ui.startup.navigation.StartupProfileActivity"
-            android:theme="@style/MyMaterialTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.androidapp.startlancer.ui.startup.navigation.StartupProfileActivity" />
-        </activity>
-        <activity
-            android:name=".ui.startup.navigation.StartupProfileOpeningDetailActivity"
-            android:label="@string/title_activity_startup_profile_opening_detail"
-            android:parentActivityName=".ui.startup.navigation.StartupProfileOpeningActivity"
-            android:theme="@style/MyMaterialTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.androidapp.startlancer.ui.startup.navigation.StartupProfileOpeningActivity" />
+                android:value=".ui.freelancer.navigation.FreelancerProfileActivity" />
         </activity>
         <activity
             android:name=".ui.startup.StartupOpeningDetailActivity"
@@ -242,7 +182,7 @@
                 android:value="com.androidapp.startlancer.ui.freelancer.StartupDetailActivity" />
         </activity>
         <activity
-            android:name=".ui.startup.navigation.navbar.StartupApplicationsActivity"
+            android:name=".ui.startup.navigation.StartupApplicationsActivity"
             android:label="@string/title_activity_startup_applications"
             android:parentActivityName=".ui.startup.WelcomeStartupActivity"
             android:theme="@style/MyMaterialTheme.NoActionBar">
@@ -253,11 +193,11 @@
         <activity
             android:name=".ui.startup.navigation.StartupApplicationCandidatesActivity"
             android:label="@string/title_activity_startup_application_candidates"
-            android:parentActivityName=".ui.startup.navigation.navbar.StartupApplicationsActivity"
+            android:parentActivityName=".ui.startup.navigation.StartupApplicationsActivity"
             android:theme="@style/MyMaterialTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.androidapp.startlancer.ui.startup.navigation.navbar.StartupApplicationsActivity" />
+                android:value=".ui.startup.navigation.StartupApplicationsActivity" />
         </activity>
         <activity
             android:name=".ui.startup.navigation.StartupCandidateDetailActivity"
@@ -269,7 +209,7 @@
                 android:value="com.androidapp.startlancer.ui.startup.navigation.StartupApplicationCandidatesActivity" />
         </activity>
         <activity
-            android:name=".ui.startup.navigation.navbar.SavedCandidatesActivity"
+            android:name=".ui.startup.navigation.SavedCandidatesActivity"
             android:label="@string/title_activity_saved_candidates"
             android:parentActivityName=".ui.startup.WelcomeStartupActivity"
             android:theme="@style/MyMaterialTheme.NoActionBar">
@@ -280,11 +220,11 @@
         <activity
             android:name=".ui.startup.navigation.SavedCandidateDetailActivity"
             android:label="@string/title_activity_saved_candidate_detail"
-            android:parentActivityName=".ui.startup.navigation.navbar.SavedCandidatesActivity"
+            android:parentActivityName=".ui.startup.navigation.SavedCandidatesActivity"
             android:theme="@style/MyMaterialTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.androidapp.startlancer.ui.startup.navigation.navbar.SavedCandidatesActivity" />
+                android:value=".ui.startup.navigation.SavedCandidatesActivity" />
         </activity>
         <activity
             android:name=".ui.freelancer.navigation.CofounderSearchActivity"
@@ -293,7 +233,7 @@
             android:theme="@style/MyMaterialTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.androidapp.startlancer.ui.freelancer.WelcomeFreelancerActivity" />
+                android:value=".ui.freelancer.WelcomeFreelancerActivity" />
         </activity>
         <activity
             android:name=".ui.freelancer.navigation.CofounderDetailActivity"
@@ -302,25 +242,115 @@
             android:theme="@style/MyMaterialTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.androidapp.startlancer.ui.freelancer.navigation.CofounderSearchActivity" />
+                android:value=".ui.freelancer.navigation.CofounderSearchActivity" />
         </activity>
         <activity
-            android:name=".ui.freelancer.fragments.navbar.OpenProjectsActivity"
+            android:name=".ui.freelancer.fragments.navbar.OpenProjectsActivityFreelancer"
             android:label="@string/title_activity_open_projects"
             android:parentActivityName=".ui.freelancer.WelcomeFreelancerActivity"
             android:theme="@style/MyMaterialTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.androidapp.startlancer.ui.freelancer.WelcomeFreelancerActivity" />
+                android:value=".ui.freelancer.WelcomeFreelancerActivity" />
         </activity>
         <activity
             android:name=".ui.freelancer.navigation.OpenProjectDetailActivity"
             android:label="@string/title_activity_open_project_detail"
-            android:parentActivityName=".ui.freelancer.fragments.navbar.OpenProjectsActivity"
+            android:parentActivityName=".ui.freelancer.fragments.navbar.OpenProjectsActivityFreelancer"
             android:theme="@style/MyMaterialTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.androidapp.startlancer.ui.freelancer.fragments.navbar.OpenProjectsActivity" />
+                android:value=".ui.freelancer.fragments.navbar.OpenProjectsActivityFreelancer" />
+        </activity>
+        <activity
+            android:name=".ui.freelancer.navigation.FreelancerProfileAddSkillsActivity"
+            android:label="@string/title_activity_freelancer_profile_add_skills"
+            android:parentActivityName=".ui.freelancer.navigation.FreelancerProfileSkillsActivity"
+            android:theme="@style/MyMaterialTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.freelancer.navigation.FreelancerProfileSkillsActivity" />
+        </activity>
+        <activity
+            android:name=".ui.freelancer.navigation.FreelancerProfileAddExperiencesActivity"
+            android:label="@string/title_activity_freelancer_profile_add_exxperiences"
+            android:parentActivityName=".ui.freelancer.navigation.FreelancerProfileExperiencesActivity"
+            android:theme="@style/MyMaterialTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.freelancer.navigation.FreelancerProfileExperiencesActivity" />
+        </activity>
+        <activity
+            android:name=".ui.freelancer.navigation.FreelancerProfileAddProjectsActivity"
+            android:label="@string/title_activity_freelancer_profile_add_projects"
+            android:parentActivityName=".ui.freelancer.navigation.FreelancerProfileProjectsActivity"
+            android:theme="@style/MyMaterialTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.freelancer.navigation.FreelancerProfileProjectsActivity" />
+        </activity>
+        <activity
+            android:name=".ui.freelancer.navigation.FreelancerProfileAddAboutActivity"
+            android:label="@string/title_activity_freelancer_profile_add_about"
+            android:parentActivityName=".ui.freelancer.navigation.FreelancerProfileAboutActivity"
+            android:theme="@style/MyMaterialTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.freelancer.navigation.FreelancerProfileAboutActivity" />
+        </activity>
+        <activity
+            android:name=".ui.startup.navigation.StartupProfileActivity"
+            android:label="@string/title_activity_startup_profile2"
+            android:parentActivityName=".ui.startup.WelcomeStartupActivity"
+            android:theme="@style/MyMaterialTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.startup.WelcomeStartupActivity" />
+        </activity>
+        <activity
+            android:name=".ui.startup.navigation.StartupProfileOpeningActivity"
+            android:label="@string/title_activity_startup_profile_opening"
+            android:parentActivityName=".ui.startup.navigation.StartupProfileActivity"
+            android:theme="@style/MyMaterialTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.startup.navigation.StartupProfileActivity" />
+        </activity>
+        <activity
+            android:name=".ui.startup.navigation.StartupProfileAddOpeningsActivity"
+            android:label="@string/title_activity_startup_profile_add_openings"
+            android:parentActivityName=".ui.startup.navigation.StartupProfileOpeningActivity"
+            android:theme="@style/MyMaterialTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.startup.navigation.StartupProfileOpeningActivity" />
+        </activity>
+        <activity
+            android:name=".ui.startup.navigation.StartupProfileTeamActivity"
+            android:label="@string/title_activity_startup_profile_team"
+            android:parentActivityName=".ui.startup.navigation.StartupProfileActivity"
+            android:theme="@style/MyMaterialTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.startup.navigation.StartupProfileActivity" />
+        </activity>
+        <activity
+            android:name=".ui.startup.navigation.StartupProfileAddTeamActivity"
+            android:label="@string/title_activity_startup_profile_add_team"
+            android:parentActivityName=".ui.startup.navigation.StartupProfileTeamActivity"
+            android:theme="@style/MyMaterialTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.startup.navigation.StartupProfileTeamActivity" />
+        </activity>
+        <activity
+            android:name=".ui.startup.navigation.StartupResponsesActivity"
+            android:label="@string/title_activity_startup_responses"
+            android:parentActivityName=".ui.startup.WelcomeStartupActivity"
+            android:theme="@style/MyMaterialTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.androidapp.startlancer.ui.startup.WelcomeStartupActivity" />
         </activity>
     </application>
 

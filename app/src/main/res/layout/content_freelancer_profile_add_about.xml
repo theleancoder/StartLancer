@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ui.freelancer.navigation.FreelancerProfileAddAboutActivity"
+    tools:showIn="@layout/activity_freelancer_profile_add_about"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/edit_text_add_contact"
+        style="@style/FullWidthEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Contact Number " />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#ddd" />
+
+    <EditText
+        android:id="@+id/edit_text_add_github_account"
+        style="@style/FullWidthEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Github Account" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#ddd" />
+
+    <EditText
+        android:id="@+id/edit_text_add_about_yourself"
+        style="@style/FullWidthEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:hint="About Yourself" />
+</LinearLayout>

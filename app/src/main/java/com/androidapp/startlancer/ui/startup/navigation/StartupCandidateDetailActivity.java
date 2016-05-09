@@ -36,11 +36,11 @@ public class StartupCandidateDetailActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        String name = getIntent().getStringExtra("userName");
+        String name = getIntent().getStringExtra("name");
         setTitle(name);
-        email = getIntent().getStringExtra("userEmail");
+        email = getIntent().getStringExtra("email");
         bundle = new Bundle();
-        bundle.putString("userEmail", email);
+        bundle.putString("email", email);
         String title = getIntent().getStringExtra("title");
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.freelancer_detail_viewpager);
@@ -99,7 +99,7 @@ public class StartupCandidateDetailActivity extends AppCompatActivity {
     }
 
     private void rejectCandidate() {
-        String email = getIntent().getStringExtra("userEmail");
+        String email = getIntent().getStringExtra("email");
         String decodedEmail = Utils.decodeEmail(email);
         String[] emails = {decodedEmail};
         Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -109,8 +109,8 @@ public class StartupCandidateDetailActivity extends AppCompatActivity {
     }
 
     private void saveCandidate() {
-        String email = getIntent().getStringExtra("userEmail");
-        String name = getIntent().getStringExtra("userName");
+        String email = getIntent().getStringExtra("email");
+        String name = getIntent().getStringExtra("name");
         String title = getIntent().getStringExtra("title");
         Firebase ref = new Firebase(Constants.FIREBASE_URL_SAVED_CANDIDATES);
         SavedCandidate savedCandidate = new SavedCandidate(name, email, title);

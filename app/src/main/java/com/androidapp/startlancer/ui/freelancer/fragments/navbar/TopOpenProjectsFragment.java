@@ -47,8 +47,10 @@ public class TopOpenProjectsFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), OpenProjectDetailActivity.class);
-                String name = ((TextView) view.findViewById(R.id.textview_project_author)).getText().toString();
-                String email = ((TextView) view.findViewById(R.id.textview_project_email)).getText().toString();
+                String title = ((TextView) view.findViewById(R.id.textview_open_project_title)).getText().toString();
+                String name = ((TextView) view.findViewById(R.id.textview_open_project_author)).getText().toString();
+                String email = ((TextView) view.findViewById(R.id.textview_open_project_email)).getText().toString();
+                intent.putExtra("title", title);
                 intent.putExtra("name", name);
                 intent.putExtra("email", email);
                 startActivity(intent);

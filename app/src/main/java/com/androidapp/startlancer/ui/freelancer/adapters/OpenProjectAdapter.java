@@ -29,18 +29,18 @@ public class OpenProjectAdapter extends FirebaseListAdapter<OpenProject> {
         /**
          * Grab the needed Textivews and strings
          */
-        TextView textViewProjectTitle = (TextView) view.findViewById(R.id.textview_project_title);
-        TextView textViewAuthorName = (TextView) view.findViewById(R.id.textview_project_author);
-        TextView textViewAuthorEmail = (TextView) view.findViewById(R.id.textview_project_email);
-        ImageView imageViewProject = (ImageView) view.findViewById(R.id.single_project_image);
+        TextView textViewProjectTitle = (TextView) view.findViewById(R.id.textview_open_project_title);
+        TextView textViewAuthorName = (TextView) view.findViewById(R.id.textview_open_project_author);
+        TextView textViewAuthorEmail = (TextView) view.findViewById(R.id.textview_open_project_email);
+        ImageView imageViewProject = (ImageView) view.findViewById(R.id.single_open_project_image);
 
         char letter = list.getTitle().charAt(0);
 
         ColorGenerator colorGenerator = ColorGenerator.MATERIAL;
         int color = colorGenerator.getColor(list.getTitle());
 
-        TextDrawable drawable = TextDrawable.builder().buildRect(String.valueOf(letter), color);
-
+        TextDrawable drawable = TextDrawable.builder().beginConfig().
+                width(70).height(70).endConfig().buildRound(String.valueOf(letter), color);
 
         /* Set the list name and owner */
         textViewProjectTitle.setText(list.getTitle());

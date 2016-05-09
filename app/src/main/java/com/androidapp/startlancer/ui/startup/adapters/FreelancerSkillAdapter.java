@@ -23,15 +23,10 @@ public class FreelancerSkillAdapter extends FirebaseListAdapter<Skill> {
     @Override
     protected void populateView(View view, Skill list) {
 
-        /**
-         * Grab the needed Textivews and strings
-         */
-        TextView textViewSkillName = (TextView) view.findViewById(R.id.freelancer_skill);
-        TextView textViewYearOfExperience = (TextView) view.findViewById(R.id.freelancer_year_of_experience);
+        TextView textViewSkill = (TextView) view.findViewById(R.id.text_view_freelancer_skill);
+        TextView textViewYearOfExperience = (TextView) view.findViewById(R.id.text_View_freelancer_year_of_experience);
 
-
-        /* Set the list name and owner */
-        textViewSkillName.setText(list.getSkillType());
+        textViewSkill.setText(list.getSkillType());
         textViewYearOfExperience.setText(list.getYearsOfExperience());
     }
 }

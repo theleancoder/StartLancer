@@ -32,7 +32,7 @@
             app:hintTextAppearance="@style/HintText">
 
             <EditText
-                android:id="@+id/startupSignupUsername"
+                android:id="@+id/edit_text_startup_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_enter_startup_name"
@@ -53,7 +53,7 @@
             android:layout_marginBottom="@dimen/lists_title_bottom_margin">
 
             <EditText
-                android:id="@+id/startupSignupEmail"
+                android:id="@+id/edit_text_startup_signup_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_enter_startup_email"
@@ -75,7 +75,7 @@
             android:layout_marginBottom="@dimen/margin_normal">
 
             <EditText
-                android:id="@+id/startupSignupPassword"
+                android:id="@+id/edit_text_startup_signup_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_enter_startup_password"
@@ -89,7 +89,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:id="@+id/btn_create_account_final"
+            android:id="@+id/button_create__startup_account"
             android:layout_width="match_parent"
             android:layout_height="@dimen/input_field_height"
             android:background="@color/colorPrimary"
@@ -107,7 +107,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_already_have_account"
+                android:id="@+id/text_view_already_have_account"
                 style="@style/LoginCreateText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -115,11 +115,11 @@
                 android:textColor="@color/white" />
 
             <TextView
-                android:id="@+id/tv_sign_in"
+                android:id="@+id/text_view_sign_in"
                 style="@style/LoginCreateTextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="goToLoginStartup"
+                android:onClick="goToLoginStartupActivity"
                 android:text="@string/button_sign_in"
                 android:textColor="@color/white" />
         </LinearLayout>

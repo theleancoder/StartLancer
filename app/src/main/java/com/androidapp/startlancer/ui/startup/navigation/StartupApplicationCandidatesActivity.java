@@ -10,8 +10,10 @@ import android.widget.TextView;
 
 import com.androidapp.startlancer.R;
 import com.androidapp.startlancer.models.Application;
+import com.androidapp.startlancer.models.Freelancer;
 import com.androidapp.startlancer.ui.StartupBaseActivity;
 import com.androidapp.startlancer.ui.startup.adapters.ApplicationsListAdapter;
+import com.androidapp.startlancer.ui.startup.adapters.FreelancerListAdapter;
 import com.androidapp.startlancer.utils.Constants;
 import com.firebase.client.Firebase;
 
@@ -24,7 +26,6 @@ public class StartupApplicationCandidatesActivity extends StartupBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_startup_application_candidates);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -42,11 +43,11 @@ public class StartupApplicationCandidatesActivity extends StartupBaseActivity {
         applicantsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                email = ((TextView) view.findViewById(R.id.textview_candidate_email)).getText().toString();
-                name = ((TextView) view.findViewById(R.id.textview_candidate_name)).getText().toString();
+                email = ((TextView) view.findViewById(R.id.text_view_candidate_email)).getText().toString();
+                name = ((TextView) view.findViewById(R.id.text_view_candidate_name)).getText().toString();
                 Intent intent = new Intent(StartupApplicationCandidatesActivity.this, StartupCandidateDetailActivity.class);
-                intent.putExtra("userEmail", email);
-                intent.putExtra("userName", name);
+                intent.putExtra("email", email);
+                intent.putExtra("name", name);
                 intent.putExtra("title", title);
                 startActivity(intent);
             }

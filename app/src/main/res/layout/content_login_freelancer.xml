@@ -69,7 +69,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:id="@+id/login_button"
+            android:id="@+id/button_startup_login"
             style="@style/LoginCreateTextButton"
             android:layout_width="match_parent"
             android:layout_height="@dimen/input_field_height"
@@ -87,6 +87,14 @@
             android:layout_marginTop="20dp"
             android:elevation="20dp" />
 
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/facebook_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -95,7 +103,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_dont_have_account"
+                android:id="@+id/text_view_dont_have_account"
                 style="@style/LoginCreateText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -103,7 +111,7 @@
                 android:textColor="@color/white" />
 
             <TextView
-                android:id="@+id/tv_sign_up"
+                android:id="@+id/text_view_create_startup_account"
                 style="@style/LoginCreateTextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

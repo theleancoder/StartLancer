@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.androidapp.startlancer.R;
 import com.androidapp.startlancer.models.Freelancer;
-import com.androidapp.startlancer.ui.BaseActivity;
+import com.androidapp.startlancer.ui.FreelancerBaseActivity;
 import com.androidapp.startlancer.utils.Constants;
 import com.androidapp.startlancer.utils.MD5Util;
 import com.androidapp.startlancer.utils.Utils;
@@ -25,10 +25,9 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-public class FreelancerProfileActivity extends BaseActivity {
+public class FreelancerProfileActivity extends FreelancerBaseActivity {
 
     private Firebase firebaseUserRef;
-    private ValueEventListener valueEventListener;
     private static final String LOG_TAG = FreelancerProfileActivity.class.getSimpleName();
 
     @Override
@@ -37,17 +36,17 @@ public class FreelancerProfileActivity extends BaseActivity {
         setContentView(R.layout.activity_freelancer_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final TextView textViewName = (TextView) findViewById(R.id.freelancer_name_textView);
-        final TextView textViewEmail = (TextView) findViewById(R.id.freelancer_email_textview);
-        ImageView freelancerImage = (ImageView) findViewById(R.id.freelancer_profile_imageView);
+        final TextView textViewFreelancerEmail = (TextView) findViewById(R.id.text_view_freelancer_email);
+        ImageView imageViewFreelancer = (ImageView) findViewById(R.id.image_freelancer_profile);
 
         final String decodedEmail = Utils.decodeEmail(encodedEmail);
         String hash = MD5Util.md5Hex(decodedEmail);
 
         String gravatarUrl = "http://www.gravatar.com/avatar/" + hash +
                 "?s=204&d=404";
-        Picasso.with(this).load(gravatarUrl).placeholder(R.mipmap.ic_launcher).into(freelancerImage);
+        Picasso.with(this).load(gravatarUrl).placeholder(R.mipmap.ic_launcher).into(imageViewFreelancer);
 
         firebaseUserRef = new Firebase(Constants.FIREBASE_URL_USERS).child(encodedEmail);
 
@@ -57,98 +56,39 @@ public class FreelancerProfileActivity extends BaseActivity {
                 Freelancer freelancer = dataSnapshot.getValue(Freelancer.class);
 
                 if (freelancer != null) {
-                    String name = freelancer.getName();
-                    textViewName.setText(name);
-                    textViewEmail.setText(decodedEmail);
+                    String email = freelancer.getEmail();
+                    textViewFreelancerEmail.setText(decodedEmail);
                 }
             }
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
                 Log.e(LOG_TAG,
-                        getString(R.string.log_error_the_read_failed) +
+                        getString(R.string.error_user_data_read_failed) +
                                 firebaseError.getMessage());
             }
         });
 
-        String[] freelancerProfileList = {"Skills", "Experience", "Projects", "About"};
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.single_profile_item_list, freelancerProfileList);
-        ListView listView = (ListView) findViewById(R.id.freelancer_profile_list);
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                switch (position) {
-                    case 0:
-                        Intent intent1 = new Intent(FreelancerProfileActivity.this, FreelancerProfileSkillsActivity.class);
-                        startActivity(intent1);
-                        break;
-                    case 1:
-                        Intent intent2 = new Intent(FreelancerProfileActivity.this, FreelancerProfileExperiencesActivity.class);
-                        startActivity(intent2);
-                        break;
-                    case 2:
-                        Intent intent3 = new Intent(FreelancerProfileActivity.this, FreelancerProfileProjectsActivity.class);
-                        startActivity(intent3);
-                        break;
-                    case 3:
-                        Intent intent4 = new Intent(FreelancerProfileActivity.this, FreelancerProfileAboutActivity.class);
-                        startActivity(intent4);
-                        break;
-                    default:
-                        return;
-                }
-            }
-        });
-
-//        String imageUri = "http://imgur.com/gallery/0JCZXou";
-//        ImageView imageView = (ImageView) findViewById(R.id.freelancer_profile_imageView);
-//        Picasso.with(getApplicationContext()).load(imageUri).into(imageView);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    public void uploadImage(View view) {
     }
 
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+    public void goToSkillsActivity(View view) {
+        Intent skillIntent = new Intent(FreelancerProfileActivity.this, FreelancerProfileSkillsActivity.class);
+        startActivity(skillIntent);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        /* Inflate the menu; this adds items to the action bar if it is present. */
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public void goToExperiencesActivity(View view) {
+        Intent experienceIntent = new Intent(FreelancerProfileActivity.this, FreelancerProfileExperiencesActivity.class);
+        startActivity(experienceIntent);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+    public void goToProjectsActivity(View view) {
+        Intent projectIntent = new Intent(FreelancerProfileActivity.this, FreelancerProfileProjectsActivity.class);
+        startActivity(projectIntent);
+    }
 
-        if (id == android.R.id.home) {
-            super.onBackPressed();
-            return true;
-        }
-
-        if (id == R.id.action_logout) {
-            logout();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public void goToAboutActivity(View view) {
+        Intent aboutIntent = new Intent(FreelancerProfileActivity.this, FreelancerProfileAboutActivity.class);
+        startActivity(aboutIntent);
     }
 }

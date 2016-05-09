@@ -22,17 +22,12 @@ public class FreelancerExperienceAdapter extends FirebaseListAdapter<Experience>
     @Override
     protected void populateView(View view, Experience list) {
 
-        /**
-         * Grab the needed Textivews and strings
-         */
-        TextView textViewExperience = (TextView) view.findViewById(R.id.freelancer_experience);
-        TextView textViewExperienceDescription = (TextView) view.findViewById(R.id.freelancer_experience_description);
-        TextView textViewPlace = (TextView) view.findViewById(R.id.freelancer_place);
+        TextView textViewExperience = (TextView) view.findViewById(R.id.text_View_freelancer_experience);
+        TextView textViewExperienceDuration = (TextView) view.findViewById(R.id.text_view_experience_duration);
+        TextView textViewLocation = (TextView) view.findViewById(R.id.text_View_freelancer_location);
 
-
-        /* Set the list name and owner */
-        textViewExperience.setText(list.getExperience());
-        textViewExperienceDescription.setText(list.getExperienceDescription());
-        textViewPlace.setText(list.getPlace());
+        textViewExperience.setText(list.getExp());
+        textViewExperienceDuration.setText(list.getExperienceDescription());
+        textViewLocation.setText(list.getExperienceLocation());
     }
 }

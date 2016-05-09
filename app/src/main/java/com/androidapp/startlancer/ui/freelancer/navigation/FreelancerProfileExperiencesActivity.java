@@ -1,16 +1,15 @@
 package com.androidapp.startlancer.ui.freelancer.navigation;
 
-import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.androidapp.startlancer.R;
-import com.androidapp.startlancer.ui.BaseActivity;
-import com.androidapp.startlancer.ui.freelancer.fragments.dialogs.AddFreelancerExperiencesFragment;
+import com.androidapp.startlancer.ui.FreelancerBaseActivity;
 
-public class FreelancerProfileExperiencesActivity extends BaseActivity {
+public class FreelancerProfileExperiencesActivity extends FreelancerBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +24,8 @@ public class FreelancerProfileExperiencesActivity extends BaseActivity {
     }
 
 
-    public void showAddExperienceDialog(View view) {
-        DialogFragment dialog = AddFreelancerExperiencesFragment.newInstance(encodedEmail);
-        dialog.show(FreelancerProfileExperiencesActivity.this.getFragmentManager(), "AddFreelancerExperiencesFragment");
+    public void showAddExperienceActivity(View view) {
+        startActivity(new Intent(FreelancerProfileExperiencesActivity.this, FreelancerProfileAddExperiencesActivity.class));
+        overridePendingTransition(R.xml.slide_up, R.xml.stay);
     }
 }

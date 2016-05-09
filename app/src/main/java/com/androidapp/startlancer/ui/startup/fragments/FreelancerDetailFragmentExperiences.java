@@ -21,8 +21,8 @@ import com.firebase.client.Firebase;
 public class FreelancerDetailFragmentExperiences extends Fragment {
 
 
-    ListView experienceList;
-    FreelancerExperienceAdapter experienceAdapter;
+    private ListView experiencesList;
+    private FreelancerExperienceAdapter experiencesAdapter;
 
 
     public FreelancerDetailFragmentExperiences() {
@@ -32,17 +32,17 @@ public class FreelancerDetailFragmentExperiences extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View rootView = inflater.inflate(R.layout.fragment_freelancer_detail_fragment_experiences, container, false);
         String email = getArguments().getString("email");
 
         Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL_FREELANCER_PROFILE).child(email).child("experiences");
-        experienceAdapter = new FreelancerExperienceAdapter(getActivity(), Experience.class, R.layout.single_freelancer_experience_item,
+        experiencesAdapter = new FreelancerExperienceAdapter(getActivity(), Experience.class, R.layout.single_freelancer_experience_item,
                 firebaseRef);
-        experienceList = (ListView) rootView.findViewById(R.id.fragment_experience_list);
-        experienceList.setAdapter(experienceAdapter);
+        experiencesList = (ListView) rootView.findViewById(R.id.fragment_experience_list);
+        experiencesList.setAdapter(experiencesAdapter);
 
-        experienceList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        experiencesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                final String selected = (String) parent.getSelectedItem();

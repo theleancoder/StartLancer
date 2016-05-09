@@ -15,12 +15,12 @@ import android.widget.TextView;
 
 import com.androidapp.startlancer.R;
 import com.androidapp.startlancer.models.Freelancer;
-import com.androidapp.startlancer.ui.BaseActivity;
+import com.androidapp.startlancer.ui.FreelancerBaseActivity;
 import com.androidapp.startlancer.ui.freelancer.adapters.WelcomeFreelancerPagerAdapter;
 import com.androidapp.startlancer.ui.freelancer.fragments.StartupsCategoryFragment;
 import com.androidapp.startlancer.ui.freelancer.fragments.TopStartupsFragment;
 import com.androidapp.startlancer.ui.freelancer.fragments.TrendingStartupsFragment;
-import com.androidapp.startlancer.ui.freelancer.fragments.navbar.OpenProjectsActivity;
+import com.androidapp.startlancer.ui.freelancer.fragments.navbar.OpenProjectsActivityFreelancer;
 import com.androidapp.startlancer.ui.freelancer.navigation.CofounderSearchActivity;
 import com.androidapp.startlancer.ui.freelancer.navigation.FreelancerProfileActivity;
 import com.androidapp.startlancer.ui.startup.navigation.SampleActivity;
@@ -33,17 +33,16 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-public class WelcomeFreelancerActivity extends BaseActivity {
+public class WelcomeFreelancerActivity extends FreelancerBaseActivity {
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private Firebase firebaseUserRef;
+    private Firebase ref;
     private static final String LOG_TAG = WelcomeFreelancerActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_welcome_freelancer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -90,9 +89,9 @@ public class WelcomeFreelancerActivity extends BaseActivity {
                 "?s=204&d=404";
         Picasso.with(this).load(gravatarUrl).placeholder(R.mipmap.ic_launcher).fit().into(nav_image);
 
-        firebaseUserRef = new Firebase(Constants.FIREBASE_URL_USERS).child(encodedEmail);
+        ref = new Firebase(Constants.FIREBASE_URL_USERS).child(encodedEmail);
 
-        firebaseUserRef.addValueEventListener(new ValueEventListener() {
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Freelancer freelancer = dataSnapshot.getValue(Freelancer.class);
@@ -107,7 +106,7 @@ public class WelcomeFreelancerActivity extends BaseActivity {
             @Override
             public void onCancelled(FirebaseError firebaseError) {
                 Log.e(LOG_TAG,
-                        getString(R.string.log_error_the_read_failed) +
+                        getString(R.string.error_user_data_read_failed) +
                                 firebaseError.getMessage());
             }
         });
@@ -132,7 +131,7 @@ public class WelcomeFreelancerActivity extends BaseActivity {
                 startActivity(firstIntent);
                 break;
             case R.id.nav_open_projects:
-                Intent secondIntent = new Intent(WelcomeFreelancerActivity.this, OpenProjectsActivity.class);
+                Intent secondIntent = new Intent(WelcomeFreelancerActivity.this, OpenProjectsActivityFreelancer.class);
                 startActivity(secondIntent);
                 break;
             case R.id.nav_showcase_idea:
@@ -160,30 +159,15 @@ public class WelcomeFreelancerActivity extends BaseActivity {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        WelcomeFreelancerPagerAdapter adapter = new WelcomeFreelancerPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new TopStartupsFragment(), "Top");
-        adapter.addFragment(new TrendingStartupsFragment(), "Trending");
-        adapter.addFragment(new StartupsCategoryFragment(), "Category");
-        viewPager.setAdapter(adapter);
+        WelcomeFreelancerPagerAdapter freelancerPagerAdapter = new WelcomeFreelancerPagerAdapter(getSupportFragmentManager());
+        freelancerPagerAdapter.addFragment(new TopStartupsFragment(), "Top");
+        freelancerPagerAdapter.addFragment(new TrendingStartupsFragment(), "Trending");
+        freelancerPagerAdapter.addFragment(new StartupsCategoryFragment(), "Category");
+        viewPager.setAdapter(freelancerPagerAdapter);
     }
 
     @Override
     public void onBackPressed() {
         this.finishAffinity();
     }
-
-    //    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.options_menu, menu);
-//
-//        SearchManager searchManager =
-//                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-//        SearchView searchView =
-//                (SearchView) menu.findItem(R.id.search).getActionView();
-//        searchView.setSearchableInfo(
-//                searchManager.getSearchableInfo(getComponentName()));
-//
-//        return true;
-//    }
 }

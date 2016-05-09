@@ -1,5 +1,5 @@
-apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
@@ -12,6 +12,7 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -43,27 +44,37 @@ android {
         }
     }
 
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        compile 'com.flipboard:bottomsheet-core:1.5.0'
+        compile 'com.flipboard:bottomsheet-commons:1.5.0' // optional
+    }
+
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:design:23.1.1'
-    compile 'com.android.support:design:23.1.1'
-    compile 'com.android.support:design:23.1.1'
-    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:23.2.0'
+    compile 'com.android.support:appcompat-v7:23.2.0'
     compile 'com.firebase:firebase-client-android:2.5.0'
     compile 'com.android.support:multidex:1.0.1'
-    compile 'com.android.support:support-v4:23.1.1'
-    compile 'com.android.support:recyclerview-v7:23.1.1'
-    compile 'com.google.android.gms:play-services-base:8.3.0'
-    compile 'com.google.android.gms:play-services-auth:8.3.0'
-    compile 'com.google.android.gms:play-services-gcm:8.3.0'
-    compile 'com.google.android.gms:play-services-ads:8.3.0'
+    compile 'com.android.support:support-v4:23.2.0'
+    compile 'com.android.support:recyclerview-v7:23.2.0'
+    compile 'com.google.android.gms:play-services-base:8.4.0'
+    compile 'com.google.android.gms:play-services-auth:8.4.0'
+//    compile 'com.google.android.gms:play-services-gcm:8.4.0'
+//    compile 'com.google.android.gms:play-services-ads:8.4.0'
     compile 'com.firebaseui:firebase-ui:0.3.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.batch.android:batch-sdk:1.5'
-    compile 'com.android.support:cardview-v7:23.1.1'
+    compile 'com.android.support:cardview-v7:23.2.0'
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     compile 'de.hdodenhof:circleimageview:2.0.0'
+    compile 'net.danlew:android.joda:2.9.2'
+    compile 'com.sothree.slidinguppanel:library:3.2.1'
+    compile 'com.facebook.android:facebook-android-sdk:4.6.0'
 }

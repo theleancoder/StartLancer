@@ -25,7 +25,7 @@ import com.firebase.client.FirebaseError;
 public class LoginStartupActivity extends StartupBaseActivity {
 
     private static final String LOG_TAG = LoginStartupActivity.class.getSimpleName();
-    private Firebase firebaseRef;
+    private Firebase ref;
     private EditText emailEditText, passwordEditText;
     private String email, password;
     private ProgressDialog progressDialog;
@@ -33,14 +33,14 @@ public class LoginStartupActivity extends StartupBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_login_startup);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        firebaseRef = new Firebase(Constants.FIREBASE_URL);
+        ref = new Firebase(Constants.FIREBASE_URL);
 
         initializeScreen();
+
         passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
@@ -56,12 +56,11 @@ public class LoginStartupActivity extends StartupBaseActivity {
     }
 
     private void initializeScreen() {
-        emailEditText = (EditText) findViewById(R.id.startuploginEmail);
-        passwordEditText = (EditText) findViewById(R.id.startuploginPassword);
+        emailEditText = (EditText) findViewById(R.id.edit_text_startup_login_email);
+        passwordEditText = (EditText) findViewById(R.id.edit_text_startup_login_password);
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle(getResources().getString(R.string.login_dialog_loading));
-        progressDialog.setMessage(getResources().getString(R.string.login_dialog_message));
+        progressDialog.setMessage(getResources().getString(R.string.startup_login_dialog_message));
         progressDialog.setCancelable(false);
     }
 
@@ -84,7 +83,7 @@ public class LoginStartupActivity extends StartupBaseActivity {
         }
 
         progressDialog.show();
-        firebaseRef.authWithPassword(email, password, new MyAuthResultHandler(Constants.PASSWORD_PROVIDER));
+        ref.authWithPassword(email, password, new MyAuthResultHandler(Constants.PASSWORD_PROVIDER));
 
     }
 
@@ -105,7 +104,6 @@ public class LoginStartupActivity extends StartupBaseActivity {
 
         @Override
         public void onAuthenticated(AuthData authData) {
-            progressDialog.dismiss();
             Log.i(LOG_TAG, provider + " " + getString(R.string.log_message_login_successful));
             if (authData != null) {
 
@@ -115,10 +113,10 @@ public class LoginStartupActivity extends StartupBaseActivity {
                 setAuthenticatedUserPasswordProvider(authData);
 
                 spe.putString(Constants.KEY_PROVIDER_STARTUP, authData.getProvider()).apply();
-//                spe.putString(Constants.KEY_ENCODED_EMAIL_STARTUP, encodedEmail).apply();
                 spe.putString(Constants.KEY_ENCODED_EMAIL_STARTUP, encodedEmail).apply();
 
-                /* Go to main activity */
+                progressDialog.dismiss();
+
                 Intent intent = new Intent(LoginStartupActivity.this, WelcomeStartupActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
@@ -133,13 +131,13 @@ public class LoginStartupActivity extends StartupBaseActivity {
             switch (firebaseError.getCode()) {
                 case FirebaseError.INVALID_EMAIL:
                 case FirebaseError.USER_DOES_NOT_EXIST:
-                    emailEditText.setError(getString(R.string.error_message_email_issue));
+                    emailEditText.setError(getString(R.string.error_user_does_not_exist));
                     break;
                 case FirebaseError.INVALID_PASSWORD:
                     passwordEditText.setError(firebaseError.getMessage());
                     break;
                 case FirebaseError.NETWORK_ERROR:
-                    showErrorToast(getString(R.string.error_message_failed_sign_in_no_network));
+                    showErrorToast(getString(R.string.error_no_network_detected));
                     break;
                 default:
                     showErrorToast(firebaseError.toString());

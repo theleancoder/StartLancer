@@ -4,28 +4,34 @@ package com.androidapp.startlancer.models;
  * Created by ankit on 2/8/2016.
  */
 public class Experience {
-    private String experience;
-    private String experienceDescription;
-    private String place;
+    private String exp;
+    private String expDescription;
+    private String expLocation;
+    private String expDuration;
 
     public Experience() {
     }
 
-    public Experience(String experience, String experienceDescription, String place) {
-        this.experience = experience;
-        this.experienceDescription = experienceDescription;
-        this.place = place;
+    public Experience(String exp, String expDescription, String expLocation, String expDuration) {
+        this.exp = exp;
+        this.expDescription = expDescription;
+        this.expLocation = expLocation;
+        this.expDuration = expDuration;
     }
 
-    public String getExperience() {
-        return experience;
+    public String getExp() {
+        return exp;
     }
 
     public String getExperienceDescription() {
-        return experienceDescription;
+        return expDescription;
     }
 
-    public String getPlace() {
-        return place;
+    public String getExperienceLocation() {
+        return expLocation;
+    }
+
+    public String getExperienceDuration() {
+        return expDuration;
     }
 }

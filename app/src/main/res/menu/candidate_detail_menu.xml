@@ -12,7 +12,7 @@
     <item
         android:id="@+id/reject_candidate"
         android:title="Reject"
-        app:showAsAction="always"></item>
+        app:showAsAction="never"></item>
 
     <item
         android:id="@+id/save_candidate"

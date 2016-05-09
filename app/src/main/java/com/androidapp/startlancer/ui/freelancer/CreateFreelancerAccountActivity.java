@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.androidapp.startlancer.R;
 import com.androidapp.startlancer.models.Freelancer;
-import com.androidapp.startlancer.ui.BaseActivity;
+import com.androidapp.startlancer.ui.FreelancerBaseActivity;
 import com.androidapp.startlancer.utils.Constants;
 import com.androidapp.startlancer.utils.Utils;
 import com.firebase.client.AuthData;
@@ -23,19 +23,21 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ServerValue;
 import com.firebase.client.ValueEventListener;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class
-CreateFreelancerAccountActivity extends BaseActivity {
-    private static final String LOG_TAG =   CreateFreelancerAccountActivity.class.getSimpleName();
+public class CreateFreelancerAccountActivity extends FreelancerBaseActivity {
+    private static final String LOG_TAG = CreateFreelancerAccountActivity.class.getSimpleName();
     private ProgressDialog progressDialog;
     private EditText usernameEditText, emailEditText, passwordEditText;
     private Firebase firebaseRef;
     private String username, email, password;
     private int topCount = 0;
     private int trendingCount = 0;
-
 
 
     @Override
@@ -57,9 +59,9 @@ CreateFreelancerAccountActivity extends BaseActivity {
         passwordEditText = (EditText) findViewById(R.id.freelancerSignupPassword);
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle(getResources().getString(R.string.dialog_loading));
-        progressDialog.setMessage(getResources().getString(R.string.dialog_message));
+        progressDialog.setMessage(getResources().getString(R.string.create_startup_dialog_message));
         progressDialog.setCancelable(false);
+
     }
 
     public void createUser(View view) {
@@ -70,7 +72,7 @@ CreateFreelancerAccountActivity extends BaseActivity {
         boolean validUserName = isValidUsername(username);
         boolean validEmail = isValidEmail(email);
         boolean validPassword = isValidPassword(password);
-        if(!validUserName || !validEmail || !validPassword) return;
+        if (!validUserName || !validEmail || !validPassword) return;
 
         progressDialog.show();
 
@@ -78,7 +80,6 @@ CreateFreelancerAccountActivity extends BaseActivity {
             @Override
             public void onSuccess(Map<String, Object> result) {
                 progressDialog.dismiss();
-                Log.i(LOG_TAG, getString(R.string.log_message_create_success));
                 createUserInFirebaseHelper();
                 firebaseRef.authWithPassword(email, password, new MyAuthResultHandler(Constants.PASSWORD_PROVIDER));
 
@@ -100,12 +101,12 @@ CreateFreelancerAccountActivity extends BaseActivity {
 
     private void createUserInFirebaseHelper() {
         final String encodedEmail = Utils.encodeEmail(email);
-        final Firebase userLocation = new Firebase(Constants.FIREBASE_URL_USERS ).child(encodedEmail);
+        final Firebase userLocation = new Firebase(Constants.FIREBASE_URL_USERS).child(encodedEmail);
 
         userLocation.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue() == null) {
+                if (dataSnapshot.getValue() == null) {
                     HashMap<String, Object> timestampJoined = new HashMap<String, Object>();
                     timestampJoined.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
 
@@ -127,7 +128,7 @@ CreateFreelancerAccountActivity extends BaseActivity {
     }
 
     private boolean isValidUsername(String username) {
-        if(username.equals("")) {
+        if (username.equals("")) {
             usernameEditText.setError(getResources().getString(R.string.error_cannot_be_empty));
             return false;
         }
@@ -192,13 +193,13 @@ CreateFreelancerAccountActivity extends BaseActivity {
             switch (firebaseError.getCode()) {
                 case FirebaseError.INVALID_EMAIL:
                 case FirebaseError.USER_DOES_NOT_EXIST:
-                    emailEditText.setError(getString(R.string.error_message_email_issue));
+                    emailEditText.setError(getString(R.string.error_user_does_not_exist));
                     break;
                 case FirebaseError.INVALID_PASSWORD:
                     passwordEditText.setError(firebaseError.getMessage());
                     break;
                 case FirebaseError.NETWORK_ERROR:
-                    showErrorToast(getString(R.string.error_message_failed_sign_in_no_network));
+                    showErrorToast(getString(R.string.error_no_network_detected));
                     break;
                 default:
                     showErrorToast(firebaseError.toString());

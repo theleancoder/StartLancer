@@ -1,16 +1,12 @@
-
 {
   "project_info": {
-    "project_id": "startlancer",
     "project_number": "938371195570",
-    "name": "StartLancer"
+    "project_id": "startlancer"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:938371195570:android:10daef2f3b35b85e",
-        "client_id": "android:com.androidapp.startlancer",
-        "client_type": 1,
         "android_client_info": {
           "package_name": "com.androidapp.startlancer"
         }
@@ -23,23 +19,27 @@
             "package_name": "com.androidapp.startlancer",
             "certificate_hash": "133D1F025A31211124E1F1254DD74294A20DC556"
           }
+        },
+        {
+          "client_id": "938371195570-ghl0eddrse32mqgen05gpdscijvkoo81.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
-      "api_key": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPjKNHtVRw-g5gIUAT_gCOEYZS1HFvWTo"
+        }
+      ],
       "services": {
         "analytics_service": {
-          "status": 1
-        },
-        "cloud_messaging_service": {
-          "status": 1,
-          "apns_config": []
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-68957337-1"
+          }
         },
         "appinvite_service": {
           "status": 1,
           "other_platform_oauth_client": []
-        },
-        "google_signin_service": {
-          "status": 2
         },
         "ads_service": {
           "status": 1
@@ -47,6 +47,5 @@
       }
     }
   ],
-  "client_info": [],
-  "ARTIFACT_VERSION": "1"
+  "configuration_version": "1"
 }

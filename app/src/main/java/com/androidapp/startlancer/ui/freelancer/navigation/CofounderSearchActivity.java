@@ -11,7 +11,7 @@ import android.view.View;
 
 import com.androidapp.startlancer.R;
 import com.androidapp.startlancer.models.Freelancer;
-import com.androidapp.startlancer.ui.BaseActivity;
+import com.androidapp.startlancer.ui.FreelancerBaseActivity;
 import com.androidapp.startlancer.ui.freelancer.adapters.WelcomeFreelancerPagerAdapter;
 import com.androidapp.startlancer.ui.freelancer.fragments.dialogs.AddAsACofounderFragment;
 import com.androidapp.startlancer.ui.freelancer.fragments.navbar.MyCofounderProfileFragment;
@@ -23,7 +23,7 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
-public class CofounderSearchActivity extends BaseActivity {
+public class CofounderSearchActivity extends FreelancerBaseActivity {
     private static final String LOG_TAG = CofounderSearchActivity.class.getSimpleName();
 
     @Override
@@ -89,7 +89,7 @@ public class CofounderSearchActivity extends BaseActivity {
             @Override
             public void onCancelled(FirebaseError firebaseError) {
                 Log.e(LOG_TAG,
-                        getString(R.string.log_error_the_read_failed) +
+                        getString(R.string.error_user_data_read_failed) +
                                 firebaseError.getMessage());
             }
         });

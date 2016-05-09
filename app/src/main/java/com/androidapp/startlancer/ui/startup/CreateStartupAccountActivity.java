@@ -23,65 +23,60 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ServerValue;
 import com.firebase.client.ValueEventListener;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class CreateStartupAccountActivity extends StartupBaseActivity {
     private static final String LOG_TAG =   CreateStartupAccountActivity.class.getSimpleName();
     private ProgressDialog progressDialog;
-    private EditText startupnameEditText, emailEditText, passwordEditText;
-    private Firebase firebaseRef;
-    private String startupname, email, password;
+    private EditText startupNameEditText, emailEditText, passwordEditText;
+    private Firebase ref;
+    private String startupName, email, password;
+    private int topCount = 0;
+    private int trendingCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_create_startup_account);
-        firebaseRef = new Firebase("https://startlancer.firebaseio.com/");
+        ref = new Firebase(Constants.FIREBASE_URL);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initializeScreen();
     }
 
     private void initializeScreen() {
-        startupnameEditText = (EditText) findViewById(R.id.startupSignupUsername);
-        emailEditText = (EditText) findViewById(R.id.startupSignupEmail);
-        passwordEditText = (EditText) findViewById(R.id.startupSignupPassword);
+        startupNameEditText = (EditText) findViewById(R.id.edit_text_startup_name);
+        emailEditText = (EditText) findViewById(R.id.edit_text_startup_signup_email);
+        passwordEditText = (EditText) findViewById(R.id.edit_text_startup_signup_password);
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle(getResources().getString(R.string.dialog_loading));
-        progressDialog.setMessage(getResources().getString(R.string.dialog_message));
+        progressDialog.setMessage(getResources().getString(R.string.create_startup_dialog_message));
         progressDialog.setCancelable(false);
     }
 
 
     public void createStartup(View view) {
-        startupname = startupnameEditText.getText().toString();
+        startupName = startupNameEditText.getText().toString();
         email = emailEditText.getText().toString().toLowerCase();
         password = passwordEditText.getText().toString();
 
-        boolean validStartupName = isValidStartupname(startupname);
+        boolean validStartupName = isValidStartupname(startupName);
         boolean validEmail = isValidEmail(email);
         boolean validPassword = isValidPassword(password);
         if(!validStartupName || !validEmail || !validPassword) return;
 
         progressDialog.show();
 
-        firebaseRef.createUser(email, password, new Firebase.ValueResultHandler<Map<String, Object>>() {
+        ref.createUser(email, password, new Firebase.ValueResultHandler<Map<String, Object>>() {
             @Override
             public void onSuccess(Map<String, Object> result) {
-                progressDialog.dismiss();
-                Log.i(LOG_TAG, getString(R.string.log_message_create_success));
                 createUserInFirebaseHelper();
-                firebaseRef.authWithPassword(email, password, new MyAuthResultHandler(Constants.PASSWORD_PROVIDER));
-
-//                Intent intent = new Intent(CreateStartupAccountActivity.this, WelcomeStartupActivity.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                startActivity(intent);
-//                finish();
+                ref.authWithPassword(email, password, new MyAuthResultHandler(Constants.PASSWORD_PROVIDER));
             }
 
             @Override
@@ -100,17 +95,17 @@ public class CreateStartupAccountActivity extends StartupBaseActivity {
 
     private void createUserInFirebaseHelper() {
         final String encodedEmail = Utils.encodeEmail(email);
-        final Firebase userLocation = new Firebase(Constants.FIREBASE_URL_STARTUPS ).child(encodedEmail);
+        final Firebase startupLocation = new Firebase(Constants.FIREBASE_URL_STARTUPS ).child(encodedEmail);
 
-        userLocation.addListenerForSingleValueEvent(new ValueEventListener() {
+        startupLocation.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getValue() == null) {
                     HashMap<String, Object> timestampJoined = new HashMap<String, Object>();
                     timestampJoined.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
 
-                    Startup newtSartup = new Startup(startupname, encodedEmail, timestampJoined);
-                    userLocation.setValue(newtSartup);
+                    Startup newStartup = new Startup(startupName, encodedEmail, timestampJoined, topCount,trendingCount);
+                    startupLocation.setValue(newStartup);
                 }
             }
 
@@ -128,7 +123,7 @@ public class CreateStartupAccountActivity extends StartupBaseActivity {
 
     private boolean isValidStartupname(String startupname) {
         if(startupname.equals("")) {
-            startupnameEditText.setError(getResources().getString(R.string.error_cannot_be_empty));
+            startupNameEditText.setError(getResources().getString(R.string.error_cannot_be_empty));
             return false;
         }
         return true;
@@ -153,7 +148,7 @@ public class CreateStartupAccountActivity extends StartupBaseActivity {
         return true;
     }
 
-    public void goToLoginStartup(View view) {
+    public void goToLoginStartupActivity(View view) {
         Intent intent = new Intent(CreateStartupAccountActivity.this, LoginStartupActivity.class);
         startActivity(intent);
     }
@@ -168,7 +163,6 @@ public class CreateStartupAccountActivity extends StartupBaseActivity {
 
         @Override
         public void onAuthenticated(AuthData authData) {
-            progressDialog.dismiss();
             Log.i(LOG_TAG, provider + " " + getString(R.string.log_message_login_successful));
             if (authData != null) {
 
@@ -178,10 +172,10 @@ public class CreateStartupAccountActivity extends StartupBaseActivity {
                 setAuthenticatedUserPasswordProvider(authData);
 
                 spe.putString(Constants.KEY_PROVIDER_STARTUP, authData.getProvider()).apply();
-//                spe.putString(Constants.KEY_ENCODED_EMAIL_STARTUP, encodedEmail).apply();
                 spe.putString(Constants.KEY_ENCODED_EMAIL_STARTUP, encodedEmail).apply();
 
-                /* Go to main activity */
+                progressDialog.dismiss();
+
                 Intent intent = new Intent(CreateStartupAccountActivity.this, WelcomeStartupActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
@@ -196,13 +190,13 @@ public class CreateStartupAccountActivity extends StartupBaseActivity {
             switch (firebaseError.getCode()) {
                 case FirebaseError.INVALID_EMAIL:
                 case FirebaseError.USER_DOES_NOT_EXIST:
-                    emailEditText.setError(getString(R.string.error_message_email_issue));
+                    emailEditText.setError(getString(R.string.error_user_does_not_exist));
                     break;
                 case FirebaseError.INVALID_PASSWORD:
                     passwordEditText.setError(firebaseError.getMessage());
                     break;
                 case FirebaseError.NETWORK_ERROR:
-                    showErrorToast(getString(R.string.error_message_failed_sign_in_no_network));
+                    showErrorToast(getString(R.string.error_no_network_detected));
                     break;
                 default:
                     showErrorToast(firebaseError.toString());

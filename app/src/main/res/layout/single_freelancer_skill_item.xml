@@ -13,7 +13,7 @@
     android:paddingStart="@dimen/margin_small">
 
     <TextView
-        android:id="@+id/freelancer_skill"
+        android:id="@+id/text_view_freelancer_skill"
         style="@style/ListItemText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,10 +21,10 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/freelancer_year_of_experience"
+        android:id="@+id/text_View_freelancer_year_of_experience"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/freelancer_skill"
+        android:layout_below="@+id/text_view_freelancer_skill"
         android:text="Singh"
         android:textSize="14sp"
         android:layout_marginLeft="2dp" />

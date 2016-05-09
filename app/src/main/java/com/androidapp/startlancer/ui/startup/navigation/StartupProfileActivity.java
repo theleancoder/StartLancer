@@ -3,14 +3,7 @@ package com.androidapp.startlancer.ui.startup.navigation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.androidapp.startlancer.R;
@@ -18,6 +11,7 @@ import com.androidapp.startlancer.models.Startup;
 import com.androidapp.startlancer.ui.StartupBaseActivity;
 import com.androidapp.startlancer.utils.Constants;
 import com.androidapp.startlancer.utils.MD5Util;
+import com.androidapp.startlancer.utils.SquareImageView;
 import com.androidapp.startlancer.utils.Utils;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -26,10 +20,7 @@ import com.firebase.client.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class StartupProfileActivity extends StartupBaseActivity {
-
-    private Firebase firebaseUserRef;
-    private ValueEventListener valueEventListener;
-    private static final String LOG_TAG = StartupProfileActivity.class.getSimpleName();
+    private Firebase ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,122 +28,58 @@ public class StartupProfileActivity extends StartupBaseActivity {
         setContentView(R.layout.activity_startup_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        setTitle("Profile");
+        TextView startupEmail = (TextView) findViewById(R.id.text_view_startup_email);
+        startupEmail.setText(Utils.decodeEmail(encodedEmail));
 
-        final TextView textViewName = (TextView) findViewById(R.id.startup_name_textView);
-        final TextView textViewEmail = (TextView) findViewById(R.id.startup_email_textview);
-
-        ImageView startupImage = (ImageView) findViewById(R.id.startup_profile_imageView);
+        SquareImageView startupImageView = (SquareImageView) findViewById(R.id.image_startup_profile);
 
         final String decodedEmail = Utils.decodeEmail(encodedEmail);
         String hash = MD5Util.md5Hex(decodedEmail);
 
         String gravatarUrl = "http://www.gravatar.com/avatar/" + hash +
                 "?s=204&d=404";
-        Picasso.with(this).load(gravatarUrl).placeholder(R.mipmap.ic_launcher).into(startupImage);
+        Picasso.with(this).load(gravatarUrl).placeholder(R.mipmap.ic_launcher).into(startupImageView);
 
-        firebaseUserRef = new Firebase(Constants.FIREBASE_URL_STARTUPS).child(encodedEmail);
+        ref = new Firebase(Constants.FIREBASE_URL_STARTUPS).child(encodedEmail);
 
-        firebaseUserRef.addValueEventListener(new ValueEventListener() {
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Startup startup = dataSnapshot.getValue(Startup.class);
 
                 if (startup != null) {
                     String name = startup.getName();
-                    String email = startup.getEmail();
-                    textViewName.setText(name);
-                    textViewEmail.setText(email);
+                    setTitle(name);
                 }
             }
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-                Log.e(LOG_TAG,
-                        getString(R.string.log_error_the_read_failed) +
-                                firebaseError.getMessage());
+//                Log.e(LOG_TAG,
+//                        getString(R.string.error_user_data_read_failed) +
+//                                firebaseError.getMessage());
             }
         });
-
-        String[] startupProfileList = {"Openings", "Team", "Work", "About"};
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.single_profile_item_list, startupProfileList);
-        ListView listView = (ListView) findViewById(R.id.startup_profile_list);
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                switch (position) {
-                    case 0:
-                        Intent intent1 = new Intent(StartupProfileActivity.this, StartupProfileOpeningActivity.class);
-                        startActivity(intent1);
-                        break;
-                    case 1:
-                        Intent intent2 = new Intent(StartupProfileActivity.this, StartupProfileTeamActivity.class);
-                        startActivity(intent2);
-                        break;
-                    case 2:
-                        Intent intent3 = new Intent(StartupProfileActivity.this, StartupProfileWorkActivity.class);
-                        startActivity(intent3);
-                        break;
-                    case 3:
-                        Intent intent4 = new Intent(StartupProfileActivity.this, StartupProfileAboutActivity.class);
-                        startActivity(intent4);
-                        break;
-                    default:
-                        return;
-                }
-            }
-        });
-
-//        String imageUri = "http://imgur.com/gallery/0JCZXou";
-//        ImageView imageView = (ImageView) findViewById(R.id.freelancer_profile_imageView);
-//        Picasso.with(getApplicationContext()).load(imageUri).into(imageView);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    public void uploadImage(View view) {
+    public void goToOpeningsActivity(View view) {
+        Intent openingsIntent = new Intent(StartupProfileActivity.this, StartupProfileOpeningActivity.class);
+        startActivity(openingsIntent);
     }
 
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+    public void goToTeamActivity(View view) {
+        Intent teamIntent = new Intent(StartupProfileActivity.this, StartupProfileTeamActivity.class);
+        startActivity(teamIntent);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        /* Inflate the menu; this adds items to the action bar if it is present. */
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == android.R.id.home) {
-            super.onBackPressed();
-            return true;
-        }
-
-        if (id == R.id.action_logout) {
-            logout();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    public void goToFundingsActivity(View view) {
+//        Intent fundingsIntent = new Intent(StartupProfileActivity.this, StartupProfileFundingsActivity.class);
+//    }
+//
+//    public void goToAboutActivity(View view) {
+//        Intent aboutActivity = new Intent(StartupProfileActivity.this, StartupProfileAboutActivity.class);
+//        startActivity(aboutActivity);
+//    }
 }

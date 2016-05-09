@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.androidapp.startlancer.ui.freelancer.navigation.FreelancerProfileExperiencesActivity">
+    tools:context=".ui.freelancer.navigation.FreelancerProfileExperiencesActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_input_add"
-        android:onClick="showAddExperienceDialog" />
+        android:onClick="showAddExperienceActivity"
+        android:src="@drawable/plus" />
 
 </android.support.design.widget.CoordinatorLayout>

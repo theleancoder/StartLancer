@@ -1,5 +1,6 @@
 package com.androidapp.startlancer.ui.startup.navigation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,16 +18,11 @@ public class StartupProfileTeamActivity extends AppCompatActivity {
         setContentView(R.layout.activity_startup_profile_team);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    public void showAddTeamMemberActivity(View view) {
+        startActivity(new Intent(StartupProfileTeamActivity.this, StartupProfileAddTeamActivity.class));
+        overridePendingTransition(R.xml.slide_up, R.xml.stay);
+    }
 }

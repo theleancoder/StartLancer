@@ -11,16 +11,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.androidapp.startlancer.R;
+import com.androidapp.startlancer.models.Application;
 import com.androidapp.startlancer.ui.startup.adapters.FreelancerDetailPagerAdaper;
 import com.androidapp.startlancer.ui.startup.fragments.FreelancerDetailFragmentAbout;
 import com.androidapp.startlancer.ui.startup.fragments.FreelancerDetailFragmentExperiences;
 import com.androidapp.startlancer.ui.startup.fragments.FreelancerDetailFragmentProjects;
 import com.androidapp.startlancer.ui.startup.fragments.FreelancerDetailFragmentSkills;
+import com.androidapp.startlancer.utils.Constants;
 import com.androidapp.startlancer.utils.Utils;
+import com.firebase.client.Firebase;
 
 public class SavedCandidateDetailActivity extends AppCompatActivity {
-    private String email;
-    private String name;
+    private String name, email;
     private Bundle bundle;
 
     @Override
@@ -29,14 +31,13 @@ public class SavedCandidateDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_saved_candidate_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        name = getIntent().getStringExtra("userName");
+        name = getIntent().getStringExtra("name");
         setTitle(name);
-        email = getIntent().getStringExtra("userEmail");
+        email = getIntent().getStringExtra("email");
         bundle = new Bundle();
-        bundle.putString("userEmail", email);
+        bundle.putString("email", email);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.candidate_detail_viewpager);
         setupViewPager(viewPager);
@@ -94,24 +95,34 @@ public class SavedCandidateDetailActivity extends AppCompatActivity {
     }
 
     private void approveCandidate() {
-        String email = getIntent().getStringExtra("userEmail");
+
+        Firebase ref = new Firebase(Constants.FIREBASE_APPLICATION_RESPONSES).child("approved");
+        Application application = new Application(name, email);
+        ref.push().setValue(application);
+
+        String email = getIntent().getStringExtra("email");
         String decodedEmail = Utils.decodeEmail(email);
         String[] emails = {decodedEmail};
         Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
         emailIntent.setType("plain/text");
         emailIntent.putExtra(Intent.EXTRA_EMAIL, emails);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "We are really sorry.");
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "We are really glad to tell you that...");
         startActivity(Intent.createChooser(emailIntent, "Complete action using:"));
     }
 
     private void rejectCandidate() {
-        String email = getIntent().getStringExtra("userEmail");
+
+        Firebase ref = new Firebase(Constants.FIREBASE_APPLICATION_RESPONSES).child("rejected");
+        Application application = new Application(name, email);
+        ref.push().setValue(application);
+
+        String email = getIntent().getStringExtra("email");
         String decodedEmail = Utils.decodeEmail(email);
         String[] emails = {decodedEmail};
         Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
         emailIntent.setType("plain/text");
         emailIntent.putExtra(Intent.EXTRA_EMAIL, emails);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "We are really glad to tell you.");
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "We are really sorry to tell you that...");
         startActivity(Intent.createChooser(emailIntent, "Complete action using:"));
     }
 

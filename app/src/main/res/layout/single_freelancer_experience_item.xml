@@ -13,25 +13,29 @@
     android:paddingStart="@dimen/margin_small">
 
     <TextView
-        android:id="@+id/freelancer_experience"
+        android:id="@+id/text_View_freelancer_experience"
         style="@style/ListItemText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ankit" />
+        android:text="Ankit"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
 
     <TextView
-        android:id="@+id/freelancer_experience_description"
+        android:id="@+id/text_view_experience_duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/freelancer_experience"
+        android:layout_below="@+id/text_View_freelancer_experience"
         style="@style/ListItemText"
-        android:text="Singh" />
+        android:text="Singh"
+        android:textSize="16sp"/>
 
     <TextView
-        android:id="@+id/freelancer_place"
+        android:id="@+id/text_View_freelancer_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/freelancer_experience_description"
+        android:layout_below="@+id/text_view_experience_duration"
         style="@style/ListItemText"
-        android:text="Singh" />
+        android:text="Singh"
+        android:textSize="16sp"/>
 </RelativeLayout>

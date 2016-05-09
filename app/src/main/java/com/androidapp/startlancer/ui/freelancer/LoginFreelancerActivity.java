@@ -8,18 +8,23 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidapp.startlancer.R;
 import com.androidapp.startlancer.models.Freelancer;
-import com.androidapp.startlancer.ui.BaseActivity;
+import com.androidapp.startlancer.ui.FreelancerBaseActivity;
 import com.androidapp.startlancer.utils.Constants;
 import com.androidapp.startlancer.utils.Utils;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.firebase.client.AuthData;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -41,7 +46,7 @@ import com.google.android.gms.common.api.Scope;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class LoginFreelancerActivity extends BaseActivity {
+public class LoginFreelancerActivity extends FreelancerBaseActivity {
     private static final String LOG_TAG = LoginFreelancerActivity.class.getSimpleName();
     private Firebase firebaseRef;
     private EditText emailEditText, passwordEditText;
@@ -49,32 +54,64 @@ public class LoginFreelancerActivity extends BaseActivity {
     private ProgressDialog progressDialog;
     private int topCount = 0;
     private int trendingCount = 0;
+    private LoginButton facebookButton;
+    CallbackManager callbackManager;
+
 
     private boolean GoogleIntentProgress;
-    public static final int RC_GOOGLE_LOGIN = 1;
+    public static final int RC_GOOGLE_LOGIN = 9001;
     GoogleSignInAccount googleSignInAccount;
+    private String facebookName;
+    private AccessTokenTracker accessTokenTracker;
+    private AccessToken accessToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login_freelancer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        callbackManager = CallbackManager.Factory.create();
+        facebookButton = (LoginButton) findViewById(R.id.facebook_button);
+        facebookButton.setReadPermissions("email");
+
+        facebookButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                facebookButton.setVisibility(View.GONE);
+                Intent facebookIntent = new Intent(LoginFreelancerActivity.this, WelcomeFreelancerActivity.class);
+                startActivity(facebookIntent);
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
+
         firebaseRef = new Firebase(Constants.FIREBASE_URL);
 
         initializeScreen();
-        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+    }
 
-                if (actionId == EditorInfo.IME_ACTION_DONE || keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
-                    signInPassword();
-                }
-                return true;
-            }
-        });
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+//        accessTokenTracker.stopTracking();
     }
 
     private void initializeScreen() {
@@ -82,8 +119,7 @@ public class LoginFreelancerActivity extends BaseActivity {
         passwordEditText = (EditText) findViewById(R.id.loginPassword);
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle(getResources().getString(R.string.login_dialog_loading));
-        progressDialog.setMessage(getResources().getString(R.string.login_dialog_message));
+        progressDialog.setMessage(getResources().getString(R.string.startup_login_dialog_message));
         progressDialog.setCancelable(false);
 
         setupGoogleSignIn();
@@ -114,12 +150,13 @@ public class LoginFreelancerActivity extends BaseActivity {
             return;
         }
 
+
         progressDialog.show();
         firebaseRef.authWithPassword(email, password, new MyAuthResultHandler(Constants.PASSWORD_PROVIDER));
 
     }
 
-    private class MyAuthResultHandler implements Firebase.AuthResultHandler {
+    public class MyAuthResultHandler implements Firebase.AuthResultHandler {
 
         private final String provider;
 
@@ -127,25 +164,65 @@ public class LoginFreelancerActivity extends BaseActivity {
             this.provider = provider;
         }
 
+
         @Override
         public void onAuthenticated(AuthData authData) {
-            if (authData != null) {
+            progressDialog.dismiss();
+
+            if (authData.getProvider().equals(Constants.GOOGLE_PROVIDER)) {
+                /**
+                 * If google api client is connected, get the lowerCase user email
+                 * and save in sharedPreferences
+                 */
                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor spe = sp.edit();
-
-                if (authData.getProvider().equals(Constants.PASSWORD_PROVIDER)) {
-                    setAuthenticatedUserPasswordProvider(authData);
+                String unprocessedEmail;
+                if (GoogleApiClient.isConnected()) {
+                    unprocessedEmail = googleSignInAccount.getEmail().toLowerCase();
+                    spe.putString(Constants.KEY_GOOGLE_EMAIL, unprocessedEmail).apply();
                 } else {
-                    if (authData.getProvider().equals(Constants.GOOGLE_PROVIDER)) {
-                        setAuthenticatedUserGoogle(authData);
-                    } else {
-                        Log.e(LOG_TAG, getString(R.string.log_error_invalid_provider) + authData.getProvider());
-                    }
+
+                    /**
+                     * Otherwise get email from sharedPreferences, use null as default value
+                     * (this mean that user resumes his session)
+                     */
+                    unprocessedEmail = sp.getString(Constants.KEY_GOOGLE_EMAIL, null);
                 }
+                /**
+                 * Encode user email replacing "." with "," to be able to use it
+                 * as a Firebase db key
+                 */
+                encodedEmail = Utils.encodeEmail(unprocessedEmail);
 
-                spe.putString(Constants.KEY_PROVIDER_FREELANCER, authData.getProvider()).apply();
-                spe.putString(Constants.KEY_ENCODED_EMAIL_FREELANCER, encodedEmail).apply();
 
+                    /* Get username from authData */
+                final String userName = (String) authData.getProviderData().get(Constants.PROVIDER_DATA_DISPLAY_NAME);
+
+                    /* If no user exists, make a user */
+                final Firebase userLocation = new Firebase(Constants.FIREBASE_URL_USERS).child(encodedEmail);
+                userLocation.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    /* If nothing is there ...*/
+                        if (dataSnapshot.getValue() == null) {
+                            HashMap<String, Object> timestampJoined = new HashMap<>();
+                            timestampJoined.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
+
+                            Freelancer freelancer = new Freelancer(userName, encodedEmail, timestampJoined, topCount, trendingCount);
+                            userLocation.setValue(freelancer);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {
+                        Log.d(LOG_TAG, getString(R.string.log_error_occurred) + firebaseError.getMessage());
+                    }
+                });
+            }
+
+
+            if (authData != null) {
+                /* Go to main activity */
                 Intent intent = new Intent(LoginFreelancerActivity.this, WelcomeFreelancerActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
@@ -160,61 +237,18 @@ public class LoginFreelancerActivity extends BaseActivity {
             switch (firebaseError.getCode()) {
                 case FirebaseError.INVALID_EMAIL:
                 case FirebaseError.USER_DOES_NOT_EXIST:
-                    emailEditText.setError(getString(R.string.error_message_email_issue));
+                    emailEditText.setError(getString(R.string.error_user_does_not_exist));
                     break;
                 case FirebaseError.INVALID_PASSWORD:
                     passwordEditText.setError(firebaseError.getMessage());
                     break;
                 case FirebaseError.NETWORK_ERROR:
-                    showErrorToast(getString(R.string.error_message_failed_sign_in_no_network));
+                    showErrorToast(getString(R.string.error_no_network_detected));
                     break;
                 default:
                     showErrorToast(firebaseError.toString());
             }
         }
-    }
-
-    private void setAuthenticatedUserGoogle(AuthData authData) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        SharedPreferences.Editor spe = sp.edit();
-        String unprocessedEmail;
-
-        if (GoogleApiClient.isConnected()) {
-            unprocessedEmail = googleSignInAccount.getEmail().toLowerCase();
-            spe.putString(Constants.KEY_GOOGLE_EMAIL, unprocessedEmail).apply();
-
-        } else {
-            unprocessedEmail = sp.getString(Constants.KEY_GOOGLE_EMAIL, null);
-        }
-
-        encodedEmail = Utils.encodeEmail(unprocessedEmail);
-
-        final String userName = (String) authData.getProviderData().get(Constants.PROVIDER_DATA_DISPLAY_NAME);
-        final Firebase userLocation = new Firebase(Constants.FIREBASE_URL_USERS).child(encodedEmail);
-
-        userLocation.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                    /* If nothing is there ...*/
-                if (dataSnapshot.getValue() == null) {
-                    HashMap<String, Object> timestampJoined = new HashMap<>();
-                    timestampJoined.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
-
-                    Freelancer freelancer = new Freelancer(userName, encodedEmail, timestampJoined, topCount, trendingCount);
-                    userLocation.setValue(freelancer);
-                }
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-                Log.d(LOG_TAG, getString(R.string.log_error_occurred) + firebaseError.getMessage());
-            }
-        });
-    }
-
-    private void setAuthenticatedUserPasswordProvider(AuthData authData) {
-        final String unprocessedEmail = authData.getProviderData().get(Constants.FIREBASE_PROPERTY_EMAIL).toString().toLowerCase();
-        encodedEmail = Utils.encodeEmail(unprocessedEmail);
     }
 
     private void showErrorToast(String message) {
@@ -278,7 +312,6 @@ public class LoginFreelancerActivity extends BaseActivity {
         if (result.isSuccess()) {
             /* Signed in successfully, get the OAuth token */
             googleSignInAccount = result.getSignInAccount();
-            personPhoto = googleSignInAccount.getPhotoUrl();
             getGoogleOAuthTokenAndLogin();
 
 
@@ -291,6 +324,7 @@ public class LoginFreelancerActivity extends BaseActivity {
             progressDialog.dismiss();
         }
     }
+
 
     /**
      * Gets the GoogleAuthToken and logs in.

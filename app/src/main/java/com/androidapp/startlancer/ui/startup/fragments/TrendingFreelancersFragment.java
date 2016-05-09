@@ -23,14 +23,18 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class TrendingFreelancersFragment extends Fragment {
-    ListView freelancerList;
-    FreelancerListAdapter freelancerListAdapter;
+    private ListView freelancerList;
+    private FreelancerListAdapter freelancerListAdapter;
     private int trendingCount;
-    Firebase firebaseRef;
+    private Firebase firebaseRef;
+    private Date date;
 
 
     public TrendingFreelancersFragment() {
@@ -40,8 +44,6 @@ public class TrendingFreelancersFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_trending_freelancers, container, false);
 
         firebaseRef = new Firebase(Constants.FIREBASE_URL_USERS);
@@ -57,19 +59,24 @@ public class TrendingFreelancersFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), FreelancerDetailActivity.class);
-                String name = ((TextView) view.findViewById(R.id.freelancer_name)).getText().toString();
-                String email = ((TextView) view.findViewById(R.id.freelancer_email)).getText().toString();
+                String name = ((TextView) view.findViewById(R.id.text_view_freelancer_name)).getText().toString();
+                String email = ((TextView) view.findViewById(R.id.text_View_freelancer_email)).getText().toString();
                 intent.putExtra("name", name);
                 intent.putExtra("email", Utils.encodeEmail(email));
 
-                final Firebase ref = new Firebase(Constants.FIREBASE_URL_USERS).child(Utils.encodeEmail(email));
+                final Firebase ref2 = new Firebase(Constants.FIREBASE_URL_USERS).child(Utils.encodeEmail(email));
 
-                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                ref2.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Freelancer freelancer = dataSnapshot.getValue(Freelancer.class);
                         trendingCount = freelancer.getTrendingCount();
-                        ref.child("trendingCount").setValue(trendingCount - 1);
+                        date = freelancer.getDate();
+                        if ((getDifferenceDays(new Date(), date) == 7)) {
+                            ref2.child("trendingCount").setValue(0);
+                        } else {
+                            ref2.child("trendingCount").setValue(trendingCount - 1);
+                        }
                     }
 
                     @Override
@@ -82,6 +89,11 @@ public class TrendingFreelancersFragment extends Fragment {
             }
         });
         return rootView;
+    }
+
+    public static long getDifferenceDays(Date d1, Date d2) {
+        long diff = d2.getTime() - d1.getTime();
+        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
     }
 
 }

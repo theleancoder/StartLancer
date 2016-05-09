@@ -1,5 +1,9 @@
 package com.androidapp.startlancer.models;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -8,16 +12,21 @@ import java.util.HashMap;
 public class Startup {
     private String name;
     private String email;
-    private String about;
     private HashMap<String, Object> timestampJoined;
+    private int topCount;
+    private int trendingCount;
+    private Date date;
 
     public Startup() {
     }
 
-    public Startup(String name, String email, HashMap<String, Object> timestampJoined) {
+    public Startup(String name, String email, HashMap<String, Object> timestampJoined, int topCount, int trendingCount) {
         this.name = name;
         this.email = email;
         this.timestampJoined = timestampJoined;
+        this.topCount = topCount;
+        this.trendingCount = trendingCount;
+        this.date = new Date();
     }
 
     public String getName() {
@@ -28,11 +37,19 @@ public class Startup {
         return email;
     }
 
-    public String getAbout() {
-        return about;
-    }
-
     public HashMap<String, Object> getTimestampJoined() {
         return timestampJoined;
+    }
+
+    public int getTopCount() {
+        return topCount;
+    }
+
+    public int getTrendingCount() {
+        return trendingCount;
+    }
+
+    public Date getDate() {
+        return date;
     }
 }

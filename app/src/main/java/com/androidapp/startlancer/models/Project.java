@@ -5,27 +5,27 @@ package com.androidapp.startlancer.models;
  */
 public class Project {
     private String project;
+    private String projectLinks;
     private String projectDescription;
-    private String place;
 
     public Project() {
     }
 
-    public Project(String project, String projectDescription, String place) {
+    public Project(String project, String projectLinks, String projectDescription) {
         this.project = project;
+        this.projectLinks = projectLinks;
         this.projectDescription = projectDescription;
-        this.place = place;
     }
 
     public String getProject() {
         return project;
     }
 
-    public String getProjectDescription() {
-        return projectDescription;
+    public String getProjectLinks() {
+        return projectLinks;
     }
 
-    public String getPlace() {
-        return place;
+    public String getProjectDescription() {
+        return projectDescription;
     }
 }
